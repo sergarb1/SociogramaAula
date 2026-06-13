@@ -1,0 +1,48 @@
+.writing-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  max-height: 80px;
+  overflow: hidden;
+  font-size: 10px;
+}
+
+#resultsGraph canvas,
+#resultsGraph div.vis-network {
+  border-radius: 0.75rem;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+input[type="range"] {
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 3px;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #6366f1;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(99,102,241,0.3);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #6366f1;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(99,102,241,0.3);
+}
+
+@media print {
+  body { background: white !important; }
+  header > div:last-child, .step-progress { display: none !important; }
+}
