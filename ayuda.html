@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sociograma Aula — Ayuda para orientadores</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .section-link { scroll-margin-top: 5rem; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgba(99,102,241,0.15); }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-indigo-50/30 min-h-screen antialiased text-slate-700">
+
+  <!-- Nav -->
+  <nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-slate-200 shadow-sm">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition">
+        <svg class="w-6 h-6" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" fill="url(#lg)"/><circle cx="14" cy="14" r="4" fill="#fff" opacity=".9"/><circle cx="28" cy="12" r="3.5" fill="#fff" opacity=".85"/><circle cx="20" cy="26" r="3.5" fill="#fff" opacity=".85"/><defs><linearGradient id="lg" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs></svg>
+        Sociograma Aula
+      </a>
+      <div class="flex items-center gap-3 text-xs">
+        <a href="#que-es" class="text-slate-500 hover:text-indigo-600 transition">¿Qué es?</a>
+        <a href="#espiritu" class="text-slate-500 hover:text-indigo-600 transition">Espíritu</a>
+        <a href="#como-usar" class="text-slate-500 hover:text-indigo-600 transition">Cómo usar</a>
+        <a href="#roles" class="text-slate-500 hover:text-indigo-600 transition">Roles</a>
+        <a href="#datos" class="text-slate-500 hover:text-indigo-600 transition">Datos</a>
+        <a href="index.html" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-sm">← Volver a la app</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-4xl mx-auto px-4 py-8 space-y-12">
+
+    <!-- HERO -->
+    <section class="text-center py-8">
+      <div class="text-5xl mb-4">🧑‍🏫🌐📊</div>
+      <h1 class="text-3xl font-bold text-slate-800 mb-3">Sociograma Aula</h1>
+      <p class="text-lg text-slate-500 max-w-xl mx-auto">La herramienta gratuita de sociometría para entender las relaciones de tu grupo y tomar decisiones informadas.</p>
+      <div class="flex flex-wrap justify-center gap-2 mt-6">
+        <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-medium">✅ 100% gratuita</span>
+        <span class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-medium">🔒 Sin registro</span>
+        <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-700 text-xs font-medium">💻 Datos locales</span>
+        <span class="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-medium">📜 Código abierto</span>
+        <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-medium">🇪🇸 Cumple LOPDGDD</span>
+      </div>
+    </section>
+
+    <!-- QUÉ ES -->
+    <section id="que-es" class="section-link bg-white/70 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3"><span class="text-3xl">❓</span> ¿Qué es un sociograma?</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="space-y-3 text-sm leading-relaxed">
+          <p>Un <strong>sociograma</strong> es un mapa visual de las relaciones sociales dentro de un grupo. Fue creado por el psicólogo <strong>Jacob L. Moreno</strong> en los años 30 y desde entonces se usa en psicología social, educación y recursos humanos.</p>
+          <p>En el aula, el sociograma te permite ver <strong>quién elige a quién</strong>, quién queda aislado, quién es rechazado, quién conecta subgrupos… cosas que el ojo humano no siempre detecta.</p>
+          <p>No es un test psicológico ni un juicio de valor. Es una <strong>foto instantánea</strong> de cómo se relaciona el grupo en un momento dado.</p>
+        </div>
+        <div class="bg-indigo-50 rounded-xl p-5 border border-indigo-100 text-sm space-y-2">
+          <p class="font-semibold text-indigo-700 flex items-center gap-2">🎯 Para qué sirve</p>
+          <ul class="space-y-2 text-indigo-600">
+            <li class="flex items-start gap-2">🔍 <span>Detectar <strong>líderes positivos</strong> que pueden ser mediadores</span></li>
+            <li class="flex items-start gap-2">🆘 <span>Identificar <strong>alumnos aislados</strong> o en riesgo de exclusión</span></li>
+            <li class="flex items-start gap-2">⚡ <span>Localizar <strong>conflictos latentes</strong> antes de que estallen</span></li>
+            <li class="flex items-start gap-2">👥 <span>Formar <strong>equipos equilibrados</strong> para trabajo cooperativo</span></li>
+            <li class="flex items-start gap-2">🏫 <span>Distribuir la <strong>disposición del aula</strong> para mejorar la convivencia</span></li>
+            <li class="flex items-start gap-2">📈 <span>Hacer <strong>seguimiento</strong> a lo largo del curso y medir cambios</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESPÍRITU -->
+    <section id="espiritu" class="section-link bg-white/70 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3"><span class="text-3xl">💜</span> El espíritu del proyecto</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="p-4 rounded-xl bg-green-50 border border-green-100 card-hover transition">
+          <p class="text-2xl mb-2">🔓</p>
+          <h3 class="font-semibold text-green-800 text-sm mb-1">Abierto y gratuito</h3>
+          <p class="text-xs text-green-600 leading-relaxed">Sin suscripciones, sin publicidad, sin versiones "pro". Es y será siempre gratis. Código fuente abierto en GitHub.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-indigo-50 border border-indigo-100 card-hover transition">
+          <p class="text-2xl mb-2">🔒</p>
+          <h3 class="font-semibold text-indigo-800 text-sm mb-1">Privacidad radical</h3>
+          <p class="text-xs text-indigo-600 leading-relaxed">Todos los datos se quedan en tu ordenador. No hay servidores, no hay registro, no hay cookies. Cumple LOPDGDD y GDPR sin que hagas nada.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-amber-50 border border-amber-100 card-hover transition">
+          <p class="text-2xl mb-2">🧑‍🏫</p>
+          <h3 class="font-semibold text-amber-800 text-sm mb-1">Hecho por y para docentes</h3>
+          <p class="text-xs text-amber-600 leading-relaxed">Creado por un orientador educativo que quería una herramienta sencilla, ética y que funcionara sin depender de internet ni de empresas.</p>
+        </div>
+      </div>
+      <div class="mt-4 p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-600 leading-relaxed">
+        <p class="flex items-start gap-2">💡 <span><strong>Por qué existe:</strong> Porque las herramientas educativas no deberían tener barreras. Porque los datos de menores no deberían estar en servidores externos. Porque entender las dinámicas de grupo no tendría que requerir un máster en estadística. <strong>Sociograma Aula</strong> nace para poner la sociometría al alcance de cualquier tutor o tutora, de forma ética, sencilla y gratuita.</span></p>
+      </div>
+    </section>
+
+    <!-- CÓMO USAR -->
+    <section id="como-usar" class="section-link bg-white/70 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3"><span class="text-3xl">📖</span> Cómo usar la herramienta</h2>
+      <div class="space-y-4">
+        <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200 card-hover transition">
+          <span class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-bold shrink-0">1</span>
+          <div class="text-sm"><strong class="text-slate-800">Crea tu grupo</strong><br><span class="text-slate-500">Ponle nombre a tu clase y añade los alumnos uno a uno o en lote (copiando una lista). Puedes reordenarlos arrastrando.</span></div>
+        </div>
+        <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200 card-hover transition">
+          <span class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold shrink-0">2</span>
+          <div class="text-sm"><strong class="text-slate-800">Pasa el cuestionario (opcional)</strong><br><span class="text-slate-500">Cada alumno responde en tu dispositivo, uno por uno. Selecciona las preguntas que más te interesen (o usa las plantillas por niveles). Si ya conoces las relaciones, puedes saltar este paso.</span></div>
+        </div>
+        <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200 card-hover transition">
+          <span class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-sm font-bold shrink-0">3</span>
+          <div class="text-sm"><strong class="text-slate-800">Explora los resultados</strong><br><span class="text-slate-500">El grafo interactivo muestra las relaciones. Las métricas (cohesión, densidad, aislamiento…) se calculan automáticas. Las predicciones te alertan de riesgos y oportunidades.</span></div>
+        </div>
+        <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200 card-hover transition">
+          <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-sm font-bold shrink-0">4</span>
+          <div class="text-sm"><strong class="text-slate-800">Edita relaciones (si quieres)</strong><br><span class="text-slate-500">Si ves que falta alguna relación o quieres corregir algo, puedes añadir o quitar elecciones y rechazos directamente sobre la matriz o arrastrando alumnos.</span></div>
+        </div>
+        <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200 card-hover transition">
+          <span class="w-8 h-8 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center text-sm font-bold shrink-0">5</span>
+          <div class="text-sm"><strong class="text-slate-800">Forma equipos o distribuye la clase</strong><br><span class="text-slate-500">Usa el algoritmo de formación de equipos para crear grupos equilibrados según las relaciones. O distribuye la clase en el plano del aula con 3 tipos de disposición.</span></div>
+        </div>
+        <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200 card-hover transition">
+          <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-bold shrink-0">6</span>
+          <div class="text-sm"><strong class="text-slate-800">Exporta lo que necesites</strong><br><span class="text-slate-500">Informe HTML imprimible, JSON con todos los datos, CSV de alumnos o matriz, PNG del grafo, o informes anonimizados para compartir con el departamento de orientación.</span></div>
+        </div>
+      </div>
+      <div class="mt-6 p-4 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100 text-sm text-indigo-700">
+        <p class="flex items-start gap-2">⏱️ <span><strong>Tiempo estimado:</strong> Crear el grupo (2 min) + Pasar el cuestionario (1-2 min por alumno) + Interpretar resultados (5-10 min). Si ya conoces las relaciones, puedes ir directo a resultados y definirlas manualmente en 5 minutos.</span></p>
+      </div>
+    </section>
+
+    <!-- ROLES -->
+    <section id="roles" class="section-link bg-white/70 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3"><span class="text-3xl">🏷️</span> Los roles sociométricos</h2>
+      <p class="text-sm text-slate-500 mb-4">La herramienta asigna automáticamente un rol a cada alumno según las elecciones y rechazos que recibe. Aquí te explicamos qué significa cada uno:</p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="p-4 rounded-xl bg-green-50 border border-green-200 card-hover transition">
+          <p class="text-xl mb-1">🟢</p>
+          <h3 class="font-semibold text-green-800 text-sm">Líder</h3>
+          <p class="text-xs text-green-600 mt-1">Recibe muchas elecciones y pocos rechazos. Es un referente positivo. <strong>Puede ser mediador, tutor entre iguales o apoyo en trabajos cooperativos.</strong></p>
+        </div>
+        <div class="p-4 rounded-xl bg-indigo-50 border border-indigo-200 card-hover transition">
+          <p class="text-xl mb-1">🔵</p>
+          <h3 class="font-semibold text-indigo-800 text-sm">Popular</h3>
+          <p class="text-xs text-indigo-600 mt-1">Bien valorado, recibe elecciones de varios compañeros. Tiene influencia social positiva. <strong>Buena persona para dinámicas de integración.</strong></p>
+        </div>
+        <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 card-hover transition">
+          <p class="text-xl mb-1">🟡</p>
+          <h3 class="font-semibold text-amber-800 text-sm">Puente</h3>
+          <p class="text-xs text-amber-600 mt-1">Conecta subgrupos diferentes. Tiene vínculos en varias direcciones. <strong>Ideal para cohesionar el grupo y evitar la formación de guetos.</strong></p>
+        </div>
+        <div class="p-4 rounded-xl bg-red-50 border border-red-200 card-hover transition">
+          <p class="text-xl mb-1">🔴</p>
+          <h3 class="font-semibold text-red-800 text-sm">Rechazado</h3>
+          <p class="text-xs text-red-600 mt-1">Recibe más rechazos que elecciones. <strong>Requiere atención del tutor.</strong> Puede necesitar intervención para mejorar su integración.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-300 card-hover transition">
+          <p class="text-xl mb-1">⚪</p>
+          <h3 class="font-semibold text-slate-700 text-sm">Aislado</h3>
+          <p class="text-xs text-slate-500 mt-1">No recibe ninguna elección. <strong>Riesgo alto de exclusión.</strong> Prioridad de intervención. Puede que pase desapercibido para el profesor.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-purple-50 border border-purple-200 card-hover transition">
+          <p class="text-xl mb-1">🟣</p>
+          <h3 class="font-semibold text-purple-800 text-sm">Neutro</h3>
+          <p class="text-xs text-purple-600 mt-1">Sin relaciones significativas. Perfil medio. <strong>No destaca ni positiva ni negativamente, pero puede evolucionar.</strong></p>
+        </div>
+      </div>
+      <div class="mt-4 text-xs text-slate-400 text-center">💡 Los roles no son etiquetas fijas. Cambian con el tiempo y las intervenciones. El sociograma es una foto, no una sentencia.</div>
+    </section>
+
+    <!-- DATOS -->
+    <section id="datos" class="section-link bg-white/70 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3"><span class="text-3xl">🔐</span> ¿Qué pasa con los datos?</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="space-y-3 text-sm leading-relaxed">
+          <p>✅ <strong>Tus datos se quedan en tu ordenador.</strong> Siempre. No se envían a ningún servidor, no hay registro, no hay cookies de rastreo.</p>
+          <p>✅ <strong>Cumplimiento legal automático:</strong> Como no hay tratamiento externo de datos personales, el uso de esta herramienta cumple directamente con la <strong>LOPDGDD</strong> (España) y el <strong>GDPR</strong> (Europa).</p>
+          <p>✅ <strong>Tú controlas tus datos:</strong> Puedes exportarlos, borrarlos, compartirlos o importarlos cuando quieras. Nada sale de tu navegador sin tu permiso explícito.</p>
+        </div>
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 text-sm space-y-2">
+          <p class="font-semibold text-slate-700 flex items-center gap-2">📋 Resumen</p>
+          <ul class="space-y-2 text-slate-600">
+            <li class="flex items-start gap-2">💻 <span>100% local — no hay servidor</span></li>
+            <li class="flex items-start gap-2">🔑 <span>Sin registro, sin cuenta, sin email</span></li>
+            <li class="flex items-start gap-2">🍪 <span>Sin cookies de terceros</span></li>
+            <li class="flex items-start gap-2">📥 <span>Exportación e importación de datos</span></li>
+            <li class="flex items-start gap-2">🗑️ <span>Borrado total con un clic</span></li>
+            <li class="flex items-start gap-2">🤖 <span>Exportación anonimizada para IA/análisis</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERPRETACIÓN -->
+    <section class="bg-white/70 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3"><span class="text-3xl">📊</span> Cómo interpretar los resultados</h2>
+      <div class="space-y-3 text-sm">
+        <div class="p-3 rounded-xl bg-blue-50 border border-blue-100">
+          <p class="font-semibold text-blue-800 flex items-center gap-2">📈 Cohesión alta (&gt;50%)</p>
+          <p class="text-blue-600">El grupo funciona bien, hay confianza mutua. Aprovecha para proyectos colaborativos complejos.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-amber-50 border border-amber-100">
+          <p class="font-semibold text-amber-800 flex items-center gap-2">📉 Cohesión baja (&lt;25%)</p>
+          <p class="text-amber-600">El grupo está fragmentado. Prioriza dinámicas de cohesión antes de trabajos en equipo.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-red-50 border border-red-100">
+          <p class="font-semibold text-red-800 flex items-center gap-2">🚨 Aislamiento alto (&gt;30%)</p>
+          <p class="text-red-600">Muchos alumnos sin elecciones. Intervención grupal temprana recomendada.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-green-50 border border-green-100">
+          <p class="font-semibold text-green-800 flex items-center gap-2">🔄 Reciprocidad alta</p>
+          <p class="text-green-600">Las elecciones son correspondidas. El grupo tiene relaciones sólidas y estables.</p>
+        </div>
+      </div>
+      <div class="mt-4 p-4 rounded-xl bg-gradient-to-r from-amber-50 to-red-50 border border-amber-200 text-sm">
+        <p class="flex items-start gap-2">⚠️ <span><strong>Importante:</strong> El sociograma es una herramienta de observación, no de diagnóstico. No etiquetes alumnos ni tomes decisiones basándote únicamente en estos datos. Úsalo como punto de partida para la reflexión y la intervención educativa.</span></p>
+      </div>
+    </section>
+
+    <!-- MÉTRICAS EXPLICADAS -->
+    <section class="bg-white/70 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3"><span class="text-3xl">📐</span> Glosario de métricas</h2>
+      <div class="grid md:grid-cols-2 gap-3 text-sm">
+        <div class="p-3 rounded-lg bg-white border border-slate-200"><strong class="text-indigo-700">Cohesión</strong><br><span class="text-slate-500">Porcentaje de relaciones recíprocas sobre el total posible. Mide la confianza mutua del grupo.</span></div>
+        <div class="p-3 rounded-lg bg-white border border-slate-200"><strong class="text-indigo-700">Densidad</strong><br><span class="text-slate-500">Porcentaje de conexiones existentes sobre el total posible. Indica cuán conectado está el grupo.</span></div>
+        <div class="p-3 rounded-lg bg-white border border-slate-200"><strong class="text-indigo-700">Aislamiento</strong><br><span class="text-slate-500">Porcentaje de alumnos que no reciben ninguna elección. Cuanto más alto, más riesgo de exclusión.</span></div>
+        <div class="p-3 rounded-lg bg-white border border-slate-200"><strong class="text-indigo-700">Reciprocidad</strong><br><span class="text-slate-500">Porcentaje de elecciones que son correspondidas. Relaciones sólidas y estables.</span></div>
+      </div>
+    </section>
+
+    <!-- CONSEJOS -->
+    <section class="bg-white/70 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3"><span class="text-3xl">💡</span> Consejos prácticos</h2>
+      <div class="grid md:grid-cols-2 gap-3 text-sm">
+        <div class="p-3 rounded-xl bg-white border border-slate-200 flex items-start gap-3">
+          <span class="text-xl shrink-0">🎯</span>
+          <div><strong>Hazlo al inicio y a mitad de curso</strong><br><span class="text-slate-500">Compara cómo evolucionan las relaciones. Detecta mejoras o nuevos conflictos.</span></div>
+        </div>
+        <div class="p-3 rounded-xl bg-white border border-slate-200 flex items-start gap-3">
+          <span class="text-xl shrink-0">🤫</span>
+          <div><strong>Garantiza el anonimato</strong><br><span class="text-slate-500">Explica a los alumnos que nadie verá sus respuestas individuales. Solo tú verás el mapa grupal.</span></div>
+        </div>
+        <div class="p-3 rounded-xl bg-white border border-slate-200 flex items-start gap-3">
+          <span class="text-xl shrink-0">👀</span>
+          <div><strong>No te fíes solo de la intuición</strong><br><span class="text-slate-500">A menudo los alumnos aislados pasan desapercibidos. El sociograma los saca a la luz.</span></div>
+        </div>
+        <div class="p-3 rounded-xl bg-white border border-slate-200 flex items-start gap-3">
+          <span class="text-xl shrink-0">🔄</span>
+          <div><strong>Actúa y vuelve a medir</strong><br><span class="text-slate-500">Haz una intervención (cambio de sitio, dinámica de grupo) y repite el sociograma para ver si funciona.</span></div>
+        </div>
+        <div class="p-3 rounded-xl bg-white border border-slate-200 flex items-start gap-3">
+          <span class="text-xl shrink-0">📋</span>
+          <div><strong>Comparte con el departamento</strong><br><span class="text-slate-500">Usa los informes anonimizados para hablar con el equipo de orientación sin revelar identidades.</span></div>
+        </div>
+        <div class="p-3 rounded-xl bg-white border border-slate-200 flex items-start gap-3">
+          <span class="text-xl shrink-0">🏫</span>
+          <div><strong>Usa la distribución de clase</strong><br><span class="text-slate-500">Separa a quienes se rechazan y junta a quienes pueden ayudarse. Prueba disposiciones en U o por filas.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="bg-white/70 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3"><span class="text-3xl">❓</span> Preguntas frecuentes</h2>
+      <div class="space-y-3 text-sm">
+        <details class="p-3 rounded-xl bg-white border border-slate-200">
+          <summary class="font-medium text-slate-700 cursor-pointer">¿Es necesario tener internet?</summary>
+          <p class="mt-2 text-slate-500">Solo para la primera carga (las librerías se descargan de CDN). Una vez cargado, puedes seguir usándolo sin conexión. Si quieres usarlo 100% offline, descarga el repositorio y ábrelo desde el disco.</p>
+        </details>
+        <details class="p-3 rounded-xl bg-white border border-slate-200">
+          <summary class="font-medium text-slate-700 cursor-pointer">¿Puedo perder los datos si cierro el navegador?</summary>
+          <p class="mt-2 text-slate-500">No. Los datos se guardan en IndexedDB (almacenamiento local del navegador). Permanecen aunque cierres el navegador, apagues el ordenador o actualices la página. Solo se borran si limpias los datos del sitio en la configuración del navegador.</p>
+        </details>
+        <details class="p-3 rounded-xl bg-white border border-slate-200">
+          <summary class="font-medium text-slate-700 cursor-pointer">¿Puedo usarlo en tablet o móvil?</summary>
+          <p class="mt-2 text-slate-500">Sí, la interfaz es responsive. También puedes instalarlo como app (PWA) desde el navegador y se comportará como una aplicación nativa.</p>
+        </details>
+        <details class="p-3 rounded-xl bg-white border border-slate-200">
+          <summary class="font-medium text-slate-700 cursor-pointer">¿Cuántos alumnos/grupos puedo tener?</summary>
+          <p class="mt-2 text-slate-500">Ilimitados. El almacenamiento de IndexedDB suele tener un límite de cientos de megabytes, suficiente para gestionar un centro entero.</p>
+        </details>
+        <details class="p-3 rounded-xl bg-white border border-slate-200">
+          <summary class="font-medium text-slate-700 cursor-pointer">¿Puedo colaborar o reportar errores?</summary>
+          <p class="mt-2 text-slate-500">¡Claro! El código está en <a href="https://github.com/sergarb1/SociogramaAula" class="text-indigo-600 hover:underline">github.com/sergarb1/SociogramaAula</a>. Puedes abrir issues, sugerir mejoras o hacer un fork.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- LICENCIA -->
+    <section class="text-center py-6 text-xs text-slate-400">
+      <p>📜 Licencia MIT — Haz lo que quieras. Si mejoras la herramienta, compártela.</p>
+      <p class="mt-1">Proyecto independiente · 2025 · <a href="https://github.com/sergarb1/SociogramaAula" class="text-indigo-500 hover:underline">GitHub</a></p>
+    </section>
+  </div>
+
+</body>
+</html>

@@ -12,6 +12,9 @@ const LOCALES = {
     'app.import': '📥 Importar',
     'app.exportAll': '📤 Exportar todo',
     'app.lang': 'Idioma',
+    'app.help': 'Ayuda',
+    'welcome.title': '¡Bienvenido/a a Sociograma Aula!',
+    'welcome.desc': '🌐 Herramienta gratuita de sociometría para entender las relaciones de tu grupo, formar equipos y distribuir la clase. Tus datos se quedan en tu dispositivo. Cumple LOPDGDD.',
 
     'step.groups': 'Grupos',
     'step.questionnaire': 'Cuestionario',
@@ -280,6 +283,9 @@ const LOCALES = {
     'app.import': '📥 Import',
     'app.exportAll': '📤 Export all',
     'app.lang': 'Language',
+    'app.help': 'Help',
+    'welcome.title': 'Welcome to Sociogram Aula!',
+    'welcome.desc': '🌐 Free sociometry tool to understand group relationships, form teams and arrange seating. All data stays on your device. GDPR compliant.',
 
     'step.groups': 'Groups',
     'step.questionnaire': 'Questionnaire',
