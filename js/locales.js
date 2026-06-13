@@ -6,7 +6,7 @@ function t(key, lang) {
 const LOCALES = {
   es: {
     'app.title': 'Sociograma Aula',
-    'app.subtitle': '🌐 Gestión social del aula · 👥 Equipos · 🏫 Distribución de clase',
+    'app.subtitle': 'Sociometría gratuita · Detecta dinámicas ocultas, forma equipos y mejora la convivencia',
     'app.back': '← Volver',
     'app.testData': '🧪 Datos prueba',
     'app.import': '📥 Importar',
@@ -14,11 +14,18 @@ const LOCALES = {
     'app.lang': 'Idioma',
     'app.help': 'Ayuda',
     'welcome.title': '¡Bienvenido/a a Sociograma Aula!',
-    'welcome.desc': '🌐 Herramienta gratuita de sociometría para entender las relaciones de tu grupo, formar equipos y distribuir la clase. Tus datos se quedan en tu dispositivo. Cumple LOPDGDD.',
+    'welcome.desc': 'Herramienta gratuita de sociometría para entender las relaciones de tu grupo. Tus datos se quedan en tu dispositivo. Cumple LOPDGDD.',
+    'welcome.step1': '1️⃣ Crea un grupo y añade tus alumnos',
+    'welcome.step2': '2️⃣ Pasa el cuestionario sociométrico (o salta a resultados)',
+    'welcome.step3': '3️⃣ Visualiza el grafo, métricas y predicciones',
+    'welcome.cta': '¡Empieza creando tu primer grupo!',
 
-    'step.groups': 'Grupos',
-    'step.questionnaire': 'Cuestionario',
-    'step.results': 'Resultados',
+    'step.groups': '1. Grupos',
+    'step.groupsDesc': 'Crea o selecciona un grupo',
+    'step.questionnaire': '2. Cuestionario',
+    'step.questionnaireDesc': 'Pasa el test sociométrico',
+    'step.results': '3. Resultados',
+    'step.resultsDesc': 'Grafo, métricas y predicciones',
 
     'group.title': 'Grupos / Clases',
     'group.placeholder': 'Nombre del grupo…',
@@ -277,7 +284,7 @@ const LOCALES = {
 
   en: {
     'app.title': 'Sociogram Aula',
-    'app.subtitle': '🌐 Classroom social management · 👥 Teams · 🏫 Seating layout',
+    'app.subtitle': 'Free sociometry · Detect hidden dynamics, form teams and improve classroom coexistence',
     'app.back': '← Back',
     'app.testData': '🧪 Test data',
     'app.import': '📥 Import',
@@ -285,11 +292,18 @@ const LOCALES = {
     'app.lang': 'Language',
     'app.help': 'Help',
     'welcome.title': 'Welcome to Sociogram Aula!',
-    'welcome.desc': '🌐 Free sociometry tool to understand group relationships, form teams and arrange seating. All data stays on your device. GDPR compliant.',
+    'welcome.desc': 'Free sociometry tool to understand group relationships. All data stays on your device. GDPR compliant.',
+    'welcome.step1': '1️⃣ Create a group and add your students',
+    'welcome.step2': '2️⃣ Run the sociometric questionnaire (or skip to results)',
+    'welcome.step3': '3️⃣ View the graph, metrics and predictions',
+    'welcome.cta': 'Start by creating your first group!',
 
-    'step.groups': 'Groups',
-    'step.questionnaire': 'Questionnaire',
-    'step.results': 'Results',
+    'step.groups': '1. Groups',
+    'step.groupsDesc': 'Create or select a group',
+    'step.questionnaire': '2. Questionnaire',
+    'step.questionnaireDesc': 'Run the sociometric test',
+    'step.results': '3. Results',
+    'step.resultsDesc': 'Graph, metrics and predictions',
 
     'group.title': 'Groups / Classes',
     'group.placeholder': 'Group name…',

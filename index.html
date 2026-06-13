@@ -34,8 +34,8 @@
 
       <!-- Header -->
       <header class="flex items-center justify-between mb-4">
-        <div class="flex items-center gap-2">
-          <svg class="w-8 h-8 shrink-0" viewBox="0 0 40 40" fill="none">
+        <div class="flex items-center gap-3">
+          <svg class="w-10 h-10 shrink-0" viewBox="0 0 40 40" fill="none">
             <circle cx="20" cy="20" r="19" fill="url(#lg)"/>
             <circle cx="14" cy="14" r="4" fill="#fff" opacity="0.9"/>
             <circle cx="28" cy="12" r="3.5" fill="#fff" opacity="0.85"/>
@@ -51,8 +51,12 @@
             <defs><linearGradient id="lg" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
           </svg>
           <div>
-            <h1 class="text-xl font-bold text-slate-800 leading-tight">{{ t('app.title') }}</h1>
-            <p class="text-xs text-slate-500 leading-tight">{{ t('app.subtitle') }}</p>
+            <h1 class="text-lg font-bold text-slate-800 leading-tight">{{ t('app.title') }}</h1>
+            <div class="flex flex-wrap items-center gap-1.5 mt-0.5">
+              <span class="text-[10px] font-medium text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-100">100% Gratuito</span>
+              <span class="text-[10px] font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full border border-green-100">Sin registro</span>
+              <span class="text-[10px] font-medium text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full border border-purple-100">Cumple LOPDGDD</span>
+            </div>
           </div>
         </div>
         <div class="flex items-center gap-1.5 flex-wrap justify-end">
@@ -70,27 +74,41 @@
       </header>
 
       <!-- Step Progress -->
-      <div class="flex items-center gap-2 mb-4 text-xs font-medium">
+      <div class="flex items-center gap-2 mb-4">
         <template v-for="(s, i) in steps" :key="i">
           <div class="flex items-center gap-2">
-            <div @click="goStep(i+1)" class="cursor-pointer px-2.5 py-1 rounded-full transition-all duration-300 text-xs"
-              :class="step >= i+1 ? 'bg-indigo-600 text-white shadow-md' : 'bg-white/60 text-slate-400'">{{ s }}</div>
-            <div v-if="i < steps.length-1" class="w-5 h-px bg-slate-300" :class="{'bg-indigo-400': step > i+1}"></div>
+            <div @click="goStep(i+1)" class="group cursor-pointer transition-all duration-300"
+              :class="step >= i+1 ? '' : 'opacity-70 hover:opacity-100'">
+              <div class="px-3 py-1.5 rounded-full text-xs font-bold"
+                :class="step >= i+1 ? 'bg-indigo-600 text-white shadow-md' : 'bg-white/60 text-slate-400'">
+                {{ s }}
+              </div>
+              <div v-if="stepDesc[i]" class="text-center mt-0.5">
+                <span class="text-[9px] font-medium text-slate-400 hidden sm:block">{{ stepDesc[i] }}</span>
+              </div>
+            </div>
+            <div v-if="i < steps.length-1" class="w-6 h-px bg-slate-300 mt-[-12px]" :class="{'bg-indigo-400': step > i+1}"></div>
           </div>
         </template>
       </div>
 
       <!-- Welcome banner -->
-      <div v-if="step === 1 && groups.length === 0" class="mb-4 p-4 rounded-xl bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 border border-indigo-200 shadow-sm">
-        <div class="flex items-start gap-3">
-          <span class="text-2xl shrink-0">👋</span>
-          <div class="text-sm text-indigo-800 space-y-1">
-            <p class="font-semibold">{{ t('welcome.title') }}</p>
+      <div v-if="step === 1 && groups.length === 0" class="mb-4 p-5 rounded-xl bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 border border-indigo-200 shadow-sm">
+        <div class="flex items-start gap-4">
+          <span class="text-3xl shrink-0">👋</span>
+          <div class="text-sm text-indigo-800 space-y-2">
+            <p class="font-semibold text-base">{{ t('welcome.title') }}</p>
             <p>{{ t('welcome.desc') }}</p>
-            <p class="flex flex-wrap gap-2 mt-2">
-              <a href="ayuda.html" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-100 text-indigo-700 text-xs font-medium hover:bg-indigo-200 transition">❓ {{ t('app.help') }}</a>
-              <button @click="loadTestData" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-100 text-amber-700 text-xs font-medium hover:bg-amber-200 transition">🧪 {{ t('app.testData') }}</button>
-            </p>
+            <div class="mt-3 space-y-1.5">
+              <p class="flex items-center gap-2 text-indigo-700 font-medium">{{ t('welcome.step1') }}</p>
+              <p class="flex items-center gap-2 text-indigo-700 font-medium">{{ t('welcome.step2') }}</p>
+              <p class="flex items-center gap-2 text-indigo-700 font-medium">{{ t('welcome.step3') }}</p>
+            </div>
+            <p class="mt-3 text-indigo-600 font-semibold">{{ t('welcome.cta') }}</p>
+            <div class="flex flex-wrap gap-2 mt-3">
+              <a href="ayuda.html" target="_blank" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 text-xs font-medium hover:bg-indigo-200 transition">❓ {{ t('app.help') }}</a>
+              <button @click="loadTestData" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-amber-100 text-amber-700 text-xs font-medium hover:bg-amber-200 transition">🧪 {{ t('app.testData') }}</button>
+            </div>
           </div>
         </div>
       </div>
@@ -122,9 +140,14 @@
         @back="step = 2">
       </results-view>
 
-      <!-- Privacy / GDPR -->
-      <div class="mt-6">
-        <button @click="showPrivacy = !showPrivacy" class="w-full flex items-center justify-center gap-2 py-2 rounded-xl border border-slate-200 bg-white/40 text-xs text-slate-500 hover:bg-white/60 hover:text-slate-700 transition">
+      <!-- Info + Privacy / GDPR -->
+      <div class="mt-6 space-y-3">
+        <div class="p-4 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100 text-xs text-indigo-700 leading-relaxed">
+          <p class="flex items-center gap-2 font-semibold mb-1">💡 {{ t('info.sociogram') }}</p>
+          <p class="text-indigo-500">{{ t('info.metrics') }}</p>
+        </div>
+
+        <button @click="showPrivacy = !showPrivacy" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-slate-200 bg-white/40 text-xs text-slate-500 hover:bg-white/60 hover:text-slate-700 transition">
           <span>🔒</span> {{ t('privacy.law') }}
           <span class="text-slate-300">{{ showPrivacy ? '▲' : '▼' }}</span>
         </button>

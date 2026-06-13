@@ -90,13 +90,6 @@ const GroupManager = {
       </div>
     </div>
 
-    <div class="lg:col-span-3">
-      <div class="p-4 rounded-xl bg-indigo-50 border border-indigo-100 text-xs text-indigo-700 leading-relaxed">
-        <p><strong>🧠 {{ t('info.sociogram') }}</strong></p>
-        <p class="mt-1 text-indigo-500">{{ t('info.metrics') }}</p>
-      </div>
-    </div>
-
     <div v-if="showTemplateModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm" @click.self="showTemplateModal = false">
       <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-4 max-h-[80vh] flex flex-col" @click.stop>
         <div class="p-5 border-b border-slate-200 flex items-center justify-between">
@@ -945,6 +938,9 @@ const app = createApp({
     },
     steps() {
       return [this.t('step.groups'), this.t('step.questionnaire'), this.t('step.results')]
+    },
+    stepDesc() {
+      return [this.t('step.groupsDesc'), this.t('step.questionnaireDesc'), this.t('step.resultsDesc')]
     },
   },
   watch: {
