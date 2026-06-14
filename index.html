@@ -23,6 +23,7 @@
   <script src="js/report-intelligence.js"></script>
   <link href="css/style.css" rel="stylesheet">
   <style>
+    [v-cloak] { display: none !important; }
     @media print {
       body { background: white !important; }
       header, .step-progress, .sidebar-buttons, .privacy-panel { display: none !important; }
@@ -38,7 +39,7 @@
 </head>
 <body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen antialiased">
 
-  <div id="app">
+  <div id="app" v-cloak>
     <div class="max-w-7xl mx-auto px-3 py-4">
 
       <!-- Header -->

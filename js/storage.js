@@ -9,7 +9,9 @@ async function loadGroups() {
 }
 
 async function saveGroups(groups) {
+  console.log('[saveGroups] guardando', groups.length, 'grupos:', groups.map(g => g.name))
   await db.set('sociogram-groups', groups)
+  console.log('[saveGroups] OK')
 }
 
 async function loadResponses(groupId) {
