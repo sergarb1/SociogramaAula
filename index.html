@@ -45,16 +45,11 @@
     <div class="max-w-7xl mx-auto px-3 py-4">
 
       <!-- Header -->
-      <header class="flex items-center justify-between mb-4">
+      <header class="flex items-center justify-between mb-3">
         <div class="flex items-center gap-3">
           <img src="logo/logo2.png" alt="Sociograma Aula" class="h-8 md:h-9 w-auto shrink-0">
-          <div class="hidden sm:block">
-            <h1 class="text-lg font-bold text-slate-800 leading-tight">{{ t('app.title') }}</h1>
-            <div class="flex flex-wrap items-center gap-1.5 mt-0.5">
-              <span class="text-[10px] font-medium text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-100">100% Gratuito</span>
-              <span class="text-[10px] font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full border border-green-100">Sin registro</span>
-              <span class="text-[10px] font-medium text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full border border-purple-100">Cumple LOPDGDD</span>
-            </div>
+          <div>
+            <h1 class="text-lg font-bold text-indigo-600 leading-tight">{{ t('app.title') }}</h1>
           </div>
         </div>
         <div class="flex items-center gap-1.5 flex-wrap justify-end">
@@ -72,8 +67,13 @@
         </div>
       </header>
 
-      <!-- Tagline banner -->
+      <!-- Tagline + badges -->
       <div class="mb-3 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-50/70 to-purple-50/70 border border-indigo-100/50 text-xs text-indigo-700 text-center leading-relaxed">
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-2">
+          <span class="inline-flex items-center gap-1 text-[10px] font-medium text-indigo-600 bg-indigo-100/70 px-2.5 py-0.5 rounded-full border border-indigo-200">✅ 100% Gratuito</span>
+          <span class="inline-flex items-center gap-1 text-[10px] font-medium text-green-600 bg-green-100/70 px-2.5 py-0.5 rounded-full border border-green-200">🔒 Sin registro</span>
+          <span class="inline-flex items-center gap-1 text-[10px] font-medium text-purple-600 bg-purple-100/70 px-2.5 py-0.5 rounded-full border border-purple-200">📜 Cumple LOPDGDD</span>
+        </div>
         <div>{{ t('app.tagline') }}</div>
         <div class="mt-0.5 text-[10px] text-indigo-500/80">{{ t('app.taglineTest') }}</div>
       </div>
