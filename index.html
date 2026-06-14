@@ -4,14 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sociograma Aula</title>
+  <!-- CDN libraries with local fallback for offline use -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>if(typeof tailwind === 'undefined'){document.write('<script src="js/vendor/tailwind.min.js"><\/script>')}</script>
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script>if(typeof Vue === 'undefined'){document.write('<script src="js/vendor/vue.global.prod.js"><\/script>')}</script>
   <script src="https://unpkg.com/vis-network@9.1.9/dist/vis-network.min.js"></script>
+  <script>if(typeof vis === 'undefined'){document.write('<script src="js/vendor/vis-network.min.js"><\/script>')}</script>
   <script src="https://cdn.jsdelivr.net/npm/idb-keyval@6/dist/umd.min.js"></script>
+  <script>if(typeof idbKeyval === 'undefined'){document.write('<script src="js/vendor/idb-keyval.min.js"><\/script>')}</script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script>if(typeof Chart === 'undefined'){document.write('<script src="js/vendor/chart.umd.min.js"><\/script>')}</script>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script>if(typeof html2canvas === 'undefined'){document.write('<script src="js/vendor/html2canvas.min.js"><\/script>')}</script>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#6366f1">
+  <script src="js/constants.js"></script>
+  <script src="js/report-intelligence.js"></script>
   <link href="css/style.css" rel="stylesheet">
   <style>
     @media print {
@@ -35,22 +44,8 @@
       <!-- Header -->
       <header class="flex items-center justify-between mb-4">
         <div class="flex items-center gap-3">
-          <svg class="w-10 h-10 shrink-0" viewBox="0 0 40 40" fill="none">
-            <circle cx="20" cy="20" r="19" fill="url(#lg)"/>
-            <circle cx="14" cy="14" r="4" fill="#fff" opacity="0.9"/>
-            <circle cx="28" cy="12" r="3.5" fill="#fff" opacity="0.85"/>
-            <circle cx="20" cy="26" r="3.5" fill="#fff" opacity="0.85"/>
-            <circle cx="10" cy="28" r="3" fill="#fff" opacity="0.7"/>
-            <circle cx="32" cy="24" r="2.5" fill="#fff" opacity="0.6"/>
-            <line x1="14" y1="14" x2="28" y2="12" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
-            <line x1="14" y1="14" x2="20" y2="26" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
-            <line x1="28" y1="12" x2="20" y2="26" stroke="#fff" stroke-width="1.2" opacity="0.7"/>
-            <line x1="14" y1="14" x2="10" y2="28" stroke="#fff" stroke-width="1" opacity="0.5"/>
-            <line x1="28" y1="12" x2="32" y2="24" stroke="#fff" stroke-width="1" opacity="0.5"/>
-            <line x1="20" y1="26" x2="32" y2="24" stroke="#fff" stroke-width="1" opacity="0.5"/>
-            <defs><linearGradient id="lg" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
-          </svg>
-          <div>
+          <img src="logo/logo2.png" alt="Sociograma Aula" class="h-8 md:h-9 w-auto shrink-0">
+          <div class="hidden sm:block">
             <h1 class="text-lg font-bold text-slate-800 leading-tight">{{ t('app.title') }}</h1>
             <div class="flex flex-wrap items-center gap-1.5 mt-0.5">
               <span class="text-[10px] font-medium text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-100">100% Gratuito</span>
@@ -66,28 +61,42 @@
           </select>
           <button v-if="step > 1" @click="step--" class="text-xs px-2 py-1 rounded-lg text-slate-600 hover:bg-white/60 transition bg-white/60 shadow-sm">{{ t('app.back') }}</button>
           <button @click="loadTestData" class="text-xs px-2 py-1 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-100 border border-amber-200 transition">{{ t('app.testData') }}</button>
-          <button @click="showImportInput = true" class="text-xs px-2 py-1 rounded-lg bg-white/60 text-slate-600 hover:bg-white transition">{{ t('app.import') }}</button>
-          <input v-show="showImportInput" type="file" accept=".json" @change="importJSON" ref="importInput" class="hidden">
+          <label class="text-xs px-2 py-1 rounded-lg bg-white/60 text-slate-600 hover:bg-white transition cursor-pointer">{{ t('app.import') }}
+            <input type="file" accept=".json" @change="importJSON" class="hidden">
+          </label>
           <button @click="exportAll" class="text-xs px-2 py-1 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-md">{{ t('app.exportAll') }}</button>
           <a href="ayuda.html" target="_blank" class="text-xs px-2 py-1 rounded-lg bg-white/60 text-slate-600 hover:bg-white transition flex items-center gap-1">❓ {{ t('app.help') }}</a>
         </div>
       </header>
 
+      <!-- Tagline banner -->
+      <div class="mb-3 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-50/70 to-purple-50/70 border border-indigo-100/50 text-xs text-indigo-700 text-center leading-relaxed">
+        <div>{{ t('app.tagline') }}</div>
+        <div class="mt-0.5 text-[10px] text-indigo-500/80">{{ t('app.taglineTest') }}</div>
+      </div>
+
       <!-- Step Progress -->
-      <div class="flex items-center gap-2 mb-4">
+      <div class="flex items-center justify-center gap-0 mb-4">
         <template v-for="(s, i) in steps" :key="i">
-          <div class="flex items-center gap-2">
-            <div @click="goStep(i+1)" class="group cursor-pointer transition-all duration-300"
-              :class="step >= i+1 ? '' : 'opacity-70 hover:opacity-100'">
-              <div class="px-3 py-1.5 rounded-full text-xs font-bold"
-                :class="step >= i+1 ? 'bg-indigo-600 text-white shadow-md' : 'bg-white/60 text-slate-400'">
-                {{ s }}
+          <div @click="goStep(i+1)"
+            class="flex items-center gap-0 cursor-pointer group transition-all duration-300"
+            :class="step >= i+1 ? '' : 'opacity-60 hover:opacity-100'">
+            <div class="flex flex-col items-center px-2 py-1.5 rounded-xl"
+              :class="step === i+1 ? 'bg-indigo-100 shadow-sm' : ''">
+              <div class="flex items-center gap-1.5"
+                :class="step === i+1 ? 'text-indigo-700' : step > i+1 ? 'text-green-600' : 'text-slate-400'">
+                <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all"
+                  :class="step >= i+1 ? 'bg-indigo-600 text-white shadow-sm' : 'bg-white/60 text-slate-400 border border-slate-300'">
+                  <span v-if="step > i+1">✓</span>
+                  <span v-else>{{ i+1 }}</span>
+                </div>
+                <span class="text-xs font-semibold hidden sm:inline">{{ s }}</span>
               </div>
-              <div v-if="stepDesc[i]" class="text-center mt-0.5">
-                <span class="text-[9px] font-medium text-slate-400 hidden sm:block">{{ stepDesc[i] }}</span>
-              </div>
+              <span v-if="stepDesc[i]" class="text-[9px] text-slate-400 hidden sm:block mt-0.5">{{ stepDesc[i] }}</span>
             </div>
-            <div v-if="i < steps.length-1" class="w-6 h-px bg-slate-300 mt-[-12px]" :class="{'bg-indigo-400': step > i+1}"></div>
+          </div>
+          <div v-if="i < steps.length-1" class="flex items-center mx-1 mt-[-10px]">
+            <svg class="w-4 h-4 text-slate-300" :class="{'text-indigo-400': step > i+1}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
           </div>
         </template>
       </div>
@@ -136,8 +145,15 @@
 
       <!-- STEP 3: Results -->
       <results-view v-if="step === 3" ref="resultsView"
-        :group="selectedGroup" :responses="responses" :questions="questions" :lang="lang"
+        :group="selectedGroup" :responses="responses" :questions="questions" :lang="lang" mode="results"
+        @organize="step = 4"
         @back="step = 2">
+      </results-view>
+
+      <!-- STEP 4: Organization -->
+      <results-view v-if="step === 4" ref="organizeView"
+        :group="selectedGroup" :responses="responses" :questions="questions" :lang="lang" mode="organize"
+        @back="step = 3">
       </results-view>
 
       <!-- Info + Privacy / GDPR -->
@@ -165,12 +181,15 @@
     </div>
 
     <!-- Confirm Modal -->
-    <div v-if="confirmDialog.show" class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm" @click.self="cancelConfirm">
-      <div class="bg-white rounded-xl shadow-2xl p-5 w-full max-w-sm mx-3" @click.stop>
-        <p class="text-sm text-slate-700 mb-4">{{ confirmDialog.message }}</p>
-        <div class="flex justify-end gap-2">
-          <button @click="cancelConfirm" class="px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-100 rounded-lg transition">Cancelar</button>
-          <button @click="okConfirm" class="px-3 py-1.5 text-xs bg-red-500 text-white rounded-lg hover:bg-red-600 transition shadow-sm">Eliminar</button>
+    <div v-if="confirmDialog.show" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md" @click.self="cancelConfirm">
+      <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm mx-3 text-center" @click.stop>
+        <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-amber-100 flex items-center justify-center">
+          <svg class="w-7 h-7 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+        </div>
+        <p class="text-base font-medium text-slate-700 mb-6">{{ confirmDialog.message }}</p>
+        <div class="flex gap-3">
+          <button @click="cancelConfirm" class="flex-1 px-4 py-2.5 text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition">{{ t('dialog.cancel') }}</button>
+          <button @click="okConfirm" class="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl transition shadow-md">{{ t('dialog.confirm') }}</button>
         </div>
       </div>
     </div>

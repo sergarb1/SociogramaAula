@@ -174,7 +174,7 @@ function generateRealisticResponses(students, activeQuestions) {
         const shuffled = [...others].sort(() => Math.random() - 0.5)
         chosen = shuffled.slice(0, Math.min(1 + Math.floor(Math.random() * 2), max))
       } else if (isPerception) {
-        chosen = [[...others].sort(() => Math.random() - 0.5).slice(0, 1)]
+        chosen = [...others].sort(() => Math.random() - 0.5).slice(0, 1)
       } else {
         const bias = others.slice(0, Math.ceil(others.length * 0.35))
         const pool = Math.random() > 0.25 ? bias : others

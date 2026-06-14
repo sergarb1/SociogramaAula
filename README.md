@@ -17,6 +17,7 @@
 
 ### 📊 Sociometría completa
 - **Cuestionario sociométrico** — 15 preguntas configurables, 6 plantillas por nivel educativo (Primaria, ESO, Bachillerato, Convivencia, Inclusión, General)
+- **Auto-guardado** — Las respuestas se guardan automáticamente al hacer cada elección, con aviso antes de salir si hay cambios sin guardar
 - **Grafo interactivo** — Visualización de relaciones con vis-network: colores por rol, flechas de elección/rechazo, física suave, zoom y arrastre
 - **Métricas automáticas** — Cohesión grupal, densidad de red, índice de aislamiento, reciprocidad
 - **Predicciones inteligentes** — Detección de aislamiento, conflicto potencial, líderes positivos, baja cohesión. Incluye recomendaciones de intervención
@@ -26,6 +27,7 @@
 - Importación desde plantillas prediseñadas
 - Importación CSV de listados de alumnos
 - Añadido masivo (varios nombres de una vez)
+- **Buscador de alumnos** — Filtro en tiempo real en la lista de resultados para localizar rápidamente a cualquier estudiante
 
 ### ✏️ Editor manual de relaciones
 - Matriz sociométrica editable clic a clic
@@ -69,13 +71,14 @@
 ### Tecnologías
 
 | Componente | Tecnología |
-|---|---|
-| Interfaz | Vue 3 (CDN) + Tailwind CSS (CDN) |
-| Grafo | vis-network |
-| Almacenamiento | idb-keyval (IndexedDB) |
-| Exportación PNG | html2canvas |
-| Gráficos | Chart.js |
+|---|---|---|
+| Interfaz | Vue 3 (CDN + local fallback) + Tailwind CSS (CDN + local fallback) |
+| Grafo | vis-network (CDN + local fallback) |
+| Almacenamiento | idb-keyval (IndexedDB) (CDN + local fallback) |
+| Exportación PNG | html2canvas (CDN + local fallback) |
+| Gráficos | Chart.js (CDN + local fallback) |
 | **Build** | **Ninguno** — Sin Node.js, sin bundler, sin servidor |
+| **Offline** | **Sí** — Todas las librerías CDN tienen copia local en `js/vendor/` como respaldo |
 
 ### Estructura del proyecto
 
@@ -93,7 +96,11 @@ sociograma/
 │   ├── locales.js      # Traducciones ES/EN + helper t()
 │   ├── storage.js      # Wrapper IndexedDB (idb-keyval)
 │   ├── teams.js        # Algoritmo de formación de equipos
-│   └── templates.js    # Plantillas de clase + datos de prueba
+│   ├── templates.js    # Plantillas de clase + datos de prueba
+│   ├── constants.js    # Constantes compartidas (colores, roles, utilidades)
+│   └── vendor/         # Copias locales de librerías CDN (fallback offline)
+├── logo/
+│   └── logo2.png       # Logo de la app
 ├── AGENTS.md           # Guía para asistentes de IA
 └── README.md
 ```

@@ -13,47 +13,107 @@ async function exportGraphPNG(containerId, lang) {
 function exportReportHTML(group, metrics, roles, predictions, matrix, responses, lang) {
   const students = group.students
   const date = new Date().toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', { year: 'numeric', month: 'long', day: 'numeric' })
-  const rows = students.map(s => {
-    const roleTrans = t('role.' + ({ Líder:'leader', Popular:'popular', Puente:'bridge', Rechazado:'rejected', Aislado:'isolated', Neutro:'neutral' }[roles[s.id]] || 'neutral'), lang)
+  const t = (key) => window.t ? window.t(key, lang) : key
+  const analysis = generateGroupAnalysis(students, matrix, roles, metrics, predictions, {}, {})
+
+  const choicesCount = {}; const rejectionsCount = {}
+  for (const s of students) { choicesCount[s.id] = 0; rejectionsCount[s.id] = 0 }
+  for (const s of students)
+    for (const [id, v] of Object.entries(matrix[s.id] || {})) {
+      if (v?.choice) choicesCount[s.id]++
+      if (v?.rejection) rejectionsCount[s.id]++
+    }
+
+  const roleRows = students.map(s => {
+    const roleTrans = t('role.' + (ROLE_KEY_MAP[roles[s.id]] || 'neutral'), lang)
     return `<tr><td style="border-bottom:1px solid #e2e8f0;padding:6px 10px">${s.name}</td><td style="border-bottom:1px solid #e2e8f0;padding:6px 10px"><span style="display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;background:${roleBg(roles[s.id])};color:${roleText(roles[s.id])}">${roleTrans}</span></td></tr>`
   }).join('')
+
   const preds = predictions.map(p => `<div style="margin-bottom:8px;padding:10px 14px;border-radius:10px;font-size:13px;${p.type==='risk'?'background:#fef2f2;border-left:3px solid #ef4444':p.type==='opportunity'?'background:#f0fdf4;border-left:3px solid #22c55e':'background:#eff6ff;border-left:3px solid #6366f1'}"><strong>${p.icon} ${p.label}</strong><br>${p.desc}${p.action ? '<br><em style="color:#64748b">→ '+p.action+'</em>' : ''}</div>`).join('')
 
-  const t = (key) => window.t ? window.t(key, lang) : key
+  const riskColor = analysis.summary.riskLevel === 'crítico' ? '#ef4444' : analysis.summary.riskLevel === 'alto' ? '#f97316' : analysis.summary.riskLevel === 'medio' ? '#eab308' : '#22c55e'
+
+  const profileRows = analysis.studentProfiles.map(p => {
+    const badge = p.needsAttention ? `<span style="display:inline-block;padding:1px 6px;border-radius:999px;font-size:10px;background:#fef2f2;color:#ef4444;margin-left:4px">⚠️</span>` : ''
+    return `<tr><td style="border-bottom:1px solid #e2e8f0;padding:6px 10px;font-size:13px">${p.name}${badge}</td>
+      <td style="border-bottom:1px solid #e2e8f0;padding:6px 10px;font-size:12px">${t('role.'+ROLE_KEY_MAP[p.role]||'neutral')}</td>
+      <td style="border-bottom:1px solid #e2e8f0;padding:6px 10px;font-size:12px;text-align:center">${p.c}</td>
+      <td style="border-bottom:1px solid #e2e8f0;padding:6px 10px;font-size:12px;text-align:center;${p.r>0?'color:#ef4444':''}">${p.r}</td>
+      <td style="border-bottom:1px solid #e2e8f0;padding:6px 10px;font-size:11px;color:#64748b">${p.recommendation}</td></tr>`
+  }).join('')
+
+  const recCards = analysis.recommendations.map(r => {
+    const borderColor = r.priority === 'alta' ? '#ef4444' : r.priority === 'media' ? '#f97316' : '#22c55e'
+    const bg = r.priority === 'alta' ? '#fef2f2' : r.priority === 'media' ? '#fff7ed' : '#f0fdf4'
+    const actions = r.actions.map(a => `<li style="margin-bottom:4px">→ ${a}</li>`).join('')
+    return `<div style="margin-bottom:12px;padding:12px 14px;border-radius:10px;font-size:13px;background:${bg};border-left:3px solid ${borderColor}">
+      <strong style="font-size:14px">${r.icon} ${r.title}</strong><br>${r.desc}
+      <ul style="margin-top:6px;font-size:12px;color:#64748b;list-style:none;padding-left:0">${actions}</ul></div>`
+  }).join('')
+
+  const subgroupSection = analysis.subgroups.length ? `<h2>🔗 Subgrupos detectados</h2>
+    ${analysis.subgroups.map(g => `<div style="margin-bottom:8px;padding:8px 12px;border-radius:8px;background:#f8fafc;border:1px solid #e2e8f0;font-size:13px"><strong>${g.size} alumnos</strong>: ${g.members.join(', ')}</div>`).join('')}` : ''
+
+  const conflictSection = analysis.conflicts.targeted.length ? `<h2>⚡ Conflictos</h2>
+    ${analysis.conflicts.targeted.map(c => `<div style="margin-bottom:8px;padding:8px 12px;border-radius:8px;background:#fef2f2;border:1px solid #fecaca;font-size:13px"><strong>${c.student}</strong> rechazado por ${c.count} compañero(s): ${c.rejectors.join(', ')}</div>`).join('')}
+    ${analysis.conflicts.mutual.length ? `<div style="margin-top:8px;padding:8px 12px;border-radius:8px;background:#fff7ed;border:1px solid #fed7aa;font-size:13px"><strong>Rechazos mutuos:</strong> ${analysis.conflicts.mutual.map(m => `${m.a} ↔ ${m.b}`).join(', ')}</div>` : ''}` : ''
 
   return `<!DOCTYPE html><html lang="${lang||'es'}"><head><meta charset="UTF-8"><title>${t('report.title')} - ${group.name}</title><style>
   body{font-family:system-ui,sans-serif;color:#1e293b;max-width:800px;margin:auto;padding:40px}
-  h1{font-size:22px;margin-bottom:4px} h2{font-size:16px;margin-top:28px;color:#4f46e5}
+  h1{font-size:22px;margin-bottom:4px} h2{font-size:16px;margin-top:24px;color:#4f46e5}
   table{width:100%;border-collapse:collapse;margin-top:8px}
   th{text-align:left;padding:8px 10px;border-bottom:2px solid #e2e8f0;font-size:11px;text-transform:uppercase;color:#64748b}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
   .card{padding:14px;border-radius:10px;background:#f8fafc;border:1px solid #e2e8f0}
-  .val{font-size:28px;font-weight:700;color:#4f46e5}
-  .lbl{font-size:11px;color:#64748b;text-transform:uppercase}
+  .val{font-size:24px;font-weight:700;color:#4f46e5}
+  .lbl{font-size:10px;color:#64748b;text-transform:uppercase}
 </style></head><body>
 <h1>${t('report.title')}</h1>
 <p style="color:#64748b;font-size:14px">${t('report.header').replace('{name}', group.name).replace('{date}', date).replace('{n}', students.length).replace('{answered}', metrics.answeredCount)}</p>
+
+<div style="padding:12px 16px;border-radius:10px;background:#f8fafc;border:1px solid #e2e8f0;font-size:13px;margin-bottom:20px">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+    <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${riskColor}"></span>
+    <strong style="font-size:14px">${t('report.cohesion')}: ${metrics.cohesion}%</strong>
+    <span style="color:#64748b">·</span>
+    <span style="color:#64748b">${analysis.summary.cohesionDesc}</span>
+  </div>
+  <div style="color:#64748b;font-size:12px">${analysis.summary.diversityDesc}</div>
+  <div style="margin-top:6px;display:flex;gap:12px;font-size:11px;color:#64748b">
+    <span>📊 ${t('report.density')}: ${metrics.density}%</span>
+    <span>🔍 ${t('report.isolation')}: ${metrics.isolationIndex}%</span>
+    <span>👥 ${students.length} ${t('group.students')}</span>
+  </div>
+</div>
+
 <h2>📊 ${t('report.cohesion')}</h2>
 <div class="grid">
   <div class="card"><div class="val">${metrics.cohesion}%</div><div class="lbl">${t('report.cohesion')}</div></div>
   <div class="card"><div class="val">${metrics.density}%</div><div class="lbl">${t('report.density')}</div></div>
   <div class="card"><div class="val">${metrics.isolationIndex}%</div><div class="lbl">${t('report.isolation')}</div></div>
 </div>
+
+<h2>📋 ${t('report.roles')}</h2>
+<table style="margin-bottom:16px"><thead><tr>
+  <th>${t('report.student')}</th><th>${t('report.role')}</th><th style="text-align:center">Elecciones</th><th style="text-align:center">Rechazos</th><th>Recomendación</th>
+</tr></thead><tbody>${profileRows}</tbody></table>
+
+${conflictSection}
+${subgroupSection}
+
+<h2>💡 Recomendaciones para orientación</h2>
+${recCards}
+
 <h2>🔮 ${t('results.predictions')}</h2>${preds||'<p style="color:#94a3b8">'+t('report.noData')+'</p>'}
-<h2>👥 ${t('report.roles')}</h2>
-<table><thead><tr><th>${t('report.student')}</th><th>${t('report.role')}</th></tr></thead><tbody>${rows}</tbody></table>
+
+<h2>👥 Roles del grupo</h2>
+<table><thead><tr><th>${t('report.student')}</th><th>${t('report.role')}</th></tr></thead><tbody>${roleRows}</tbody></table>
 <p style="margin-top:40px;font-size:11px;color:#94a3b8">${t('report.generated').replace('{date}', date)}</p>
 </body></html>`
 }
 
-function roleBg(r) {
-  const m = { Líder: '#dcfce7', Popular: '#eef2ff', Puente: '#fef3c7', Rechazado: '#fef2f2', Aislado: '#f1f5f9' }
-  return m[r] || '#f3e8ff'
-}
-function roleText(r) {
-  const m = { Líder: '#166534', Popular: '#4338ca', Puente: '#92400e', Rechazado: '#991b1b', Aislado: '#475569' }
-  return m[r] || '#6b21a8'
-}
+function roleBg(r) { return ROLE_BG[r] || '#f3e8ff' }
+function roleText(r) { return ROLE_TEXT[r] || '#6b21a8' }
 
 function anonymizeData(group, metrics, roles, predictions, matrix, responses, lang) {
   const mapping = {}
@@ -108,7 +168,7 @@ function downloadAnonymizedReportHTML(group, metrics, roles, predictions, matrix
   const date = new Date().toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', { year: 'numeric', month: 'long', day: 'numeric' })
 
   const rows = anon.students.map(s => {
-    const roleTrans = t('role.' + ({ Líder:'leader', Popular:'popular', Puente:'bridge', Rechazado:'rejected', Aislado:'isolated', Neutro:'neutral' }[anon.roles[s.id]] || 'neutral'), lang)
+    const roleTrans = t('role.' + (ROLE_KEY_MAP[anon.roles[s.id]] || 'neutral'), lang)
     return `<tr><td style="border-bottom:1px solid #e2e8f0;padding:6px 10px">${s.name}</td><td style="border-bottom:1px solid #e2e8f0;padding:6px 10px"><span style="display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;background:${roleBg(roles[s.id])};color:${roleText(roles[s.id])}">${roleTrans}</span></td></tr>`
   }).join('')
 

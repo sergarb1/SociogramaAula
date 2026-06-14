@@ -13,6 +13,7 @@ Helps teachers/counselors detect hidden group dynamics (leaders, isolated studen
 - html2canvas for PNG export
 - Chart.js for optional charts
 - **No build step, no Node.js, no server** — deploy by uploading to any static host
+- **Offline fallback** — All CDN libraries are mirrored in `js/vendor/`. Scripts try CDN first, fall back to local copies automatically.
 
 ## Dev Server
 ```bash
@@ -39,7 +40,11 @@ sociograma/
 │   ├── locales.js      # i18n: ES + EN translations, global t(key, lang) helper
 │   ├── storage.js      # IndexedDB wrappers via idb-keyval (groups, responses, distribution)
 │   ├── teams.js        # Team formation algorithm with seeded shuffle
-│   └── templates.js    # Built-in class templates + test data generator
+│   ├── templates.js    # Built-in class templates + test data generator
+│   ├── constants.js    # Shared constants: COLOR_PALETTE, ROLE_KEY_MAP, ROLE_CLASSES, stringToColor()
+│   └── vendor/         # Local CDN fallback files (loaded when CDN is unavailable)
+├── logo/
+│   └── logo2.png       # App logo (transparent background, preprocessed)
 ├── AGENTS.md           # This file — dev guide for AI assistants
 └── README.md           # Public-facing documentation
 ```
@@ -51,6 +56,8 @@ sociograma/
 4. **Saves are async** — `saveGroups()`, `saveResponses()`, `saveDistribution()` all return Promises. Always `await` them.
 5. **Distribution persistence** — `saveDistribution()` / `loadDistribution()` per group ID, stores seating layout (positions, layout type, columns, sizes).
 6. **Seeded randomness** — `formTeams()` and `generateDist()` accept optional `seed` parameter. Using the same seed + same inputs = same output (useful for reproducibility).
+7. **Auto-save in Questionnaire** — `toggle()` and `unchoose()` call `autoSave()` on every selection change. A `dirty` flag triggers `beforeunload` warning when navigating away with unsaved changes.
+8. **Shared constants** — `COLOR_PALETTE`, `ROLE_KEY_MAP`, `ROLE_CLASSES`, `ROLE_BG`, `ROLE_TEXT` and `stringToColor()` are defined once in `js/constants.js` and used across all files. Never duplicate these.
 
 ## Key Functions
 
@@ -94,7 +101,7 @@ sociograma/
 - Shows role badges (colored) + table cohesion %
 - Export as PNG via html2canvas
 - Print-friendly via @media print CSS in index.html
-- Color palette: `['#6366f1','#8b5cf6','#ec4899','#f43f5e','#f97316','#eab308','#22c55e','#14b8a6']`
+- Color palette: `['#6366f1','#8b5cf6','#ec4899','#f43f5e','#f97316','#eab308','#22c55e','#14b8a6']` (defined in `js/constants.js`)
 
 ## Questionnaire System
 - 15 questions in QUESTION_BANK with keys: `q.0` through `q.14`
@@ -110,6 +117,8 @@ sociograma/
 - Confirm dialog uses callback pattern (`showConfirm(msg, onOk)`)
 - Prompt dialog uses callback pattern (`showPrompt(msg, callback)`)
 - All group/student IDs are generated with `crypto.randomUUID()` or fallback `Date.now().toString(36)`
+- CDN scripts have inline fallbacks: if the CDN fails, the local copy in `js/vendor/` is loaded automatically
+- Confirm modal now has a full-screen overlay (`bg-black/60 backdrop-blur-md`) with translated buttons (`dialog.cancel` / `dialog.confirm`)
 
 ## Testing
 - Click `🧪 Datos prueba` button to load 3 simulated groups (1º ESO A, 4º ESO B, 2º Bach C) with realistic responses

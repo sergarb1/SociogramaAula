@@ -25,8 +25,8 @@ const GroupManager = {
 
         <div class="space-y-2 max-h-80 overflow-y-auto">
           <div v-for="g in groups" :key="g.id" @click="$emit('select', g.id)"
-            class="cursor-pointer p-3 rounded-xl border transition-all duration-200 flex items-center justify-between"
-            :class="selectedId === g.id ? 'border-indigo-300 bg-indigo-50 shadow-sm' : 'border-slate-200 bg-white/50 hover:border-indigo-200'">
+            class="group cursor-pointer p-3 rounded-xl border transition-all duration-200 flex items-center justify-between"
+            :class="selectedId === g.id ? 'border-indigo-300 bg-indigo-50 shadow-md ring-1 ring-indigo-200' : 'border-slate-200 bg-white/50 hover:border-indigo-300 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0'">
             <div class="flex items-center gap-3 min-w-0">
               <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0" :style="'background:'+stringToColor(g.name)">{{ g.name.charAt(0).toUpperCase() }}</div>
               <div class="min-w-0">
@@ -34,14 +34,24 @@ const GroupManager = {
                 <p class="text-xs text-slate-400">{{ g.students.length }} {{ t('group.students') }}</p>
               </div>
             </div>
-            <button @click.stop="confirmDelete(g)" class="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-600 transition p-1 shrink-0">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-            </button>
+            <div class="flex items-center gap-1">
+              <button @click.stop="confirmDelete(g)" class="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-600 transition p-1 shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+              <svg class="w-4 h-4 text-slate-300 group-hover:text-indigo-400 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
           </div>
           <div v-if="!groups.length" class="text-center py-8 text-slate-400 text-sm">
             <p class="mb-1">{{ t('group.empty.title') }}</p>
             <p>{{ t('group.empty.desc') }}</p>
           </div>
+        </div>
+
+        <div v-if="group && group.students.length >= 2" class="mt-4 pt-3 border-t border-slate-200">
+          <button @click="$emit('start-survey')" class="w-full py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:from-indigo-700 hover:to-purple-700 transition shadow-lg flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+            {{ t('group.startSurvey') }}
+          </button>
         </div>
       </div>
     </div>
@@ -56,7 +66,7 @@ const GroupManager = {
           <div class="flex gap-2" v-if="group">
             <button @click="bulkAdd" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition">{{ t('group.bulkAdd') }}</button>
             <button @click="addOne" class="text-xs px-3 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-md">{{ t('group.addOne') }}</button>
-            <label class="text-xs px-3 py-1.5 rounded-lg bg-green-100 text-green-700 hover:bg-green-200 cursor-pointer transition" title="Importar CSV">📄
+            <label class="text-xs px-3 py-1.5 rounded-lg bg-green-100 text-green-700 hover:bg-green-200 cursor-pointer transition">{{ t('group.importCSV') }}
               <input type="file" accept=".csv" @change="importCSV" class="hidden">
             </label>
           </div>
@@ -196,7 +206,7 @@ const GroupManager = {
     async removeStudent(id) { if (!this.group) return; this.group.students.splice(this.group.students.findIndex(s => s.id === id), 1); await saveGroups(this.groups) },
     async rename(id, name) { const s = this.group?.students.find(st => st.id === id); if (s) { s.name = name; await saveGroups(this.groups) } },
     onDragStart(e, idx) { this.dragIdx = idx; e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text', idx) },
-    onDragOver(e, idx) { if (this.dragIdx !== null && this.dragIdx !== idx) e.target.closest?.('[draggable]')?.classList.add('border-indigo-400') },
+    onDragOver(e, idx) { if (this.dragIdx !== null && this.dragIdx !== idx) e.target.closest('[draggable]')?.classList.add('border-indigo-400') },
     async onDrop(e, idx) {
       document.querySelectorAll('[draggable]').forEach(el => el.classList.remove('border-indigo-400'))
       if (this.dragIdx === null || this.dragIdx === idx) return
@@ -205,10 +215,7 @@ const GroupManager = {
       this.dragIdx = null; await saveGroups(this.groups)
     },
     onDragEnd() { this.dragIdx = null; document.querySelectorAll('[draggable]').forEach(el => el.classList.remove('border-indigo-400')) },
-    stringToColor(str) {
-      let h = 0; for (let i = 0; i < str.length; i++) h = str.charCodeAt(i) + ((h << 5) - h)
-      return ['#6366f1','#8b5cf6','#ec4899','#f43f5e','#f97316','#eab308','#22c55e','#14b8a6','#06b6d4','#3b82f6'][Math.abs(h) % 10]
-    },
+    stringToColor,
   }
 }
 
@@ -321,7 +328,7 @@ const Questionnaire = {
   </div>`,
 
   data() {
-    return { current: null, answers: {}, doneList: [] }
+    return { current: null, answers: {}, doneList: [], dirty: false }
   },
   computed: {
     answeredCount() { return this.doneList.length },
@@ -331,23 +338,30 @@ const Questionnaire = {
   methods: {
     t(key) { return t(key, this.lang) },
     isDone(id) { return this.doneList.includes(id) },
-    startStudent(s) { this.current = s; this.answers = JSON.parse(JSON.stringify(this.responses[s.id] || {})); for (let i = 0; i < this.activeQs.length; i++) if (!this.answers[i]) this.answers[i] = [] },
+    startStudent(s) { this.current = s; this.answers = JSON.parse(JSON.stringify(this.responses[s.id] || {})); for (let i = 0; i < this.activeQs.length; i++) if (!this.answers[i]) this.answers[i] = []; this.dirty = false },
     studentName(id) { return this.group?.students.find(s => s.id === id)?.name || '?' },
     getChosen(qi) { return this.answers[qi] || [] },
     isChosen(sid, qi) { return (this.answers[qi] || []).includes(sid) },
-    toggle(sid, qi) { const arr = this.answers[qi] = this.answers[qi] || []; const max = this.activeQs[qi]?.maxChoices || 3; const i = arr.indexOf(sid); if (i >= 0) arr.splice(i, 1); else if (arr.length < max) arr.push(sid) },
-    unchoose(sid, qi) { const arr = this.answers[qi]; if (arr) { const i = arr.indexOf(sid); if (i >= 0) arr.splice(i, 1) } },
+    toggle(sid, qi) { const arr = this.answers[qi] = this.answers[qi] || []; const max = this.activeQs[qi]?.maxChoices || 3; const i = arr.indexOf(sid); if (i >= 0) arr.splice(i, 1); else if (arr.length < max) arr.push(sid); this.dirty = true; this.autoSave() },
+    unchoose(sid, qi) { const arr = this.answers[qi]; if (arr) { const i = arr.indexOf(sid); if (i >= 0) arr.splice(i, 1); this.dirty = true; this.autoSave() } },
     dragChoice(e, sid, qi) { e.dataTransfer.setData('text', sid) },
-    async saveAnswers() {
-      if (!this.current) return
+    async autoSave() {
+      if (!this.current || !this.dirty) return
       this.responses[this.current.id] = JSON.parse(JSON.stringify(this.answers))
       await saveResponses(this.group.id, this.responses)
       if (!this.doneList.includes(this.current.id)) this.doneList.push(this.current.id)
+      this.dirty = false
+    },
+    async saveAnswers() {
+      if (!this.current) return
+      await this.autoSave()
       this.current = null; this.answers = {}
       if (this.doneList.length === this.group.students.length) this.$emit('done')
     },
+    onBeforeUnload(e) { if (this.dirty) { e.preventDefault(); e.returnValue = '' } },
   },
-  mounted() { this.doneList = Object.keys(this.responses) },
+  mounted() { this.doneList = Object.keys(this.responses); window.addEventListener('beforeunload', this.onBeforeUnload) },
+  unmounted() { window.removeEventListener('beforeunload', this.onBeforeUnload) },
 }
 
 const ResultsView = {
@@ -406,9 +420,10 @@ const ResultsView = {
 
     <div class="lg:col-span-1 space-y-4">
       <div class="bg-white/80 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-5">
-        <h3 class="text-sm font-semibold text-slate-700 mb-3">{{ t('results.students') }}</h3>
+        <h3 class="text-sm font-semibold text-slate-700 mb-2">{{ t('results.students') }}</h3>
+        <input v-model="studentFilter" placeholder="🔍 Buscar..." class="w-full mb-2 px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-300 bg-white/70">
         <div class="space-y-1 max-h-52 overflow-y-auto">
-          <div v-for="s in sortedStudents" :key="s.id" @click="selected = s.id"
+          <div v-for="s in filteredStudents" :key="s.id" @click="selected = s.id"
             class="flex items-center gap-2 p-2 rounded-lg cursor-pointer transition text-sm"
             :class="selected === s.id ? 'bg-indigo-50 border border-indigo-200' : 'hover:bg-slate-50'">
             <div class="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0" :style="'background:'+s.color">{{ s.name.charAt(0) }}</div>
@@ -726,6 +741,7 @@ const ResultsView = {
       editFrom: '', editTo: '', dragFrom: null, dragTo: null, dragOver: null,
       showRelPopup: false,
       teamSize: 4, teams: [], teamSeed: 0, distSize: 2, distCols: 4, distGrid: [], distSeed: 0,
+      studentFilter: '',
       distLayout: 'grid', distDragId: null, distDragFrom: null,
       result: null, matrix: {}, choicesCount: {}, rejectionsCount: {},
       roles: {}, metrics: {}, predictions: [], sortedStudents: [],
@@ -733,6 +749,11 @@ const ResultsView = {
   },
   computed: {
     activeQs() { return this.questions.filter(q => q.active) },
+    filteredStudents() {
+      if (!this.studentFilter) return this.sortedStudents
+      const f = this.studentFilter.toLowerCase()
+      return this.sortedStudents.filter(s => s.name.toLowerCase().includes(f))
+    },
     metricList() {
       const m = this.metrics
       const t = (key) => this.t(key)
@@ -749,15 +770,15 @@ const ResultsView = {
   },
   methods: {
     t(key) { return t(key, this.lang) },
-    roleKey(r) { return { Líder:'leader', Popular:'popular', Puente:'bridge', Rechazado:'rejected', Aislado:'isolated', Neutro:'neutral' }[r] || 'neutral' },
+    roleKey(r) { return ROLE_KEY_MAP[r] || 'neutral' },
     studentName(id) { return this.group?.students.find(s => s.id === id)?.name || '?' },
-    roleClass(r) { return { Líder:'bg-green-100 text-green-700', Popular:'bg-indigo-100 text-indigo-700', Puente:'bg-amber-100 text-amber-700', Rechazado:'bg-red-100 text-red-700', Aislado:'bg-slate-100 text-slate-600' }[r] || 'bg-purple-100 text-purple-700' },
+    roleClass(r) { return ROLE_CLASSES[r] || 'bg-purple-100 text-purple-700' },
     received(id) { const r = []; for (const s of this.group.students) { if (s.id!==id && this.matrix[s.id]?.[id]?.choice>0) r.push(s.id) } return r },
     rejections(id) { const r = []; for (const s of this.group.students) { if (s.id!==id && this.matrix[s.id]?.[id]?.rejection>0) r.push(s.id) } return r },
     made(id) { const r = []; for (const s of this.group.students) { if (s.id!==id && this.matrix[id]?.[s.id]?.choice>0) r.push(s.id) } return r },
     cellClass(a,b) { const m = this.matrix[a]?.[b]; if (!m) return 'bg-slate-50 text-slate-300'; if (m.choice && m.rejection) return 'bg-amber-100 text-amber-700'; if (m.choice) return 'bg-indigo-100 text-indigo-700'; if (m.rejection) return 'bg-red-100 text-red-700'; return 'bg-slate-50 text-slate-300' },
     cellSym(a,b) { const m = this.matrix[a]?.[b]; if (!m) return '·'; if (m.choice && m.rejection) return '↕'; if (m.choice) return '↑'; if (m.rejection) return '↓'; return '·' },
-    editHighlight(a,b) { return +this.editFrom === +a && +this.editTo === +b },
+    editHighlight(a,b) { return this.editFrom === a && this.editTo === b },
     toggleCell(a,b) {
       const m = this.matrix[a][b]
       if (!m.choice && !m.rejection) { m.choice = 1 }
@@ -779,7 +800,7 @@ const ResultsView = {
       this.choicesCount = r.choicesCount; this.rejectionsCount = r.rejectionsCount
       this.roles = r.roles; this.metrics = r.metrics; this.predictions = r.predictions
       this.sortedStudents = [...this.group.students].sort((a,b) => (this.choicesCount[b.id]||0) - (this.choicesCount[a.id]||0))
-      this.sortedStudents.forEach(s => { s.role = this.roles[s.id] || 'Neutro'; let h=0; for (let i=0; i<s.name.length; i++) h=s.name.charCodeAt(i)+((h<<5)-h); s.color = ['#6366f1','#8b5cf6','#ec4899','#f43f5e','#f97316','#eab308','#22c55e','#14b8a6','#06b6d4','#3b82f6'][Math.abs(h)%10] })
+      this.sortedStudents.forEach(s => { s.role = this.roles[s.id] || 'Neutro'; s.color = stringToColor(s.name) })
       this.renderIt()
     },
     refreshGraph() { this.renderIt() },
@@ -794,8 +815,7 @@ const ResultsView = {
       this.showTeams = true
     },
     tableColor(ri, ti, alpha) {
-      const colors = ['#6366f1','#8b5cf6','#ec4899','#f43f5e','#f97316','#eab308','#22c55e','#14b8a6','#06b6d4','#3b82f6']
-      const c = colors[(ri * 3 + ti) % colors.length]
+      const c = COLOR_PALETTE[(ri * 3 + ti) % COLOR_PALETTE.length]
       if (alpha === undefined) return c
       const r = parseInt(c.slice(1,3), 16), g = parseInt(c.slice(3,5), 16), b = parseInt(c.slice(5,7), 16)
       return `rgba(${r},${g},${b},${alpha})`
@@ -830,7 +850,7 @@ const ResultsView = {
     },
     distDragOver(e, ri, ti, sid) {
       e.dataTransfer.dropEffect = 'move'
-      e.target.closest?.['[draggable]']?.classList.add('ring-2', 'ring-indigo-400')
+      e.target.closest('[draggable]')?.classList.add('ring-2', 'ring-indigo-400')
     },
     distDrop(toRi, toTi, toSid) {
       document.querySelectorAll('[draggable]').forEach(el => el.classList.remove('ring-2', 'ring-indigo-400'))
@@ -937,10 +957,10 @@ const app = createApp({
       return names.map(n => ({ id: n, name: this.t(QUESTION_PRESETS[n].nameKey) }))
     },
     steps() {
-      return [this.t('step.groups'), this.t('step.questionnaire'), this.t('step.results')]
+      return [this.t('step.groups'), this.t('step.questionnaire'), this.t('step.results'), this.t('step.organize')]
     },
     stepDesc() {
-      return [this.t('step.groupsDesc'), this.t('step.questionnaireDesc'), this.t('step.resultsDesc')]
+      return [this.t('step.groupsDesc'), this.t('step.questionnaireDesc'), this.t('step.resultsDesc'), this.t('step.organizeDesc')]
     },
   },
   watch: {
@@ -984,8 +1004,11 @@ const app = createApp({
       this.groups = await loadGroups()
       this.applyPreset('general')
     },
-    goStep(s) {
-      if (s === 3 && this.step === 2) { if (!this.selectedGroup) return }
+    async goStep(s) {
+      if (s >= 3 && s <= 4 && this.selectedGroup) {
+        const loaded = await loadResponses(this.selectedGroupId)
+        if (loaded && Object.keys(loaded).length) this.responses = loaded
+      }
       this.step = s
     },
     async startSurvey() { this.responses = await loadResponses(this.selectedGroupId); this.step = 2 },
@@ -1006,7 +1029,7 @@ const app = createApp({
         await this.loadGroupsData()
         this.showToast('toast.imported', 'success')
       } catch (err) { this.showToast('toast.error', 'error') }
-      e.target.value = ''; this.showImportInput = false
+      e.target.value = ''
     },
     showToast(key, type = 'success') {
       this.toast = { show: true, message: this.t(key), type }
