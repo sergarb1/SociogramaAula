@@ -35,8 +35,10 @@ function exportReportHTML(group, metrics, roles, predictions, matrix, responses,
 
   const profileRows = analysis.studentProfiles.map(p => {
     const badge = p.needsAttention ? `<span style="display:inline-block;padding:1px 6px;border-radius:999px;font-size:10px;background:#fef2f2;color:#ef4444;margin-left:4px">⚠️</span>` : ''
+    const statusIcon = p.sociometricStatus === 'popular' ? '🌟' : p.sociometricStatus === 'polarizador' ? '🔄' : p.sociometricStatus === 'rechazado' ? '⚡' : p.sociometricStatus === 'ignorado' ? '👻' : ''
     return `<tr><td style="border-bottom:1px solid #e2e8f0;padding:6px 10px;font-size:13px">${p.name}${badge}</td>
       <td style="border-bottom:1px solid #e2e8f0;padding:6px 10px;font-size:12px">${t('role.'+ROLE_KEY_MAP[p.role]||'neutral')}</td>
+      <td style="border-bottom:1px solid #e2e8f0;padding:6px 10px;font-size:11px;text-align:center">${statusIcon}</td>
       <td style="border-bottom:1px solid #e2e8f0;padding:6px 10px;font-size:12px;text-align:center">${p.c}</td>
       <td style="border-bottom:1px solid #e2e8f0;padding:6px 10px;font-size:12px;text-align:center;${p.r>0?'color:#ef4444':''}">${p.r}</td>
       <td style="border-bottom:1px solid #e2e8f0;padding:6px 10px;font-size:11px;color:#64748b">${p.recommendation}</td></tr>`
@@ -51,12 +53,16 @@ function exportReportHTML(group, metrics, roles, predictions, matrix, responses,
       <ul style="margin-top:6px;font-size:12px;color:#64748b;list-style:none;padding-left:0">${actions}</ul></div>`
   }).join('')
 
-  const subgroupSection = analysis.subgroups.length ? `<h2>🔗 Subgrupos detectados</h2>
-    ${analysis.subgroups.map(g => `<div style="margin-bottom:8px;padding:8px 12px;border-radius:8px;background:#f8fafc;border:1px solid #e2e8f0;font-size:13px"><strong>${g.size} alumnos</strong>: ${g.members.join(', ')}</div>`).join('')}` : ''
+  const sub = analysis.subgroups
+  const subgroupSection = sub.subgroups.length ? `<h2>🔗 Subgrupos detectados</h2>
+    ${sub.subgroups.map(g => `<div style="margin-bottom:8px;padding:8px 12px;border-radius:8px;background:#f8fafc;border:1px solid #e2e8f0;font-size:13px"><strong>${g.size} alumnos</strong> (densidad ${g.density}%): ${g.members.join(', ')}</div>`).join('')}
+    ${sub.bridges.length ? `<div style="margin-top:8px;padding:8px 12px;border-radius:8px;background:#eff6ff;border:1px solid #bfdbfe;font-size:13px"><strong>🌉 Alumnos puente:</strong> ${sub.bridges.map(b => `${b.student}`).join(', ')}</div>` : ''}` : ''
 
-  const conflictSection = analysis.conflicts.targeted.length ? `<h2>⚡ Conflictos</h2>
-    ${analysis.conflicts.targeted.map(c => `<div style="margin-bottom:8px;padding:8px 12px;border-radius:8px;background:#fef2f2;border:1px solid #fecaca;font-size:13px"><strong>${c.student}</strong> rechazado por ${c.count} compañero(s): ${c.rejectors.join(', ')}</div>`).join('')}
-    ${analysis.conflicts.mutual.length ? `<div style="margin-top:8px;padding:8px 12px;border-radius:8px;background:#fff7ed;border:1px solid #fed7aa;font-size:13px"><strong>Rechazos mutuos:</strong> ${analysis.conflicts.mutual.map(m => `${m.a} ↔ ${m.b}`).join(', ')}</div>` : ''}` : ''
+  const conf = analysis.conflicts
+  const conflictSection = conf.targeted.length ? `<h2>⚡ Conflictos</h2>
+    ${conf.targeted.map(c => `<div style="margin-bottom:8px;padding:8px 12px;border-radius:8px;background:#fef2f2;border:1px solid #fecaca;font-size:13px"><strong>${c.student}</strong> rechazado por ${c.count} compañero(s): ${c.rejectors.join(', ')}</div>`).join('')}
+    ${conf.mutual.length ? `<div style="margin-top:8px;padding:8px 12px;border-radius:8px;background:#fff7ed;border:1px solid #fed7aa;font-size:13px"><strong>Rechazos mutuos:</strong> ${conf.mutual.map(m => `${m.a} ↔ ${m.b}`).join(', ')}</div>` : ''}
+    ${conf.rejectionChains.length ? `<div style="margin-top:8px;padding:8px 12px;border-radius:8px;background:#fef2f2;border:1px solid #fecaca;font-size:12px;color:#64748b"><strong>🔗 Cadenas de rechazo:</strong> ${conf.rejectionChains.slice(0,5).map(ch => `${ch.from} → ${ch.via} → ${ch.to}`).join(' | ')}</div>` : ''}` : ''
 
   return `<!DOCTYPE html><html lang="${lang||'es'}"><head><meta charset="UTF-8"><title>${t('report.title')} - ${group.name}</title><style>
   body{font-family:system-ui,sans-serif;color:#1e293b;max-width:800px;margin:auto;padding:40px}
@@ -92,10 +98,15 @@ function exportReportHTML(group, metrics, roles, predictions, matrix, responses,
   <div class="card"><div class="val">${metrics.density}%</div><div class="lbl">${t('report.density')}</div></div>
   <div class="card"><div class="val">${metrics.isolationIndex}%</div><div class="lbl">${t('report.isolation')}</div></div>
 </div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0">
+  <div class="card"><div class="val" style="font-size:20px">${analysis.summary.reciprocityRate}%</div><div class="lbl">Reciprocidad</div></div>
+  <div class="card"><div class="val" style="font-size:20px">${analysis.summary.centralization}%</div><div class="lbl">Centralización</div></div>
+  <div class="card"><div class="val" style="font-size:20px">${analysis.dynamics.totalChoices}</div><div class="lbl">Total elecciones</div></div>
+</div>
 
 <h2>📋 ${t('report.roles')}</h2>
 <table style="margin-bottom:16px"><thead><tr>
-  <th>${t('report.student')}</th><th>${t('report.role')}</th><th style="text-align:center">Elecciones</th><th style="text-align:center">Rechazos</th><th>Recomendación</th>
+  <th>${t('report.student')}</th><th>${t('report.role')}</th><th style="text-align:center">Estatus</th><th style="text-align:center">Elec.</th><th style="text-align:center">Rech.</th><th>Recomendación</th>
 </tr></thead><tbody>${profileRows}</tbody></table>
 
 ${conflictSection}

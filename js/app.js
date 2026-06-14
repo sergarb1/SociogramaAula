@@ -173,12 +173,7 @@ const GroupManager = {
       this.$emit('select', g.id)
       this.$emit('refresh')
     },
-    confirmDelete(g) { this.$emit('confirm', t('group.confirmDelete', this.lang).replace('{name}', g.name), () => this.deleteGroup(g.id)) },
-    async deleteGroup(id) {
-      this.groups.splice(this.groups.findIndex(g => g.id === id), 1)
-      if (this.selectedId === id) this.$emit('select', null)
-      await saveGroups(this.groups)
-    },
+    confirmDelete(g) { this.$emit('confirm', g.id) },
     async importCSV(e) {
       const file = e.target.files[0]; if (!file || !this.group) return
       const text = await file.text()
@@ -980,6 +975,17 @@ const app = createApp({
         maxChoices: qb.maxChoices,
         active: this.questionActive.includes(i),
       }))
+    },
+    handleGroupDelete(groupId) {
+      const g = this.groups.find(g => g.id === groupId)
+      if (!g) return
+      const msg = this.t('group.confirmDelete').replace('{name}', g.name)
+      this.showConfirm(msg, () => this.deleteGroup(groupId))
+    },
+    async deleteGroup(id) {
+      this.groups.splice(this.groups.findIndex(g => g.id === id), 1)
+      if (this.selectedGroupId === id) this.selectedGroupId = null
+      await saveGroups(this.groups)
     },
     showConfirm(msg, onOk) { this.confirmDialog = { show: true, message: msg, onOk } },
     showPrompt(msg, onOk) { this.promptDialog = { show: true, message: msg, onOk, value: '' } },

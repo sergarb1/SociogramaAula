@@ -487,9 +487,6 @@ const LOCALES = {
     'toast.pngError': 'Error exporting image',
     'dialog.cancel': 'Cancel',
     'dialog.confirm': 'Confirm',
-    'group.confirmDelete': 'Delete "{name}" and all its data?\n\nIf there is important information, you can export it first to avoid losing it.',
-    'group.deleteExport': '📤 Export and delete',
-    'group.deleteOnly': '🗑️ Delete only',
 
     'confirm.testData': 'Load 3 test groups with simulated responses? Existing groups will be kept.',
 
