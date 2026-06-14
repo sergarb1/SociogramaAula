@@ -107,13 +107,13 @@ const GroupManager = {
           <button @click="showTemplateModal = false" class="text-slate-400 hover:text-slate-600 text-xl">✕</button>
         </div>
         <div class="p-5 overflow-y-auto space-y-3">
-          <div v-for="t in templates" :key="t.name" @click="createFromTemplate(t)"
+          <div v-for="tmpl in templates" :key="tmpl.name" @click="createFromTemplate(tmpl)"
             class="p-4 rounded-xl border border-slate-200 cursor-pointer hover:border-indigo-300 hover:bg-indigo-50 transition flex items-center justify-between">
             <div>
-              <p class="font-medium text-slate-700">{{ t.name }}</p>
-              <p class="text-xs text-slate-400">{{ t.description || t.students.length+' '+t('group.students') }}</p>
+              <p class="font-medium text-slate-700">{{ tmpl.name }}</p>
+              <p class="text-xs text-slate-400">{{ tmpl.description || tmpl.students.length+' '+t('group.students') }}</p>
             </div>
-            <span class="text-xs bg-slate-100 px-2 py-1 rounded-full text-slate-500">{{ t.students.length }} {{ t('group.students') }}</span>
+            <span class="text-xs bg-slate-100 px-2 py-1 rounded-full text-slate-500">{{ tmpl.students.length }} {{ t('group.students') }}</span>
           </div>
         </div>
         <div class="p-4 border-t border-slate-200 text-xs text-slate-400">
