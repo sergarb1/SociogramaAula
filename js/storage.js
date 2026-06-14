@@ -9,9 +9,8 @@ async function loadGroups() {
 }
 
 async function saveGroups(groups) {
-  console.log('[saveGroups] guardando', groups.length, 'grupos:', groups.map(g => g.name))
-  await db.set('sociogram-groups', groups)
-  console.log('[saveGroups] OK')
+  const clean = JSON.parse(JSON.stringify(groups))
+  await db.set('sociogram-groups', clean)
 }
 
 async function loadResponses(groupId) {
@@ -19,7 +18,8 @@ async function loadResponses(groupId) {
 }
 
 async function saveResponses(groupId, responses) {
-  await db.set(`sociogram-responses-${groupId}`, responses)
+  const clean = JSON.parse(JSON.stringify(responses))
+  await db.set(`sociogram-responses-${groupId}`, clean)
 }
 
 async function loadTemplates() {

@@ -983,16 +983,9 @@ const app = createApp({
       this.showConfirm(msg, () => this.deleteGroup(groupId))
     },
     async deleteGroup(id) {
-      const before = this.groups.length
       this.groups = this.groups.filter(g => g.id !== id)
       if (this.selectedGroupId === id) this.selectedGroupId = null
-      console.log('[deleteGroup] antes:', before, 'después:', this.groups.length, 'ids:', this.groups.map(g => g.id))
-      try {
-        await saveGroups(this.groups)
-        console.log('[deleteGroup] saveGroups OK')
-      } catch (e) {
-        console.error('[deleteGroup] saveGroups ERROR:', e)
-      }
+      await saveGroups(this.groups)
     },
     showConfirm(msg, onOk) { this.confirmDialog = { show: true, message: msg, onOk } },
     showPrompt(msg, onOk) { this.promptDialog = { show: true, message: msg, onOk, value: '' } },
