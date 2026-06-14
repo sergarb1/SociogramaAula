@@ -41,7 +41,7 @@ const LOCALES = {
     'group.empty.desc': 'Crea uno o carga datos de prueba',
     'group.select': 'Selecciona un grupo',
     'group.selectHint': 'Selecciona o crea un grupo',
-    'group.importCSV': '📄 Importar CSV',
+    'group.importCSV': '📄 Importar CSV (alumnos)',
     'group.bulkAdd': '+ Varios',
     'group.addOne': '+ Alumno',
     'group.studentEmpty': '👤 Añade alumnos',
