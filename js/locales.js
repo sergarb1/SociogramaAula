@@ -209,6 +209,10 @@ const LOCALES = {
     'info.survey': 'Pasa el cuestionario a cada alumno en el mismo dispositivo, uno por uno. Cada alumno elige compañeros según las preguntas activas.',
     'info.surveyTip': '💡 Si ya conoces las relaciones del grupo, puedes saltar el cuestionario e ir directo a resultados para definirlas manualmente.',
     'info.surveyPrep': 'Preparación recomendada',
+
+    'feedback.title': '¿Fallos o sugerencias?',
+    'feedback.desc': 'Escríbenos en',
+    'feedback.or': 'o en nuestro Telegram',
     'info.surveyPrep1': 'Explica al grupo que es anónimo y confidencial',
     'info.surveyPrep2': 'Asegúrate de que cada alumno responde individualmente',
     'info.surveyPrep3': 'Pregunta a cada alumno sin que otros vean sus respuestas',
@@ -494,6 +498,10 @@ const LOCALES = {
     'info.survey': 'Run the questionnaire for each student on the same device, one by one. Each student chooses peers based on the active questions.',
     'info.surveyTip': '💡 If you already know the group relationships, you can skip the questionnaire and go straight to results to define them manually.',
     'info.surveyPrep': 'Recommended preparation',
+
+    'feedback.title': 'Bugs or suggestions?',
+    'feedback.desc': 'Write us at',
+    'feedback.or': 'or on our Telegram',
     'info.surveyPrep1': 'Explain to the group it is anonymous and confidential',
     'info.surveyPrep2': 'Make sure each student answers individually',
     'info.surveyPrep3': 'Ask each student without others seeing their answers',

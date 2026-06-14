@@ -166,6 +166,11 @@
           <p class="text-indigo-500">{{ t('info.metrics') }}</p>
         </div>
 
+        <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-700 leading-relaxed">
+          <p class="flex items-center gap-2 font-semibold mb-1">🐛 {{ t('feedback.title') }}</p>
+          <p>{{ t('feedback.desc') }} <a href="https://mejoratudocencia.com" target="_blank" class="underline font-medium">mejoratudocencia.com</a> {{ t('feedback.or') }} <a href="https://t.me/mejoratudocencia" target="_blank" class="underline font-medium">t.me/mejoratudocencia</a>.</p>
+        </div>
+
         <button @click="showPrivacy = !showPrivacy" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-slate-200 bg-white/40 text-xs text-slate-500 hover:bg-white/60 hover:text-slate-700 transition">
           <span>🔒</span> {{ t('privacy.law') }}
           <span class="text-slate-300">{{ showPrivacy ? '▲' : '▼' }}</span>
