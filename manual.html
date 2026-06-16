@@ -10,24 +10,27 @@
   <script>if(typeof Reveal === 'undefined'){document.write('<link rel="stylesheet" href="js/vendor/reveal.css"><link rel="stylesheet" href="js/vendor/white.css">')}</script>
   <style>
     .reveal h1 { color: #4f46e5; }
-    .reveal h2 { color: #6366f1; font-size: 1.6em; }
-    .reveal h3 { color: #1e293b; }
+    .reveal h2 { color: #6366f1; font-size: 1.4em; margin-bottom: 0.3em; }
+    .reveal h3 { color: #1e293b; font-size: 0.85em; }
     .reveal p { color: #334155; }
     .reveal ul { display: block; }
-    .reveal li { color: #475569; margin-bottom: 0.4em; font-size: 0.85em; }
+    .reveal li { color: #475569; margin-bottom: 0.2em; font-size: 0.75em; }
     .reveal .badge { display: inline-block; padding: 0.15em 0.6em; border-radius: 999px; font-size: 0.6em; font-weight: 600; margin: 0 0.2em; }
-    .reveal .step-number { display: inline-flex; align-items: center; justify-content: center; width: 1.8em; height: 1.8em; border-radius: 50%; font-weight: 700; font-size: 0.9em; margin-right: 0.4em; }
-    .reveal .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em; text-align: left; }
-    .reveal .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1em; text-align: left; }
-    .reveal .card { padding: 1em; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 0.75em; }
-    .reveal .card-title { font-weight: 700; margin-bottom: 0.3em; }
-    .reveal .role-dot { display: inline-block; width: 0.7em; height: 0.7em; border-radius: 50%; margin-right: 0.3em; }
-    .reveal .footer-link { position: fixed; bottom: 1em; left: 1em; font-size: 0.5em; color: #94a3b8; z-index: 30; }
+    .reveal .step-number { display: inline-flex; align-items: center; justify-content: center; width: 1.6em; height: 1.6em; border-radius: 50%; font-weight: 700; font-size: 0.8em; margin-right: 0.3em; }
+    .reveal .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4em; text-align: left; }
+    .reveal .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.4em; text-align: left; }
+    .reveal .card { padding: 0.4em 0.6em; border-radius: 8px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 0.6em; }
+    .reveal .card p { margin-bottom: 0.15em; }
+    .reveal .card-title { font-weight: 700; margin-bottom: 0.1em; font-size: 0.95em; }
+    .reveal .role-dot { display: inline-block; width: 0.6em; height: 0.6em; border-radius: 50%; margin-right: 0.3em; }
+    .reveal .footer-link { position: fixed; bottom: 0.5em; left: 0.5em; font-size: 0.45em; color: #94a3b8; z-index: 30; }
     .reveal .footer-link a { color: #6366f1; text-decoration: underline; }
-    .reveal .nav-back { position: fixed; top: 1em; left: 1em; font-size: 0.5em; z-index: 30; }
-    .reveal .nav-back a { display: inline-block; padding: 0.5em 1em; border-radius: 8px; background: #6366f1; color: #fff; text-decoration: none; font-weight: 600; }
+    .reveal .nav-back { position: fixed; top: 0.5em; left: 0.5em; font-size: 0.45em; z-index: 30; }
+    .reveal .nav-back a { display: inline-block; padding: 0.4em 0.8em; border-radius: 6px; background: #6366f1; color: #fff; text-decoration: none; font-weight: 600; }
     .reveal section { text-align: center; }
     .reveal section.left { text-align: left; }
+    .reveal .compact p { margin-bottom: 0.3em; }
+    .reveal .compact .card { margin-bottom: 0.4em; }
   </style>
 </head>
 <body>
@@ -70,34 +73,29 @@
       <!-- OVERVIEW 5 STEPS -->
       <section>
         <h2>La app en 5 pasos</h2>
-        <div class="grid-2" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="grid-3" style="gap:0.5em">
           <div class="card">
-            <p class="step-number" style="background:#e0e7ff;color:#4f46e5">1</p>
-            <span class="card-title">Grupos</span>
-            <p style="font-size:0.65em;color:#64748b">Crea tu clase, añade alumnos, usa plantillas o importa CSV</p>
+            <p><span class="step-number" style="background:#e0e7ff;color:#4f46e5">1</span><span class="card-title">Grupos</span></p>
+            <p style="font-size:0.6em;color:#64748b">Crea tu clase, añade alumnos, usa plantillas o importa CSV</p>
           </div>
           <div class="card">
-            <p class="step-number" style="background:#dcfce7;color:#16a34a">2</p>
-            <span class="card-title">Cuestionario</span>
-            <p style="font-size:0.65em;color:#64748b">Cada alumno responde en tu dispositivo. Guardado automático</p>
+            <p><span class="step-number" style="background:#dcfce7;color:#16a34a">2</span><span class="card-title">Cuestionario</span></p>
+            <p style="font-size:0.6em;color:#64748b">Cada alumno responde en tu dispositivo. Guardado automático</p>
           </div>
           <div class="card">
-            <p class="step-number" style="background:#fef3c7;color:#d97706">3</p>
-            <span class="card-title">Resultados</span>
-            <p style="font-size:0.65em;color:#64748b">Grafo, métricas, predicciones, editor y matriz</p>
+            <p><span class="step-number" style="background:#fef3c7;color:#d97706">3</span><span class="card-title">Resultados</span></p>
+            <p style="font-size:0.6em;color:#64748b">Grafo, métricas, predicciones, editor y matriz</p>
           </div>
           <div class="card">
-            <p class="step-number" style="background:#dcfce7;color:#16a34a">4</p>
-            <span class="card-title">Equipos</span>
-            <p style="font-size:0.65em;color:#64748b">Formación de equipos equilibrados según relaciones</p>
+            <p><span class="step-number" style="background:#dcfce7;color:#16a34a">4</span><span class="card-title">Equipos</span></p>
+            <p style="font-size:0.6em;color:#64748b">Formación de equipos equilibrados según relaciones</p>
           </div>
           <div class="card">
-            <p class="step-number" style="background:#f3e8ff;color:#9333ea">5</p>
-            <span class="card-title">Distribución</span>
-            <p style="font-size:0.65em;color:#64748b">Distribución del aula en mesas (cuadrícula, filas o U)</p>
+            <p><span class="step-number" style="background:#f3e8ff;color:#9333ea">5</span><span class="card-title">Distribución</span></p>
+            <p style="font-size:0.6em;color:#64748b">Distribución del aula en mesas (cuadrícula, filas o U)</p>
           </div>
         </div>
-        <p style="font-size:0.6em;color:#94a3b8;margin-top:1em">Puedes navegar entre pasos libremente pulsando el número en la barra superior</p>
+        <p style="font-size:0.5em;color:#94a3b8;margin-top:0.5em">Puedes navegar entre pasos libremente pulsando el número en la barra superior</p>
       </section>
 
       <!-- STEP 1: GROUPS -->
@@ -252,7 +250,7 @@
             <p style="font-size:0.6em">Sin relaciones significativas. Perfil medio.</p>
           </div>
         </div>
-        <p style="font-size:0.55em;color:#94a3b8;margin-top:1em">Los roles no son etiquetas fijas. Cambian con el tiempo y las intervenciones. El sociograma es una foto, no una sentencia.</p>
+        <p style="font-size:0.5em;color:#94a3b8;margin-top:0.5em">Los roles no son etiquetas fijas. Cambian con el tiempo y las intervenciones. El sociograma es una foto, no una sentencia.</p>
       </section>
 
       <!-- EXPORTS -->
@@ -282,17 +280,17 @@
       <section>
         <h2>🔒 Privacidad y datos</h2>
         <div style="text-align:left;max-width:650px;margin:auto">
-          <div class="card" style="margin-bottom:0.8em;background:#f0fdf4;border-color:#bbf7d0">
+          <div class="card" style="margin-bottom:0.5em;background:#f0fdf4;border-color:#bbf7d0">
             <p class="card-title" style="color:#16a34a">💻 100% local</p>
-            <p style="font-size:0.7em">Todos los datos se almacenan en tu navegador (IndexedDB). No hay servidor, no hay registro, no hay cookies de terceros.</p>
+            <p style="font-size:0.65em">Todos los datos se almacenan en tu navegador (IndexedDB). No hay servidor, no hay registro, no hay cookies de terceros.</p>
           </div>
-          <div class="card" style="margin-bottom:0.8em;background:#eef2ff;border-color:#c7d2fe">
+          <div class="card" style="margin-bottom:0.5em;background:#eef2ff;border-color:#c7d2fe">
             <p class="card-title" style="color:#4f46e5">✅ Cumplimiento legal</p>
-            <p style="font-size:0.7em">Como no hay tratamiento externo de datos, el uso de la app cumple directamente con LOPDGDD (España) y GDPR (Europa).</p>
+            <p style="font-size:0.65em">Como no hay tratamiento externo de datos, el uso de la app cumple directamente con LOPDGDD (España) y GDPR (Europa).</p>
           </div>
           <div class="card" style="background:#f8fafc;border-color:#cbd5e1">
             <p class="card-title">📤 Tú controlas tus datos</p>
-            <p style="font-size:0.7em">Puedes exportarlos, borrarlos, compartirlos o importarlos cuando quieras. Nada sale de tu dispositivo sin tu permiso explícito.</p>
+            <p style="font-size:0.65em">Puedes exportarlos, borrarlos, compartirlos o importarlos cuando quieras. Nada sale de tu dispositivo sin tu permiso explícito.</p>
           </div>
         </div>
       </section>
@@ -376,26 +374,22 @@
 
       <!-- GETTING STARTED -->
       <section>
-        <h2>🚀 ¡Empieza ahora!</h2>
+        <h2 style="margin-bottom:0.3em">🚀 ¡Empieza ahora!</h2>
         <div style="text-align:left;max-width:600px;margin:auto">
-          <div class="card" style="margin-bottom:0.8em;background:#eef2ff;border-color:#c7d2fe">
-            <p class="card-title" style="color:#4f46e5">1️⃣ Abre la aplicación</p>
-            <p style="font-size:0.7em">Ve a <a href="index.html" style="color:#6366f1;font-weight:600">Sociograma Aula</a> y crea tu primer grupo.</p>
+          <div class="card" style="margin-bottom:0.3em;padding:0.4em 0.6em;background:#eef2ff;border-color:#c7d2fe">
+            <p style="font-size:0.6em"><strong>1️⃣ Abre la aplicación</strong> — Ve a <a href="index.html" style="color:#6366f1;font-weight:600">Sociograma Aula</a> y crea tu primer grupo.</p>
           </div>
-          <div class="card" style="margin-bottom:0.8em">
-            <p class="card-title">2️⃣ Añade tus alumnos</p>
-            <p style="font-size:0.7em">Usa + Alumno, + Varios o importa un CSV con la lista de la clase.</p>
+          <div class="card" style="margin-bottom:0.3em;padding:0.4em 0.6em">
+            <p style="font-size:0.6em"><strong>2️⃣ Añade tus alumnos</strong> — Usa + Alumno, + Varios o importa un CSV.</p>
           </div>
-          <div class="card" style="margin-bottom:0.8em">
-            <p class="card-title">3️⃣ Pasa el cuestionario o edita relaciones</p>
-            <p style="font-size:0.7em">Elige la opción que mejor se adapte a tu situación.</p>
+          <div class="card" style="margin-bottom:0.3em;padding:0.4em 0.6em">
+            <p style="font-size:0.6em"><strong>3️⃣ Pasa el cuestionario o edita relaciones</strong> — Elige la opción que mejor se adapte.</p>
           </div>
-          <div class="card">
-            <p class="card-title">4️⃣ Explora los resultados</p>
-            <p style="font-size:0.7em">Grafo, métricas, predicciones, equipos y distribución. Todo listo en minutos.</p>
+          <div class="card" style="padding:0.4em 0.6em">
+            <p style="font-size:0.6em"><strong>4️⃣ Explora los resultados</strong> — Grafo, métricas, equipos y distribución.</p>
           </div>
         </div>
-        <p style="font-size:0.7em;margin-top:1em"><a href="index.html" style="display:inline-block;padding:0.5em 1.5em;border-radius:8px;background:#4f46e5;color:#fff;text-decoration:none;font-weight:600">Ir a Sociograma Aula</a></p>
+        <p style="margin-top:0.5em"><a href="index.html" style="display:inline-block;padding:0.3em 1em;border-radius:6px;background:#4f46e5;color:#fff;text-decoration:none;font-weight:600;font-size:0.6em">Ir a Sociograma Aula</a></p>
       </section>
 
     </div>
@@ -406,15 +400,16 @@
   <script>
     Reveal.initialize({
       controls: true,
-      controlsLayout: 'edges',
+      controlsLayout: 'bottom-right',
       progress: true,
-      center: true,
+      center: false,
       hash: true,
+      touch: true,
       slideNumber: true,
       transition: 'slide',
       width: 960,
       height: 700,
-      margin: 0.04,
+      margin: 0.08,
     })
   </script>
 </body>
