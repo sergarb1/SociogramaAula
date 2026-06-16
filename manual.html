@@ -23,10 +23,12 @@
     .reveal .card p { margin-bottom: 0.15em; }
     .reveal .card-title { font-weight: 700; margin-bottom: 0.1em; font-size: 0.95em; }
     .reveal .role-dot { display: inline-block; width: 0.6em; height: 0.6em; border-radius: 50%; margin-right: 0.3em; }
-    .reveal .footer-link { position: fixed; bottom: 0.5em; left: 0.5em; font-size: 0.45em; color: #94a3b8; z-index: 30; }
-    .reveal .footer-link a { color: #6366f1; text-decoration: underline; }
-    .reveal .nav-back { position: fixed; top: 0.5em; left: 0.5em; font-size: 0.45em; z-index: 30; }
-    .reveal .nav-back a { display: inline-block; padding: 0.4em 0.8em; border-radius: 6px; background: #6366f1; color: #fff; text-decoration: none; font-weight: 600; }
+    .reveal .footer-link { position: fixed; bottom: 0.8em; left: 50%; transform: translateX(-50%); font-size: 0.5em; color: #94a3b8; z-index: 30; background: rgba(255,255,255,0.85); padding: 0.3em 1em; border-radius: 999px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); backdrop-filter: blur(4px); }
+    .reveal .footer-link a { color: #6366f1; text-decoration: none; }
+    .reveal .footer-link a:hover { text-decoration: underline; }
+    .reveal .nav-back { position: fixed; top: 0.8em; left: 0.8em; font-size: 0.5em; z-index: 30; }
+    .reveal .nav-back a { display: inline-flex; align-items: center; gap: 0.3em; padding: 0.3em 0.8em; border-radius: 999px; background: rgba(255,255,255,0.85); color: #475569; text-decoration: none; font-weight: 500; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); backdrop-filter: blur(4px); transition: all 0.15s; }
+    .reveal .nav-back a:hover { background: #6366f1; color: #fff; border-color: #6366f1; }
     .reveal section { text-align: center; }
     .reveal section.left { text-align: left; }
     .reveal .compact p { margin-bottom: 0.3em; }
@@ -34,8 +36,8 @@
   </style>
 </head>
 <body>
-  <div class="nav-back"><a href="index.html">← Sociograma Aula</a></div>
-  <div class="footer-link">Manual interactivo · <a href="ayuda.html">Versión detallada</a> · <a href="https://github.com/sergarb1/SociogramaAula">GitHub</a></div>
+  <div class="nav-back"><a href="index.html">← Volver a la app</a></div>
+  <div class="footer-link"><a href="ayuda.html">📖 Guía detallada</a> · <a href="https://github.com/sergarb1/SociogramaAula" target="_blank">GitHub</a></div>
 
   <div class="reveal">
     <div class="slides">
