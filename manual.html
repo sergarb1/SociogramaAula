@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sociograma Aula — Manual interactivo</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19' fill='%236366f1'/%3E%3Ccircle cx='14' cy='14' r='4' fill='%23fff' opacity='0.9'/%3E%3Ccircle cx='28' cy='12' r='3.5' fill='%23fff' opacity='0.85'/%3E%3Ccircle cx='20' cy='26' r='3.5' fill='%23fff' opacity='0.85'/%3E%3Ccircle cx='10' cy='28' r='3' fill='%23fff' opacity='0.7'/%3E%3Ccircle cx='32' cy='24' r='2.5' fill='%23fff' opacity='0.6'/%3E%3C/svg%3E" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
+  <script>if(typeof Reveal === 'undefined'){document.write('<link rel="stylesheet" href="js/vendor/reveal.css"><link rel="stylesheet" href="js/vendor/white.css">')}</script>
+  <style>
+    .reveal h1 { color: #4f46e5; }
+    .reveal h2 { color: #6366f1; font-size: 1.6em; }
+    .reveal h3 { color: #1e293b; }
+    .reveal p { color: #334155; }
+    .reveal ul { display: block; }
+    .reveal li { color: #475569; margin-bottom: 0.4em; font-size: 0.85em; }
+    .reveal .badge { display: inline-block; padding: 0.15em 0.6em; border-radius: 999px; font-size: 0.6em; font-weight: 600; margin: 0 0.2em; }
+    .reveal .step-number { display: inline-flex; align-items: center; justify-content: center; width: 1.8em; height: 1.8em; border-radius: 50%; font-weight: 700; font-size: 0.9em; margin-right: 0.4em; }
+    .reveal .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em; text-align: left; }
+    .reveal .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1em; text-align: left; }
+    .reveal .card { padding: 1em; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 0.75em; }
+    .reveal .card-title { font-weight: 700; margin-bottom: 0.3em; }
+    .reveal .role-dot { display: inline-block; width: 0.7em; height: 0.7em; border-radius: 50%; margin-right: 0.3em; }
+    .reveal .footer-link { position: fixed; bottom: 1em; left: 1em; font-size: 0.5em; color: #94a3b8; z-index: 30; }
+    .reveal .footer-link a { color: #6366f1; text-decoration: underline; }
+    .reveal .nav-back { position: fixed; top: 1em; left: 1em; font-size: 0.5em; z-index: 30; }
+    .reveal .nav-back a { display: inline-block; padding: 0.5em 1em; border-radius: 8px; background: #6366f1; color: #fff; text-decoration: none; font-weight: 600; }
+    .reveal section { text-align: center; }
+    .reveal section.left { text-align: left; }
+  </style>
+</head>
+<body>
+  <div class="nav-back"><a href="index.html">← Sociograma Aula</a></div>
+  <div class="footer-link">Manual interactivo · <a href="ayuda.html">Versión detallada</a> · <a href="https://github.com/sergarb1/SociogramaAula">GitHub</a></div>
+
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- TITLE -->
+      <section>
+        <img src="logo/logo2.png" alt="Sociograma Aula" style="height:100px;margin-bottom:0.5em">
+        <h1 style="font-size:2.5em;margin-bottom:0.2em">Sociograma Aula</h1>
+        <p style="font-size:1.1em;color:#64748b">Herramienta gratuita de sociometría para entender las relaciones de tu grupo</p>
+        <p style="font-size:0.7em;color:#94a3b8;margin-top:2em">Navega con ← → · <a href="index.html" style="color:#6366f1;font-weight:600">Ir a la app</a></p>
+      </section>
+
+      <!-- WHAT IS A SOCIOGRAM -->
+      <section>
+        <h2>¿Qué es un sociograma?</h2>
+        <div class="grid-2">
+          <div class="card">
+            <p style="font-size:0.8em;line-height:1.5">Un <strong>sociograma</strong> es un mapa visual de las relaciones sociales dentro de un grupo. Creado por <strong>Jacob L. Moreno</strong> en los años 30.</p>
+            <p style="font-size:0.75em;line-height:1.5;margin-top:0.8em">Muestra quién elige a quién, quién queda aislado, quién conecta subgrupos… cosas que el ojo humano no siempre detecta.</p>
+          </div>
+          <div class="card" style="background:#eef2ff;border-color:#c7d2fe">
+            <p class="card-title" style="color:#4f46e5">🎯 ¿Para qué sirve?</p>
+            <ul style="font-size:0.7em">
+              <li>🔍 Detectar líderes positivos</li>
+              <li>🆘 Identificar alumnos aislados</li>
+              <li>⚡ Localizar conflictos latentes</li>
+              <li>👥 Formar equipos equilibrados</li>
+              <li>🏫 Distribuir la clase</li>
+              <li>📈 Hacer seguimiento temporal</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- OVERVIEW 5 STEPS -->
+      <section>
+        <h2>La app en 5 pasos</h2>
+        <div class="grid-2" style="grid-template-columns:1fr 1fr 1fr">
+          <div class="card">
+            <p class="step-number" style="background:#e0e7ff;color:#4f46e5">1</p>
+            <span class="card-title">Grupos</span>
+            <p style="font-size:0.65em;color:#64748b">Crea tu clase, añade alumnos, usa plantillas o importa CSV</p>
+          </div>
+          <div class="card">
+            <p class="step-number" style="background:#dcfce7;color:#16a34a">2</p>
+            <span class="card-title">Cuestionario</span>
+            <p style="font-size:0.65em;color:#64748b">Cada alumno responde en tu dispositivo. Guardado automático</p>
+          </div>
+          <div class="card">
+            <p class="step-number" style="background:#fef3c7;color:#d97706">3</p>
+            <span class="card-title">Resultados</span>
+            <p style="font-size:0.65em;color:#64748b">Grafo, métricas, predicciones, editor y matriz</p>
+          </div>
+          <div class="card">
+            <p class="step-number" style="background:#dcfce7;color:#16a34a">4</p>
+            <span class="card-title">Equipos</span>
+            <p style="font-size:0.65em;color:#64748b">Formación de equipos equilibrados según relaciones</p>
+          </div>
+          <div class="card">
+            <p class="step-number" style="background:#f3e8ff;color:#9333ea">5</p>
+            <span class="card-title">Distribución</span>
+            <p style="font-size:0.65em;color:#64748b">Distribución del aula en mesas (cuadrícula, filas o U)</p>
+          </div>
+        </div>
+        <p style="font-size:0.6em;color:#94a3b8;margin-top:1em">Puedes navegar entre pasos libremente pulsando el número en la barra superior</p>
+      </section>
+
+      <!-- STEP 1: GROUPS -->
+      <section>
+        <h2><span class="step-number" style="background:#e0e7ff;color:#4f46e5">1</span> Grupos</h2>
+        <div style="text-align:left;max-width:700px;margin:auto">
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">➕ Crear grupo</p>
+            <p style="font-size:0.7em">Escribe el nombre del grupo y pulsa <strong>Crear</strong>. También puedes usar <strong>📋 Desde plantilla</strong> con clases predefinidas.</p>
+          </div>
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">👤 Añadir alumnos</p>
+            <p style="font-size:0.7em">Añade uno a uno con <strong>+ Alumno</strong> o varios a la vez con <strong>+ Varios</strong> (un nombre por línea). También puedes <strong>importar un CSV</strong>.</p>
+          </div>
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">🧪 Datos de prueba</p>
+            <p style="font-size:0.7em">Usa el botón <strong>🧪 Datos prueba</strong> para cargar 3 grupos simulados y explorar la app sin crear datos reales.</p>
+          </div>
+          <div class="card">
+            <p class="card-title">🔄 Reordenar</p>
+            <p style="font-size:0.7em">Arrastra los nombres para cambiar el orden de los alumnos en la lista.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 2: QUESTIONNAIRE -->
+      <section>
+        <h2><span class="step-number" style="background:#dcfce7;color:#16a34a">2</span> Cuestionario</h2>
+        <div style="text-align:left;max-width:700px;margin:auto">
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">📝 ¿Cómo funciona?</p>
+            <p style="font-size:0.7em">Cada alumno responde en tu dispositivo, uno por uno. Selecciona quién responde y el alumno elige compañeros según las preguntas activas.</p>
+          </div>
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">🎛️ Personaliza las preguntas</p>
+            <p style="font-size:0.7em">Usa las <strong>plantillas</strong> (General, Primaria, ESO, Bachillerato…) o activa/desactiva preguntas individualmente. Ajusta el número máximo de elecciones por pregunta.</p>
+          </div>
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">💾 Guardado automático</p>
+            <p style="font-size:0.7em">Cada elección se guarda al instante. Si cambias de alumno, las respuestas anteriores se conservan.</p>
+          </div>
+          <div class="card" style="background:#fef2f2;border-color:#fecaca">
+            <p class="card-title" style="color:#dc2626">⏭️ ¿Demasiado largo?</p>
+            <p style="font-size:0.7em">Si ya conoces las relaciones del grupo, salta al paso 3 y edítalas manualmente con el editor de relaciones.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 3: RESULTS - GRAPH -->
+      <section>
+        <h2><span class="step-number" style="background:#fef3c7;color:#d97706">3</span> Resultados — Grafo</h2>
+        <div style="text-align:left;max-width:700px;margin:auto">
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">🕸️ Grafo interactivo</p>
+            <p style="font-size:0.7em">Cada alumno es un nodo. Las flechas verdes son elecciones, las rojas discontinuas son rechazos. El color del nodo indica su <strong>rol sociométrico</strong>.</p>
+          </div>
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">👆 Interacción</p>
+            <p style="font-size:0.7em">Haz clic en un alumno para ver sus relaciones. Arrastra los nodos para reordenar el grafo. Usa la rueda del ratón para zoom.</p>
+          </div>
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">🎨 Leyenda</p>
+            <p style="font-size:0.7em">🟢 Líder · 🔵 Popular · 🟡 Puente · 🔴 Rechazado · ⚪ Aislado · 🟣 Neutro</p>
+          </div>
+          <div class="card">
+            <p class="card-title">📸 Exportar</p>
+            <p style="font-size:0.7em">Botón 🖼️ para exportar el grafo como PNG. Botón ⟳ para re-centrar la vista.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 3: RESULTS - METRICS -->
+      <section>
+        <h2><span class="step-number" style="background:#fef3c7;color:#d97706">3</span> Resultados — Métricas</h2>
+        <div class="grid-3">
+          <div class="card"><span class="card-title">📈 Cohesión</span><p style="font-size:0.65em">% de relaciones recíprocas. Mide la confianza mutua.</p></div>
+          <div class="card"><span class="card-title">📊 Densidad</span><p style="font-size:0.65em">% de conexiones existentes. Indica cuán conectado está el grupo.</p></div>
+          <div class="card"><span class="card-title">🔍 Aislamiento</span><p style="font-size:0.65em">% de alumnos sin elecciones. Riesgo de exclusión.</p></div>
+          <div class="card"><span class="card-title">🔄 Reciprocidad</span><p style="font-size:0.65em">% de elecciones correspondidas. Relaciones sólidas.</p></div>
+          <div class="card"><span class="card-title">🌉 Centralización</span><p style="font-size:0.65em">Grado de concentración en pocos alumnos.</p></div>
+          <div class="card"><span class="card-title">📉 Gini</span><p style="font-size:0.65em">Desigualdad en distribución de elecciones/rechazos.</p></div>
+        </div>
+        <div class="card" style="margin-top:1em;background:#eef2ff;border-color:#c7d2fe;font-size:0.7em">
+          También se generan <strong>predicciones</strong> automáticas (riesgos y oportunidades) y un <strong>análisis inteligente</strong> con subgrupos, alumnos puente y recomendaciones.
+        </div>
+      </section>
+
+      <!-- STEP 4: TEAMS -->
+      <section>
+        <h2><span class="step-number" style="background:#dcfce7;color:#16a34a">4</span> Equipos</h2>
+        <div style="text-align:left;max-width:700px;margin:auto">
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">👥 Formar equipos</p>
+            <p style="font-size:0.7em">Selecciona el tamaño de equipo y el algoritmo crea grupos equilibrados separando a quienes se rechazan y juntando a quienes se eligen.</p>
+          </div>
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">🏷️ Roles visibles</p>
+            <p style="font-size:0.7em">Cada alumno muestra su rol sociométrico con un color en el borde, ayudando a equilibrar los equipos.</p>
+          </div>
+          <div class="card">
+            <p class="card-title">🎲 Generación automática</p>
+            <p style="font-size:0.7em">Cada vez que pulsas <strong>Generar</strong> se crea una nueva distribución. El algoritmo tiene en cuenta elecciones, rechazos y roles.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 5: DISTRIBUTION -->
+      <section>
+        <h2><span class="step-number" style="background:#f3e8ff;color:#9333ea">5</span> Distribución del aula</h2>
+        <div style="text-align:left;max-width:700px;margin:auto">
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">🏫 Distribución del aula</p>
+            <p style="font-size:0.7em">Coloca a los alumnos en mesas con 3 diseños: <strong>Cuadrícula</strong>, <strong>Filas</strong> o <strong>En U</strong>.</p>
+          </div>
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">🔄 Arrastrar y soltar</p>
+            <p style="font-size:0.7em">Reordena alumnos entre mesas arrastrándolos. La cohesión de cada mesa se muestra en porcentaje.</p>
+          </div>
+          <div class="card">
+            <p class="card-title">🖼️ Exportar como PNG</p>
+            <p style="font-size:0.7em">Guarda la distribución como imagen para imprimir o compartir con el equipo educativo.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ROLES -->
+      <section>
+        <h2>🏷️ Roles sociométricos</h2>
+        <div class="grid-3">
+          <div class="card" style="background:#f0fdf4;border-color:#bbf7d0">
+            <p><span class="role-dot" style="background:#22c55e"></span><span class="card-title">Líder</span></p>
+            <p style="font-size:0.6em">Muchas elecciones, pocos rechazos. Referente positivo. Puede ser mediador.</p>
+          </div>
+          <div class="card" style="background:#eef2ff;border-color:#c7d2fe">
+            <p><span class="role-dot" style="background:#6366f1"></span><span class="card-title">Popular</span></p>
+            <p style="font-size:0.6em">Bien valorado. Recibe elecciones de varios compañeros.</p>
+          </div>
+          <div class="card" style="background:#fffbeb;border-color:#fde68a">
+            <p><span class="role-dot" style="background:#f59e0b"></span><span class="card-title">Puente</span></p>
+            <p style="font-size:0.6em">Conecta subgrupos. Ideal para cohesionar el grupo.</p>
+          </div>
+          <div class="card" style="background:#fef2f2;border-color:#fecaca">
+            <p><span class="role-dot" style="background:#ef4444"></span><span class="card-title">Rechazado</span></p>
+            <p style="font-size:0.6em">Más rechazos que elecciones. Requiere atención prioritaria.</p>
+          </div>
+          <div class="card" style="background:#f8fafc;border-color:#cbd5e1">
+            <p><span class="role-dot" style="background:#94a3b8"></span><span class="card-title">Aislado</span></p>
+            <p style="font-size:0.6em">Sin elecciones. Riesgo alto de exclusión. Prioridad de intervención.</p>
+          </div>
+          <div class="card" style="background:#faf5ff;border-color:#e9d5ff">
+            <p><span class="role-dot" style="background:#a855f7"></span><span class="card-title">Neutro</span></p>
+            <p style="font-size:0.6em">Sin relaciones significativas. Perfil medio.</p>
+          </div>
+        </div>
+        <p style="font-size:0.55em;color:#94a3b8;margin-top:1em">Los roles no son etiquetas fijas. Cambian con el tiempo y las intervenciones. El sociograma es una foto, no una sentencia.</p>
+      </section>
+
+      <!-- EXPORTS -->
+      <section>
+        <h2>📤 Exportación e informes</h2>
+        <div class="grid-2">
+          <div class="card">
+            <p class="card-title">📄 Informe HTML</p>
+            <p style="font-size:0.65em">Informe completo imprimible con métricas, roles, análisis de subgrupos, conflictos y recomendaciones personalizadas.</p>
+          </div>
+          <div class="card">
+            <p class="card-title">🤖 Informe anonimizado</p>
+            <p style="font-size:0.65em">Los nombres se sustituyen por códigos (S_01, S_02…). Ideal para compartir con asistentes de IA o el equipo de orientación.</p>
+          </div>
+          <div class="card">
+            <p class="card-title">📥 JSON completo</p>
+            <p style="font-size:0.65em">Exporta todos los datos (grupos, respuestas, matriz, distribución) para copia de seguridad o análisis externo.</p>
+          </div>
+          <div class="card">
+            <p class="card-title">📋 CSV</p>
+            <p style="font-size:0.65em">Exporta la lista de alumnos o la matriz sociométrica en formato CSV para hojas de cálculo.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRIVACY -->
+      <section>
+        <h2>🔒 Privacidad y datos</h2>
+        <div style="text-align:left;max-width:650px;margin:auto">
+          <div class="card" style="margin-bottom:0.8em;background:#f0fdf4;border-color:#bbf7d0">
+            <p class="card-title" style="color:#16a34a">💻 100% local</p>
+            <p style="font-size:0.7em">Todos los datos se almacenan en tu navegador (IndexedDB). No hay servidor, no hay registro, no hay cookies de terceros.</p>
+          </div>
+          <div class="card" style="margin-bottom:0.8em;background:#eef2ff;border-color:#c7d2fe">
+            <p class="card-title" style="color:#4f46e5">✅ Cumplimiento legal</p>
+            <p style="font-size:0.7em">Como no hay tratamiento externo de datos, el uso de la app cumple directamente con LOPDGDD (España) y GDPR (Europa).</p>
+          </div>
+          <div class="card" style="background:#f8fafc;border-color:#cbd5e1">
+            <p class="card-title">📤 Tú controlas tus datos</p>
+            <p style="font-size:0.7em">Puedes exportarlos, borrarlos, compartirlos o importarlos cuando quieras. Nada sale de tu dispositivo sin tu permiso explícito.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIPS -->
+      <section>
+        <h2>💡 Consejos prácticos</h2>
+        <div class="grid-3">
+          <div class="card">
+            <p class="card-title">🎯 Hazlo al inicio y mitad de curso</p>
+            <p style="font-size:0.6em">Compara cómo evolucionan las relaciones. Detecta mejoras o nuevos conflictos.</p>
+          </div>
+          <div class="card">
+            <p class="card-title">🤫 Garantiza el anonimato</p>
+            <p style="font-size:0.6em">Explica a los alumnos que nadie verá sus respuestas individuales. Solo tú ves el mapa grupal.</p>
+          </div>
+          <div class="card">
+            <p class="card-title">👀 No te fíes solo de la intuición</p>
+            <p style="font-size:0.6em">Los alumnos aislados suelen pasar desapercibidos. El sociograma los saca a la luz.</p>
+          </div>
+          <div class="card">
+            <p class="card-title">🔄 Actúa y vuelve a medir</p>
+            <p style="font-size:0.6em">Haz una intervención y repite el sociograma para ver si funciona.</p>
+          </div>
+          <div class="card">
+            <p class="card-title">📋 Comparte con el departamento</p>
+            <p style="font-size:0.6em">Usa los informes anonimizados para hablar con orientación sin revelar identidades.</p>
+          </div>
+          <div class="card">
+            <p class="card-title">🤖 Pide ayuda a la IA</p>
+            <p style="font-size:0.6em">Exporta un informe anonimizado y pídele a ChatGPT, Claude, etc. que lo analice con prompts personalizados.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI PROMPTS -->
+      <section>
+        <h2>🤖 Usa la IA con tus datos</h2>
+        <div class="card" style="background:#fffbeb;border-color:#fde68a;max-width:650px;margin:auto">
+          <p style="font-size:0.75em;color:#92400e">Exporta un <strong>informe anonimizado</strong> (nombres codificados) y pídele a un asistente de IA que lo analice. Ejemplos de prompts:</p>
+          <ul style="font-size:0.7em;color:#b45309;margin-top:0.8em">
+            <li style="margin-bottom:0.5em">→ "Analiza este sociograma y dime qué dinámicas de grupo observas"</li>
+            <li style="margin-bottom:0.5em">→ "¿Qué alumnos necesitan más atención según estos datos?"</li>
+            <li style="margin-bottom:0.5em">→ "Propón una intervención para mejorar la cohesión del grupo"</li>
+            <li style="margin-bottom:0.5em">→ "¿Cómo distribuirías los equipos de trabajo basándote en estas relaciones?"</li>
+          </ul>
+        </div>
+        <p style="font-size:0.6em;color:#94a3b8;margin-top:1em">Los informes anonimizados usan códigos S_01, S_02… en lugar de nombres reales</p>
+      </section>
+
+      <!-- INTERPRETATION -->
+      <section>
+        <h2>📊 Cómo interpretar</h2>
+        <div class="grid-2">
+          <div class="card" style="background:#f0fdf4;border-color:#bbf7d0">
+            <p class="card-title" style="color:#16a34a">📈 Cohesión alta (&gt;50%)</p>
+            <p style="font-size:0.65em">El grupo funciona bien. Aprovecha para proyectos colaborativos complejos.</p>
+          </div>
+          <div class="card" style="background:#fef2f2;border-color:#fecaca">
+            <p class="card-title" style="color:#dc2626">📉 Cohesión baja (&lt;25%)</p>
+            <p style="font-size:0.65em">Grupo fragmentado. Prioriza dinámicas de cohesión antes de trabajos en equipo.</p>
+          </div>
+          <div class="card" style="background:#fef2f2;border-color:#fecaca">
+            <p class="card-title" style="color:#dc2626">🚨 Aislamiento alto (&gt;30%)</p>
+            <p style="font-size:0.65em">Muchos alumnos sin elecciones. Intervención temprana recomendada.</p>
+          </div>
+          <div class="card" style="background:#f0fdf4;border-color:#bbf7d0">
+            <p class="card-title" style="color:#16a34a">🔄 Reciprocidad alta</p>
+            <p style="font-size:0.65em">Elecciones correspondidas. Relaciones sólidas y estables.</p>
+          </div>
+          <div class="card" style="background:#faf5ff;border-color:#e9d5ff">
+            <p class="card-title" style="color:#9333ea">🌉 Centralización alta</p>
+            <p style="font-size:0.65em">Pocos alumnos concentran las elecciones. El grupo depende de figuras centrales.</p>
+          </div>
+          <div class="card" style="background:#fff7ed;border-color:#fed7aa">
+            <p class="card-title" style="color:#ea580c">🔄 Figuras polarizadoras</p>
+            <p style="font-size:0.65em">Generan opiniones divididas. Requieren observación y mediación.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- GETTING STARTED -->
+      <section>
+        <h2>🚀 ¡Empieza ahora!</h2>
+        <div style="text-align:left;max-width:600px;margin:auto">
+          <div class="card" style="margin-bottom:0.8em;background:#eef2ff;border-color:#c7d2fe">
+            <p class="card-title" style="color:#4f46e5">1️⃣ Abre la aplicación</p>
+            <p style="font-size:0.7em">Ve a <a href="index.html" style="color:#6366f1;font-weight:600">Sociograma Aula</a> y crea tu primer grupo.</p>
+          </div>
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">2️⃣ Añade tus alumnos</p>
+            <p style="font-size:0.7em">Usa + Alumno, + Varios o importa un CSV con la lista de la clase.</p>
+          </div>
+          <div class="card" style="margin-bottom:0.8em">
+            <p class="card-title">3️⃣ Pasa el cuestionario o edita relaciones</p>
+            <p style="font-size:0.7em">Elige la opción que mejor se adapte a tu situación.</p>
+          </div>
+          <div class="card">
+            <p class="card-title">4️⃣ Explora los resultados</p>
+            <p style="font-size:0.7em">Grafo, métricas, predicciones, equipos y distribución. Todo listo en minutos.</p>
+          </div>
+        </div>
+        <p style="font-size:0.7em;margin-top:1em"><a href="index.html" style="display:inline-block;padding:0.5em 1.5em;border-radius:8px;background:#4f46e5;color:#fff;text-decoration:none;font-weight:600">Ir a Sociograma Aula</a></p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.js"></script>
+  <script>if(typeof Reveal === 'undefined'){document.write('<script src="js/vendor/reveal.js"><\/script>')}</script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      controlsLayout: 'edges',
+      progress: true,
+      center: true,
+      hash: true,
+      slideNumber: true,
+      transition: 'slide',
+      width: 960,
+      height: 700,
+      margin: 0.04,
+    })
+  </script>
+</body>
+</html>

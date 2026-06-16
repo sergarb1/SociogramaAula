@@ -209,6 +209,15 @@ function downloadAnonymizedReportHTML(group, metrics, roles, predictions, matrix
 <h2>🔮 ${t('results.predictions')}</h2>${preds||'<p style="color:#94a3b8">'+t('report.noData')+'</p>'}
 <h2>👥 ${t('report.roles')}</h2>
 <table><thead><tr><th>${t('report.student')}</th><th>${t('report.role')}</th></tr></thead><tbody>${rows}</tbody></table>
+<div style="margin-top:30px;padding:16px;border-radius:10px;background:#fffbeb;border:1px solid #fde68a;font-size:12px">
+<h3 style="font-size:13px;font-weight:700;color:#92400e;margin-bottom:6px">🤖 Usa este informe con IA</h3>
+<p style="color:#b45309;margin-bottom:8px">Copia y pega este informe en ChatGPT, Claude o cualquier asistente de IA. Prueba con estos prompts:</p>
+<ul style="color:#92400e;list-style:none;padding-left:0;space-y:2">
+<li style="margin-bottom:4px">→ "Analiza este sociograma y dime qué dinámicas de grupo observas"</li>
+<li style="margin-bottom:4px">→ "¿Qué alumnos necesitan más atención según estos datos?"</li>
+<li style="margin-bottom:4px">→ "Propón una intervención para mejorar la cohesión de este grupo"</li>
+</ul>
+</div>
 <p style="margin-top:30px;font-size:10px;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:12px">${t('results.anonDesc')}</p>
 <p style="font-size:11px;color:#94a3b8">${t('report.generated').replace('{date}', date)}</p>
 </body></html>`

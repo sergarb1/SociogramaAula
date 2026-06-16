@@ -29,6 +29,7 @@
         <a href="#como-usar" class="text-slate-500 hover:text-indigo-600 transition">Cómo usar</a>
         <a href="#roles" class="text-slate-500 hover:text-indigo-600 transition">Roles</a>
         <a href="#datos" class="text-slate-500 hover:text-indigo-600 transition">Datos</a>
+        <a href="manual.html" class="px-3 py-1.5 rounded-lg bg-amber-500 text-white hover:bg-amber-600 transition shadow-sm">📽️ Manual</a>
         <a href="index.html" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-sm">← Volver a la app</a>
       </div>
     </div>
@@ -103,32 +104,69 @@
     <section id="como-usar" class="section-link bg-white/70 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-6 md:p-8">
       <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3"><span class="text-3xl">📖</span> Cómo usar la herramienta</h2>
 
-      <p class="text-sm text-slate-500 mb-6">La app se organiza en 4 pasos principales. Puedes navegar entre ellos libremente pulsando sobre el número en la barra superior.</p>
+      <p class="text-sm text-slate-500 mb-6">La app se organiza en 5 pasos principales. Puedes navegar entre ellos libremente pulsando sobre el número en la barra superior.</p>
 
       <div class="space-y-4">
         <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200 card-hover transition">
           <span class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-bold shrink-0">1</span>
-          <div class="text-sm"><strong class="text-slate-800">Grupos</strong><br><span class="text-slate-500">Crea tu clase, añade alumnos uno a uno, en lote o importando un <a href="ejemplo-alumnos.csv" download class="text-indigo-600 hover:underline">CSV de ejemplo</a>. También puedes cargar <strong>datos de prueba</strong> para explorar la herramienta. Los alumnos se pueden reordenar arrastrando.</span></div>
+          <div class="text-sm"><strong class="text-slate-800">Grupos</strong><br><span class="text-slate-500">Crea tu clase, añade alumnos uno a uno, en lote o importando un <a href="ejemplo-alumnos.csv" download class="text-indigo-600 hover:underline">CSV de ejemplo</a>. También puedes cargar <strong>datos de prueba</strong> para explorar la herramienta. Los alumnos se pueden reordenar arrastrando.</span>
+            <ul class="mt-2 text-xs text-slate-400 space-y-1">
+              <li>➕ <strong>Crear grupo:</strong> Escribe el nombre y pulsa Crear</li>
+              <li>📋 <strong>Desde plantilla:</strong> Usa plantillas predefinidas (1º ESO, 2º Primaria, etc.)</li>
+              <li>📄 <strong>Importar CSV:</strong> Sube un archivo con un nombre por línea</li>
+              <li>🧪 <strong>Datos de prueba:</strong> Carga 3 grupos simulados para probar la app</li>
+            </ul>
+          </div>
         </div>
         <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200 card-hover transition">
           <span class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold shrink-0">2</span>
-          <div class="text-sm"><strong class="text-slate-800">Cuestionario</strong><br><span class="text-slate-500">Cada alumno responde en tu dispositivo, uno por uno. Selecciona las preguntas según tu objetivo (plantillas por niveles educativos). Las respuestas se <strong>guardan automáticamente</strong> al hacer cada elección. Si ya conoces las relaciones, puedes saltar este paso.</span></div>
+          <div class="text-sm"><strong class="text-slate-800">Cuestionario</strong><br><span class="text-slate-500">Cada alumno responde en tu dispositivo, uno por uno. Selecciona las preguntas según tu objetivo (plantillas por niveles educativos). Las respuestas se <strong>guardan automáticamente</strong> al hacer cada elección. Si ya conoces las relaciones, puedes saltar este paso.</span>
+            <ul class="mt-2 text-xs text-slate-400 space-y-1">
+              <li>🎛️ <strong>Personaliza preguntas:</strong> Activa/desactiva preguntas, ajusta máximos por pregunta</li>
+              <li>📋 <strong>Plantillas:</strong> General, Primaria, ESO, Bachillerato, Convivencia, Inclusión</li>
+              <li>💾 <strong>Auto-guardado:</strong> Cada elección se guarda al instante</li>
+              <li>⏭️ <strong>Saltar cuestionario:</strong> Si ya conoces las relaciones, ve directo a Resultados</li>
+            </ul>
+          </div>
         </div>
         <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200 card-hover transition">
           <span class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-sm font-bold shrink-0">3</span>
-          <div class="text-sm"><strong class="text-slate-800">Resultados</strong><br><span class="text-slate-500">El <strong>grafo interactivo</strong> muestra las relaciones con colores por rol. Las métricas (cohesión, densidad, aislamiento, <strong>reciprocidad, centralización</strong>) se calculan automáticamente. El análisis inteligente detecta <strong>subgrupos, alumnos puente, figuras polarizadoras y cadenas de rechazo</strong>. Puedes buscar alumnos por nombre en la lista lateral.</span></div>
+          <div class="text-sm"><strong class="text-slate-800">Resultados</strong><br><span class="text-slate-500">El <strong>grafo interactivo</strong> muestra las relaciones con colores por rol. Las métricas (cohesión, densidad, aislamiento, <strong>reciprocidad, centralización</strong>) se calculan automáticamente. El análisis inteligente detecta <strong>subgrupos, alumnos puente, figuras polarizadoras y cadenas de rechazo</strong>. Puedes buscar alumnos por nombre en la lista lateral. También puedes editar relaciones manualmente o ver la matriz sociométrica.</span>
+            <ul class="mt-2 text-xs text-slate-400 space-y-1">
+              <li>🕸️ <strong>Grafo:</strong> Nodos coloreados por rol, flechas de elección/rechazo. Arrastra nodos, haz zoom</li>
+              <li>📊 <strong>Métricas:</strong> Cohesión, densidad, aislamiento, reciprocidad, centralización, Gini</li>
+              <li>🔮 <strong>Predicciones:</strong> Riesgos y oportunidades detectados automáticamente</li>
+              <li>🧠 <strong>Análisis inteligente:</strong> Subgrupos cerrados, alumnos puente, cadenas de rechazo, figuras polarizadoras</li>
+              <li>👤 <strong>Perfil individual:</strong> Haz clic en un alumno para ver sus relaciones detalladas</li>
+              <li>✏️ <strong>Editor de relaciones:</strong> Añade o modifica relaciones manualmente</li>
+            </ul>
+          </div>
         </div>
         <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200 card-hover transition">
-          <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-sm font-bold shrink-0">4</span>
-          <div class="text-sm"><strong class="text-slate-800">Organización</strong><br><span class="text-slate-500">Aquí tienes tres herramientas:
-            <br>📋 <strong>Matriz editable</strong> — Añade o quita relaciones haciendo clic.
-            <br>👥 <strong>Formar equipos</strong> — El algoritmo crea grupos equilibrados según las relaciones.
-            <br>🪑 <strong>Distribución del aula</strong> — Coloca a los alumnos en mesas (cuadrícula, filas o forma de U) y exporta como PNG.</span></div>
+          <span class="w-8 h-8 rounded-full bg-green-200 text-green-700 flex items-center justify-center text-sm font-bold shrink-0">4</span>
+          <div class="text-sm"><strong class="text-slate-800">Equipos</strong><br><span class="text-slate-500">Forma equipos equilibrados según las relaciones del grupo. El algoritmo separa a quienes se rechazan y agrupa a quienes se eligen, teniendo en cuenta los roles de cada alumno.</span>
+            <ul class="mt-2 text-xs text-slate-400 space-y-1">
+              <li>👥 <strong>Tamaño de equipo:</strong> Ajusta el número de miembros por equipo</li>
+              <li>🎲 <strong>Generación automática:</strong> El algoritmo crea equipos cohesionados</li>
+              <li>🏷️ <strong>Roles visibles:</strong> Cada alumno muestra su rol para equilibrar los grupos</li>
+            </ul>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200 card-hover transition">
+          <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-sm font-bold shrink-0">5</span>
+          <div class="text-sm"><strong class="text-slate-800">Distribución del aula</strong><br><span class="text-slate-500">Coloca a los alumnos en la clase con 3 diseños: cuadrícula, filas o en U. Arrastra alumnos entre mesas para reordenar. Exporta como PNG para imprimir o compartir.</span>
+            <ul class="mt-2 text-xs text-slate-400 space-y-1">
+              <li>🪑 <strong>3 diseños:</strong> Cuadrícula, Filas, En U</li>
+              <li>🔄 <strong>Arrastrar y soltar:</strong> Reordena alumnos entre mesas</li>
+              <li>📊 <strong>Cohesión por mesa:</strong> Porcentaje de afinidad dentro de cada grupo</li>
+              <li>🖼️ <strong>Exportar PNG:</strong> Guarda la distribución como imagen</li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="mt-6 grid md:grid-cols-2 gap-4">
         <div class="p-4 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100 text-sm text-indigo-700">
-          <p class="flex items-start gap-2">📤 <span><strong>Exportación:</strong> Desde el botón <strong>"Exportar JSON"</strong> exportas todos los datos completos. El botón <strong>"Importar JSON"</strong> los restaura. Para importar solo una lista de alumnos, usa <strong>"Importar CSV"</strong> dentro del grupo. También puedes generar informes HTML imprimibles, PNG del grafo y exportaciones anonimizadas.</span></p>
+          <p class="flex items-start gap-2">📤 <span><strong>Exportación:</strong> Puedes exportar <strong>JSON</strong> completo (copia de seguridad), <strong>informe HTML</strong> imprimible con análisis inteligente, <strong>informe anonimizado</strong> para IA (nombres codificados), <strong>CSV</strong> de alumnos o matriz, y <strong>PNG</strong> del grafo o la distribución del aula.</span></p>
         </div>
         <div class="p-4 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-100 text-sm text-amber-700">
           <p class="flex items-start gap-2">⏱️ <span><strong>Tiempo estimado:</strong> Crear el grupo (2 min) + Pasar el cuestionario (1-2 min por alumno) + Interpretar resultados (5-10 min). Si ya conoces las relaciones, ve directo a Resultados y defínelas manualmente en 5 minutos.</span></p>
@@ -211,6 +249,15 @@
           </ul>
         </div>
       </div>
+      <div class="mt-4 p-4 rounded-xl bg-amber-50 border border-amber-200 text-sm">
+        <p class="font-semibold text-amber-800 flex items-center gap-2">🤖 Usa los informes anonimizados con IA</p>
+        <p class="text-amber-600 mt-1">Los informes anonimizados (nombres reemplazados por códigos como S_01, S_02…) son ideales para pedir a un asistente de IA (ChatGPT, Claude, etc.) que analice las dinámicas del grupo. Puedes usar prompts como:</p>
+        <ul class="mt-2 text-amber-700 text-xs space-y-1">
+          <li>→ "Analiza este sociograma y dime qué dinámicas de grupo observas"</li>
+          <li>→ "¿Qué alumnos necesitan más atención según estos datos?"</li>
+          <li>→ "Propón una intervención para mejorar la cohesión del grupo"</li>
+        </ul>
+      </div>
     </section>
 
     <!-- INTERPRETACIÓN -->
@@ -288,6 +335,10 @@
           <span class="text-xl shrink-0">🏫</span>
           <div><strong>Usa la distribución de clase</strong><br><span class="text-slate-500">Separa a quienes se rechazan y junta a quienes pueden ayudarse. Prueba disposiciones en U o por filas.</span></div>
         </div>
+        <div class="p-3 rounded-xl bg-white border border-slate-200 flex items-start gap-3">
+          <span class="text-xl shrink-0">🤖</span>
+          <div><strong>Pide ayuda a la IA</strong><br><span class="text-slate-500">Exporta un informe anonimizado y pídele a ChatGPT, Claude u otro asistente que lo analice. Los nombres están codificados (S_01, S_02…) para mantener el anonimato.</span></div>
+        </div>
       </div>
     </section>
 
@@ -350,7 +401,7 @@
     <section class="text-center py-6 text-xs text-slate-400">
       <p>📜 Licencia AGPL v3 — Comparte y mejora. Si usas el código, debe seguir siendo libre.</p>
       <p class="mt-1">Proyecto independiente · <a href="https://github.com/sergarb1/SociogramaAula" class="text-indigo-500 hover:underline">GitHub</a></p>
-      <p class="mt-1 flex items-center justify-center gap-1">📅 Actualizado: 14 de junio de 2026</p>
+      <p class="mt-1 flex items-center justify-center gap-1">📅 Actualizado: 16 de junio de 2026</p>
     </section>
   </div>
 

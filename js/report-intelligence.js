@@ -1,6 +1,6 @@
 function generateGroupAnalysis(students, matrix, roles, metrics, predictions, choicesCount, rejectionsCount) {
   const counts = computeCounts(students, matrix, choicesCount, rejectionsCount)
-  const summary = buildGroupSummary(students, metrics, roles, counts)
+  const summary = buildGroupSummary(students, metrics, roles, counts, matrix)
   const studentProfiles = buildStudentProfiles(students, matrix, roles, counts)
   const subgroups = detectSubgroups(students, matrix)
   const conflicts = analyzeConflicts(students, matrix, counts)
@@ -22,7 +22,7 @@ function computeCounts(students, matrix, choicesCount, rejectionsCount) {
   return { choicesCount: c, rejectionsCount: r }
 }
 
-function buildGroupSummary(students, metrics, roles, counts) {
+function buildGroupSummary(students, metrics, roles, counts, matrix) {
   const { choicesCount: c, rejectionsCount: r } = counts
   const n = students.length
   const totalPossible = n * (n - 1)

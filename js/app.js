@@ -360,9 +360,11 @@ const Questionnaire = {
 }
 
 const ResultsView = {
-  props: ['group', 'responses', 'questions', 'lang'],
-  emits: ['back'],
+  props: ['group', 'responses', 'questions', 'lang', 'mode'],
+  emits: ['back', 'organize'],
   template: `
+  <!-- RESULTS MODE: graph, metrics, predictions, editor, exports -->
+  <template v-if="mode === 'results'">
   <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
     <div class="lg:col-span-1 space-y-4">
       <div class="bg-white/80 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-5">
@@ -443,15 +445,13 @@ const ResultsView = {
         :class="showEdit ? 'bg-indigo-600 text-white' : 'bg-white/80 backdrop-blur border border-white/50 text-slate-700 hover:bg-white'">
         {{ showEdit ? t('results.closeEditor') : t('results.openEditor') }}
       </button>
-      <button @click="showTeams = !showTeams; if(showTeams && !teams.length) generateTeams()" class="w-full py-2.5 rounded-2xl text-sm font-medium transition shadow-lg"
-        :class="showTeams ? 'bg-green-600 text-white' : 'bg-white/80 backdrop-blur border border-white/50 text-slate-700 hover:bg-white'">
-        {{ showTeams ? t('teams.close') : t('teams.form') }}
-      </button>
-      <button @click="showDist = !showDist; if(showDist && !distGrid.length) generateDist()" class="w-full py-2.5 rounded-2xl text-sm font-medium transition shadow-lg"
-        :class="showDist ? 'bg-indigo-600 text-white' : 'bg-white/80 backdrop-blur border border-white/50 text-slate-700 hover:bg-white'">
-        {{ showDist ? t('dist.close') : t('dist.form') }}
-      </button>
       <button @click="showMatrix = !showMatrix" class="w-full py-2.5 bg-white/80 backdrop-blur rounded-2xl shadow-lg border border-white/50 text-sm font-medium text-slate-700 hover:bg-white transition">{{ showMatrix ? t('results.hideMatrix') : t('results.showMatrix') }}</button>
+      <button @click="$emit('organize')" class="w-full py-2.5 rounded-2xl text-sm font-medium transition shadow-lg bg-green-600 text-white hover:bg-green-700">
+        👥 {{ t('teams.form') }}
+      </button>
+      <button @click="goDist" class="w-full py-2.5 rounded-2xl text-sm font-medium transition shadow-lg bg-indigo-600 text-white hover:bg-indigo-700">
+        🏫 {{ t('dist.form') }}
+      </button>
       <div class="flex gap-2">
         <button @click="exportJSON" class="flex-1 py-2.5 bg-white/80 backdrop-blur rounded-2xl shadow-lg border border-white/50 text-sm font-medium text-slate-600 hover:bg-white transition">{{ t('results.exportJSON') }}</button>
         <button @click="exportHTML" class="flex-1 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl shadow-lg text-sm font-medium hover:from-indigo-700 hover:to-purple-700 transition">{{ t('results.exportReport') }}</button>
@@ -459,6 +459,12 @@ const ResultsView = {
       <div class="flex gap-2">
         <button @click="exportAnonJSON" class="flex-1 py-2 rounded-xl border border-dashed border-amber-300 text-amber-700 text-xs font-medium hover:bg-amber-50 transition">{{ t('results.anonJSON') }}</button>
         <button @click="exportAnonHTML" class="flex-1 py-2 rounded-xl bg-amber-50 border border-amber-300 text-amber-700 text-xs font-medium hover:bg-amber-100 transition">{{ t('results.anonReport') }}</button>
+      </div>
+      <div class="mt-2 p-2 rounded-lg bg-amber-50/50 border border-amber-200 text-[10px] text-amber-600 leading-relaxed">
+        {{ t('results.anonPrompt') }}<br>
+        <span class="italic">"{{ t('results.anonPrompt1') }}"</span><br>
+        <span class="italic">"{{ t('results.anonPrompt2') }}"</span><br>
+        <span class="italic">"{{ t('results.anonPrompt3') }}"</span>
       </div>
       <div class="flex gap-2">
         <button @click="downloadStudentsCSV(group)" class="flex-1 py-2 rounded-xl border border-dashed border-slate-300 text-slate-600 text-xs font-medium hover:bg-slate-50 transition">{{ t('results.csvStudents') }}</button>
@@ -575,9 +581,40 @@ const ResultsView = {
     </table>
     <div class="flex gap-4 mt-3 text-xs text-slate-400 justify-center">{{ t('matrix.legend') }}</div>
   </div>
+  </template>
 
-  <!-- Classroom Distribution -->
-  <div v-if="showDist" class="mt-6 bg-white/80 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-5" ref="distContainer">
+  <!-- TEAMS MODE -->
+  <template v-if="mode === 'teams'">
+  <div class="bg-white/80 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-5">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-sm font-semibold text-slate-700">{{ t('teams.title') }}</h3>
+      <div class="flex items-center gap-2">
+        <label class="text-xs text-slate-400">{{ t('teams.size') }}</label>
+        <input type="number" v-model.number="teamSize" min="1" max="8" class="w-14 px-2 py-1 rounded-lg border border-slate-200 text-xs text-center focus:outline-none focus:ring-2 focus:ring-indigo-300">
+        <button @click="generateTeams" class="text-xs px-2.5 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-sm">{{ t('teams.generate') }}</button>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div v-for="(team, ti) in teams" :key="ti" class="p-3 rounded-xl border border-slate-200 bg-slate-50">
+        <p class="text-xs font-semibold text-slate-600 mb-2">{{ t('teams.team') }} {{ ti + 1 }} <span class="text-slate-400 font-normal">({{ team.length }})</span></p>
+        <div class="space-y-1">
+          <div v-for="s in team" :key="s.id" class="flex items-center gap-2 px-2 py-1 rounded-lg bg-white text-xs"
+            :class="'border-l-2 ' + (roles[s.id]==='Líder'?'border-green-400':roles[s.id]==='Popular'?'border-indigo-400':roles[s.id]==='Puente'?'border-amber-400':roles[s.id]==='Rechazado'?'border-red-400':roles[s.id]==='Aislado'?'border-slate-400':'border-purple-400')">
+            <span class="shrink-0">{{ s.name }}</span>
+            <span class="ml-auto text-[10px] text-slate-400">{{ t('role.'+roleKey(roles[s.id])) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="!teams.length" class="text-center py-8 text-slate-400 text-sm">
+      <p>{{ t('teams.title') }} — {{ t('teams.generate') }}</p>
+    </div>
+  </div>
+  </template>
+
+  <!-- DISTRIBUTION MODE -->
+  <template v-if="mode === 'dist'">
+  <div class="bg-white/80 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-5" ref="distContainer">
     <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
       <h3 class="text-sm font-semibold text-slate-700">{{ t('dist.title') }}</h3>
       <div class="flex items-center gap-2 flex-wrap">
@@ -601,13 +638,10 @@ const ResultsView = {
       </div>
     </div>
     <div class="bg-slate-50 rounded-xl border-2 border-slate-200 p-4 overflow-x-auto">
-      <!-- Teacher desk (only for grid/rows layouts) -->
       <div v-if="distLayout !== 'ushape'" class="flex justify-center mb-4">
         <div class="px-6 py-2 rounded-lg bg-slate-200 text-xs font-semibold text-slate-500 uppercase tracking-wider shadow-inner">👩‍🏫 {{ t('dist.teacher') }}</div>
       </div>
-      <!-- Student tables grid -->
       <div class="space-y-3 max-w-4xl mx-auto" :class="distLayout === 'ushape' ? 'flex flex-col items-center' : ''">
-        <!-- U-shape: top row (back wall) -->
         <div v-if="distLayout === 'ushape' && distGrid.length > 0" class="flex gap-3 justify-center w-full">
           <div v-for="(table, ti) in distGrid[0]" :key="'ut-' + ti"
             class="flex-1 min-w-0 p-3 rounded-xl border-2 text-center"
@@ -627,7 +661,6 @@ const ResultsView = {
             </div>
           </div>
         </div>
-        <!-- U-shape: sides + middle rows -->
         <div v-if="distLayout === 'ushape'" class="flex gap-3 justify-center w-full">
           <div class="flex flex-col gap-3">
             <div v-for="(table, ti) in distGrid[1] || []" :key="'ul-' + ti"
@@ -669,7 +702,6 @@ const ResultsView = {
             </div>
           </div>
         </div>
-        <!-- Grid / Rows layout -->
         <div v-if="distLayout !== 'ushape'" v-for="(row, ri) in distGrid" :key="ri" class="flex gap-3 justify-center" :class="distLayout === 'rows' ? 'flex-col items-center' : ''">
           <div v-for="(table, ti) in row" :key="ti"
             class="flex-1 min-w-0 p-3 rounded-xl border-2 text-center transition hover:shadow-md"
@@ -705,34 +737,11 @@ const ResultsView = {
       <span>💡 {{ t('dist.dragHint') }}</span>
     </div>
   </div>
-
-  <!-- Teams -->
-  <div v-if="showTeams" class="mt-6 bg-white/80 backdrop-blur rounded-2xl shadow-lg border border-white/50 p-5">
-    <div class="flex items-center justify-between mb-4">
-      <h3 class="text-sm font-semibold text-slate-700">{{ t('teams.title') }}</h3>
-      <div class="flex items-center gap-2">
-        <label class="text-xs text-slate-400">{{ t('teams.size') }}</label>
-        <input type="number" v-model.number="teamSize" min="1" max="8" class="w-14 px-2 py-1 rounded-lg border border-slate-200 text-xs text-center focus:outline-none focus:ring-2 focus:ring-indigo-300">
-        <button @click="generateTeams" class="text-xs px-2.5 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-sm">{{ t('teams.generate') }}</button>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-      <div v-for="(team, ti) in teams" :key="ti" class="p-3 rounded-xl border border-slate-200 bg-slate-50">
-        <p class="text-xs font-semibold text-slate-600 mb-2">{{ t('teams.team') }} {{ ti + 1 }} <span class="text-slate-400 font-normal">({{ team.length }})</span></p>
-        <div class="space-y-1">
-          <div v-for="s in team" :key="s.id" class="flex items-center gap-2 px-2 py-1 rounded-lg bg-white text-xs"
-            :class="'border-l-2 ' + (roles[s.id]==='Líder'?'border-green-400':roles[s.id]==='Popular'?'border-indigo-400':roles[s.id]==='Puente'?'border-amber-400':roles[s.id]==='Rechazado'?'border-red-400':roles[s.id]==='Aislado'?'border-slate-400':'border-purple-400')">
-            <span class="shrink-0">{{ s.name }}</span>
-            <span class="ml-auto text-[10px] text-slate-400">{{ t('role.'+roleKey(roles[s.id])) }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>`,
+  </template>`,
 
   data() {
     return {
-      selected: null, showMatrix: false, showEdit: false, showTeams: false, showDist: false,
+      selected: null, showMatrix: false, showEdit: false,
       editFrom: '', editTo: '', dragFrom: null, dragTo: null, dragOver: null,
       showRelPopup: false,
       teamSize: 4, teams: [], teamSeed: 0, distSize: 2, distCols: 4, distGrid: [], distSeed: 0,
@@ -798,7 +807,7 @@ const ResultsView = {
       this.sortedStudents.forEach(s => { s.role = this.roles[s.id] || 'Neutro'; s.color = stringToColor(s.name) })
       this.renderIt()
     },
-    refreshGraph() { this.renderIt() },
+    goDist() { this.$emit('organize') },
     async exportPNG() { destroyGraph(); await nextTick(); await exportGraphPNG('resultsGraph', this.lang); this.renderIt() },
     exportJSON() { downloadJSON({ group:{name:this.group.name,students:this.group.students}, metrics:this.metrics, roles:this.roles, predictions:this.predictions, responses:this.responses }, `sociograma-${this.group.name}-${new Date().toISOString().slice(0,10)}.json`) },
     exportAnonJSON() { downloadAnonymizedJSON(this.group, this.metrics, this.roles, this.predictions, this.matrix, this.responses, this.lang) },
@@ -807,7 +816,6 @@ const ResultsView = {
     generateTeams() {
       this.teamSeed = (this.teamSeed || 0) + 1
       this.teams = formTeams(this.group.students, this.matrix, this.roles, this.teamSize, this.teamSeed)
-      this.showTeams = true
     },
     tableColor(ri, ti, alpha) {
       const c = COLOR_PALETTE[(ri * 3 + ti) % COLOR_PALETTE.length]
@@ -827,7 +835,6 @@ const ResultsView = {
       }
       if (row.length) grid.push(row)
       this.distGrid = grid
-      this.showDist = true
       saveDistribution(this.group.id, grid, this.distSize, this.distCols)
     },
     async exportDistPNG() {
@@ -886,6 +893,7 @@ const ResultsView = {
     renderIt() { nextTick(() => { renderGraph('resultsGraph', this.group.students, this.matrix, this.roles, (id)=>{ this.selected = id }) }) },
   },
   mounted() {
+    if (!this.group) return
     const r = computeSociogram(this.group.students, this.responses, this.activeQs)
     this.matrix = r.matrix; this.choicesCount = r.choicesCount; this.rejectionsCount = r.rejectionsCount
     this.roles = r.roles; this.metrics = r.metrics; this.predictions = r.predictions; this.result = r
@@ -952,10 +960,10 @@ const app = createApp({
       return names.map(n => ({ id: n, name: this.t(QUESTION_PRESETS[n].nameKey) }))
     },
     steps() {
-      return [this.t('step.groups'), this.t('step.questionnaire'), this.t('step.results'), this.t('step.organize')]
+      return [this.t('step.groups'), this.t('step.questionnaire'), this.t('step.results'), this.t('step.teams'), this.t('step.dist')]
     },
     stepDesc() {
-      return [this.t('step.groupsDesc'), this.t('step.questionnaireDesc'), this.t('step.resultsDesc'), this.t('step.organizeDesc')]
+      return [this.t('step.groupsDesc'), this.t('step.questionnaireDesc'), this.t('step.resultsDesc'), this.t('step.teamsDesc'), this.t('step.distDesc')]
     },
   },
   watch: {
@@ -1011,7 +1019,7 @@ const app = createApp({
       this.applyPreset('general')
     },
     async goStep(s) {
-      if (s >= 3 && s <= 4 && this.selectedGroup) {
+      if (s >= 3 && s <= 5 && this.selectedGroup) {
         const loaded = await loadResponses(this.selectedGroupId)
         if (loaded && Object.keys(loaded).length) this.responses = loaded
       }
