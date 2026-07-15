@@ -17,9 +17,9 @@ Helps teachers/counselors detect hidden group dynamics (leaders, isolated studen
 
 ## Dev Server
 ```bash
-npx live-server sociograma/ --port=5500 --no-browser
+python -m http.server 8080
 ```
-Server runs at `http://127.0.0.1:5500`
+Run in a visible console window to monitor logs. Server runs at `http://127.0.0.1:8080`
 
 ## GitHub
 - Repo: `github.com/sergarb1/SociogramaAula`

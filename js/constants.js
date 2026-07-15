@@ -8,7 +8,7 @@ function stringToColor(str) {
 
 const ROLE_KEY_MAP = { Líder:'leader', Popular:'popular', Puente:'bridge', Rechazado:'rejected', Aislado:'isolated', Neutro:'neutral' }
 
-const ROLE_CLASSES = { Líder:'bg-green-100 text-green-700', Popular:'bg-indigo-100 text-indigo-700', Puente:'bg-amber-100 text-amber-700', Rechazado:'bg-red-100 text-red-700', Aislado:'bg-slate-100 text-slate-600' }
+const ROLE_CLASSES = { Líder:'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300', Popular:'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300', Puente:'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300', Rechazado:'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300', Aislado:'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400' }
 
 const ROLE_BG = { Líder: '#dcfce7', Popular: '#eef2ff', Puente: '#fef3c7', Rechazado: '#fef2f2', Aislado: '#f1f5f9' }
 const ROLE_TEXT = { Líder: '#166534', Popular: '#4338ca', Puente: '#92400e', Rechazado: '#991b1b', Aislado: '#475569' }

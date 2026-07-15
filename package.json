@@ -1,0 +1,12 @@
+{
+  "name": "sociograma-aula",
+  "version": "2.0.0",
+  "description": "Free sociometry tool for teachers",
+  "scripts": {
+    "build:css": "npx tailwindcss -i css/input.css -o css/tailwind.css --minify",
+    "watch:css": "npx tailwindcss -i css/input.css -o css/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
+}
