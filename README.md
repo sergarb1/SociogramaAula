@@ -9,7 +9,7 @@
 ## 🚀 Usar ahora
 
 - **GitHub Pages:** https://sergarb1.github.io/SociogramaAula/
-- **Local:** Abre `index.html` en cualquier navegador. No necesita instalación ni servidor.
+- **Local:** Abre `index.html` en cualquier navegador (o `npm run dev` para desarrollo).
 
 ---
 
@@ -68,58 +68,74 @@
 
 ## 🧑‍💻 Para desarrolladores
 
+### Requisitos
+
+- **Node.js 18+** y npm
+
 ### Tecnologías
 
-| Componente | Tecnología |
-|---|---|---|
-| Interfaz | Vue 3 (CDN + local fallback) + Tailwind CSS (CDN + local fallback) |
-| Grafo | vis-network (CDN + local fallback) |
-| Almacenamiento | idb-keyval (IndexedDB) (CDN + local fallback) |
-| Exportación PNG | html2canvas (CDN + local fallback) |
-| Gráficos | Chart.js (CDN + local fallback) |
-| **Build** | **Ninguno** — Sin Node.js, sin bundler, sin servidor |
-| **Offline** | **Sí** — Todas las librerías CDN tienen copia local en `js/vendor/` como respaldo |
+| Componente       | Tecnología                          |
+|------------------|-------------------------------------|
+| Build            | Vite 6                              |
+| Interfaz         | Vue 3 + TypeScript (SFCs)           |
+| Estilos          | Tailwind CSS (PostCSS plugin)       |
+| Grafo            | vis-network (npm)                   |
+| Almacenamiento   | idb-keyval / IndexedDB (npm)        |
+| Exportación PNG  | html2canvas (npm)                   |
+| Gráficos         | Chart.js (npm)                      |
+| **Offline**      | **Sí** — Todo empaquetado por Vite  |
 
 ### Estructura del proyecto
 
 ```
 sociograma/
-├── index.html          # App principal (Vue + modales)
-├── ayuda.html          # Página de ayuda para docentes
-├── manifest.json       # PWA manifest
-├── css/style.css       # Estilos adicionales
-├── js/
-│   ├── app.js          # Componentes Vue: GroupManager, Questionnaire, ResultsView
-│   ├── sociogram.js    # Algoritmo principal: matriz, métricas, roles, predicciones
-│   ├── graph.js        # Renderizado del grafo con vis-network
-│   ├── reports.js      # Exportación: JSON, HTML, PNG, CSV, anonimizado
-│   ├── locales.js      # Traducciones ES/EN + helper t()
-│   ├── storage.js      # Wrapper IndexedDB (idb-keyval)
-│   ├── teams.js        # Algoritmo de formación de equipos
-│   ├── templates.js    # Plantillas de clase + datos de prueba
-│   ├── constants.js    # Constantes compartidas (colores, roles, utilidades)
-│   └── vendor/         # Copias locales de librerías CDN (fallback offline)
+├── index.html           # Entry point (Vite)
+├── ayuda.html           # Página de ayuda (estática)
+├── manual.html          # Manual de usuario (estático)
+├── manifest.json        # PWA manifest
+├── css/style.css        # Estilos adicionales (print, animaciones)
+├── src/
+│   ├── main.ts          # Punto de entrada de la app
+│   ├── App.vue          # Componente raíz
+│   ├── style.css        # Directivas Tailwind
+│   ├── constants.ts     # Tipos y constantes compartidas
+│   ├── components/      # 7 componentes Vue SFC
+│   ├── composables/     # useI18n, useDarkMode, useStorage
+│   └── utils/           # Lógica de dominio (sociograma, grafo, informes, etc.)
 ├── logo/
-│   └── logo2.png       # Logo de la app
-├── AGENTS.md           # Guía para asistentes de IA
-└── README.md
+│   └── logo2.png        # Logo de la app
+├── AGENTS.md            # Guía para asistentes de IA
+├── vite.config.ts
+├── tsconfig.json
+├── tailwind.config.js
+├── postcss.config.js
+└── package.json
 ```
 
-### Servidor local de desarrollo
+### Desarrollo local
 
 ```bash
-npx live-server sociograma/ --port=5500 --no-browser
+npm install
+npm run dev
 ```
 
-Abrir en `http://127.0.0.1:5500`
+Abrir en `http://localhost:5173` con recarga en caliente (HMR).
+
+### Producción
+
+```bash
+npm run build
+```
+
+Genera la carpeta `dist/` lista para desplegar en GitHub Pages o cualquier hosting estático.
 
 ### Convenios clave
 
-- Todos los textos visibles pasan por `locales.js` usando `t(key, lang)`
-- Los componentes Vue tienen un método `t(key)` que delega según `this.lang`
+- Todos los textos visibles pasan por `src/utils/locales.ts` usando `t(key, lang)`
 - El idioma se persiste en `localStorage` con clave `sociograma-lang`
 - La matriz sociométrica es la fuente de verdad única para todos los cálculos
 - `computeSociogram()` y `computeFromMatrix()` comparten el mismo pipeline de resultados
+- TypeScript estricto con `@/` alias para imports
 
 ---
 
