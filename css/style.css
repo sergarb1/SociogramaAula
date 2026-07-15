@@ -127,6 +127,68 @@ input[type="range"]::-moz-range-thumb {
 }
 .animate-checkPop { animation: checkPop 0.3s ease-out; }
 
+/* Button utilities — RutaEstudio style */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem; height: 2.25rem;
+  border-radius: 0.75rem;
+  transition: all var(--transition-speed) ease;
+}
+@media (min-width: 640px) {
+  .btn-icon { width: 2rem; height: 2rem; }
+}
+.btn-icon svg { width: 1rem; height: 1rem; }
+@media (min-width: 640px) {
+  .btn-icon svg { width: 0.875rem; height: 0.875rem; }
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  transition: all var(--transition-speed) ease;
+}
+html.dark .btn-secondary {
+  background: rgb(30 41 59);
+  border-color: rgb(71 85 105);
+}
+.btn-secondary:hover {
+  background: #f8fafc;
+}
+html.dark .btn-secondary:hover {
+  background: rgb(51 65 85);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.625rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  background: #6366f1;
+  color: #fff;
+  transition: all var(--transition-speed) ease;
+}
+.btn-primary:hover {
+  background: #4f46e5;
+}
+html.dark .btn-primary {
+  background: #6366f1;
+}
+html.dark .btn-primary:hover {
+  background: #4f46e5;
+}
+
 /* Glassmorphism */
 .glass {
   background: rgba(255,255,255,0.7);
@@ -139,18 +201,30 @@ html.dark .glass, .glass-dark {
   -webkit-backdrop-filter: blur(8px);
 }
 
-/* Card hover */
+/* Card hover — scale like RutaEstudio */
 .card-hover {
   transition: all var(--transition-speed) ease;
 }
 .card-hover:hover {
-  transform: translateY(-2px);
+  transform: scale(1.02);
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 html.dark .card-hover:hover {
   box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
-.card-hover:active { transform: translateY(0); }
+.card-hover:active { transform: scale(0.98); }
+
+/* Card border accent on hover — like subject-card in RutaEstudio */
+.card-border-hover {
+  transition: all var(--transition-speed) ease;
+}
+.card-border-hover:hover {
+  border-color: var(--color-accent) !important;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.1);
+}
+html.dark .card-border-hover:hover {
+  box-shadow: 0 4px 12px rgba(99,102,241,0.2);
+}
 
 /* Subtle list item hover */
 .list-item-hover {
@@ -161,6 +235,29 @@ html.dark .card-hover:hover {
 }
 html.dark .list-item-hover:hover {
   background: rgba(99,102,241,0.08);
+}
+
+/* Alternating rows with accent hover — like concept-row in RutaEstudio */
+.row-alt-hover {
+  transition: all 0.15s ease;
+}
+.row-alt-hover:hover {
+  background: var(--color-accent-light) !important;
+}
+.row-alt-hover:nth-child(even) {
+  background: rgba(0,0,0,0.015);
+}
+html.dark .row-alt-hover:nth-child(even) {
+  background: rgba(255,255,255,0.025);
+}
+
+/* Small badge pill hover — like tag-badge in RutaEstudio */
+.tag-hover {
+  transition: all 0.15s ease;
+}
+.tag-hover:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
 }
 
 /* Badge pulse for notifications */
