@@ -136,13 +136,7 @@ input[type="range"]::-moz-range-thumb {
   border-radius: 0.75rem;
   transition: all var(--transition-speed) ease;
 }
-@media (min-width: 640px) {
-  .btn-icon { width: 2rem; height: 2rem; }
-}
 .btn-icon svg { width: 1rem; height: 1rem; }
-@media (min-width: 640px) {
-  .btn-icon svg { width: 0.875rem; height: 0.875rem; }
-}
 
 .btn-secondary {
   display: inline-flex;
@@ -306,6 +300,11 @@ html.dark kbd, html.dark .kbd {
 }
 
 /* Mobile adjustments */
+@media (min-width: 640px) {
+  .btn-icon { width: 2rem; height: 2rem; }
+  .btn-icon svg { width: 0.875rem; height: 0.875rem; }
+}
+
 @media (max-width: 640px) {
   #resultsGraph { height: 320px; }
   .touch-grow { min-width: 44px; min-height: 44px; }
