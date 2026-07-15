@@ -44,7 +44,7 @@
             </ul>
           </div>
 
-          <button @click="$emit('done')" class="mt-4 w-full py-2.5 rounded-xl border border-dashed border-indigo-300 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition">
+          <button @click="$emit('done')" class="btn-secondary w-full justify-center border-dashed border-indigo-300 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 mt-4">
             {{ t('info.skipSurvey') }}
           </button>
         </div>
@@ -99,8 +99,8 @@
             <div class="flex justify-between items-center pt-4 border-t border-slate-200 dark:border-slate-700">
               <button @click="current = null" class="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">{{ t('survey.changeStudent') }}</button>
               <div class="flex gap-2">
-                <button v-if="doneList.length > 0" @click="$emit('done')" class="px-4 py-2 text-sm bg-white dark:bg-slate-700 border border-indigo-300 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition">{{ t('survey.viewResults').replace('{n}', doneList.length) }}</button>
-                <button @click="saveAnswers" class="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:from-indigo-700 hover:to-purple-700 transition shadow-lg">{{ t('survey.save') }}</button>
+                <button v-if="doneList.length > 0" @click="$emit('done')" class="btn-secondary">{{ t('survey.viewResults').replace('{n}', doneList.length) }}</button>
+                <button @click="saveAnswers" class="btn-primary px-6 py-2.5 shadow-md">{{ t('survey.save') }}</button>
               </div>
             </div>
           </div>

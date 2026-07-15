@@ -38,8 +38,12 @@
           <div class="flex items-center justify-between mb-3">
             <h3 class="text-sm font-semibold text-slate-700 dark:text-slate-100">{{ t('results.graph') }}</h3>
             <div class="flex gap-1.5">
-              <button @click="refreshGraph" class="text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition text-slate-600 dark:text-slate-300" :title="t('results.refresh')">&#x27F3;</button>
-              <button @click="exportPNG" class="text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition text-slate-600 dark:text-slate-300" :title="t('results.exportImg')">&#x1F5BC;</button>
+              <button @click="refreshGraph" class="btn-icon bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-600" :title="t('results.refresh')">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182"/></svg>
+              </button>
+              <button @click="exportPNG" class="btn-icon bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-600" :title="t('results.exportImg')">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.41a2.25 2.25 0 013.182 0l2.909 2.91m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
+              </button>
             </div>
           </div>
           <div id="resultsGraph" class="w-full h-[460px] rounded-xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 dark:from-slate-900 to-white dark:to-slate-800"></div>
@@ -83,20 +87,20 @@
           </div>
         </div>
 
-        <button @click="showEdit = !showEdit" class="w-full py-2.5 rounded-2xl text-sm font-medium transition shadow-lg"
-          :class="showEdit ? 'bg-indigo-600 text-white' : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700'">
+        <button @click="showEdit = !showEdit" class="w-full py-2.5 rounded-xl text-sm font-medium transition shadow-sm"
+          :class="showEdit ? 'bg-indigo-600 text-white' : 'btn-secondary justify-center'">
           {{ showEdit ? t('results.closeEditor') : t('results.openEditor') }}
         </button>
-        <button @click="showMatrix = !showMatrix" class="w-full py-2.5 bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 transition">{{ showMatrix ? t('results.hideMatrix') : t('results.showMatrix') }}</button>
-        <button @click="$emit('organize')" class="w-full py-2.5 rounded-2xl text-sm font-medium transition shadow-lg bg-green-600 text-white hover:bg-green-700">
+        <button @click="showMatrix = !showMatrix" class="btn-secondary w-full justify-center shadow-sm">{{ showMatrix ? t('results.hideMatrix') : t('results.showMatrix') }}</button>
+        <button @click="$emit('organize')" class="w-full py-2.5 rounded-xl text-sm font-bold transition shadow-sm bg-green-600 text-white hover:bg-green-700">
           &#x1F465; {{ t('teams.form') }}
         </button>
-        <button @click="goDist" class="w-full py-2.5 rounded-2xl text-sm font-medium transition shadow-lg bg-indigo-600 text-white hover:bg-indigo-700">
+        <button @click="goDist" class="w-full py-2.5 rounded-xl text-sm font-bold transition shadow-sm bg-indigo-600 text-white hover:bg-indigo-700">
           &#x1F3EB; {{ t('dist.form') }}
         </button>
         <div class="flex gap-2">
-          <button @click="exportJSON" class="flex-1 py-2.5 bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition">{{ t('results.exportJSON') }}</button>
-          <button @click="exportHTML" class="flex-1 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl shadow-lg text-sm font-medium hover:from-indigo-700 hover:to-purple-700 transition">{{ t('results.exportReport') }}</button>
+          <button @click="exportJSON" class="btn-secondary flex-1 justify-center shadow-sm">{{ t('results.exportJSON') }}</button>
+          <button @click="exportHTML" class="btn-primary flex-1 justify-center shadow-sm">{{ t('results.exportReport') }}</button>
         </div>
         <div class="flex gap-2">
           <button @click="exportAnonJSON" class="flex-1 py-2 rounded-xl border border-dashed border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300 text-xs font-medium hover:bg-amber-50 dark:hover:bg-amber-900/20 transition">{{ t('results.anonJSON') }}</button>

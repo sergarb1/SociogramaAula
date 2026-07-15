@@ -14,7 +14,7 @@
 
           <div class="flex gap-2 mb-3">
             <input v-model="newGroupName" @keydown.enter="createGroup" :placeholder="t('group.placeholder')" class="flex-1 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-300">
-            <button @click="createGroup" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition shadow-md" :title="t('group.add')">+</button>
+            <button @click="createGroup" class="btn-icon bg-indigo-600 text-white hover:bg-indigo-700 shadow-md" :title="t('group.add')"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></button>
           </div>
 
           <button @click="showTemplateModal = true" class="w-full mb-4 py-2 px-3 rounded-xl border border-dashed border-indigo-300 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition flex items-center justify-center gap-1">
@@ -46,7 +46,7 @@
           </div>
 
           <div v-if="group && group.students.length >= 2" class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700">
-            <button @click="$emit('start-survey')" class="w-full py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:from-indigo-700 hover:to-purple-700 transition shadow-lg flex items-center justify-center gap-2">
+            <button @click="$emit('start-survey')" class="btn-primary w-full justify-center py-2.5 shadow-md">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
               {{ t('group.startSurvey') }}
             </button>
@@ -62,9 +62,9 @@
               {{ group ? group.name : t('group.select') }}
             </h2>
             <div class="flex gap-2" v-if="group">
-              <button @click="bulkAdd" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition">{{ t('group.bulkAdd') }}</button>
-              <button @click="addOne" class="text-xs px-3 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-md">{{ t('group.addOne') }}</button>
-              <label class="text-xs px-3 py-1.5 rounded-lg bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800/40 cursor-pointer transition">{{ t('group.importCSV') }}
+              <button @click="bulkAdd" class="btn-secondary">{{ t('group.bulkAdd') }}</button>
+              <button @click="addOne" class="btn-primary">{{ t('group.addOne') }}</button>
+              <label class="inline-flex items-center gap-1.5 px-3 py-2.5 sm:py-2 text-xs font-medium rounded-xl bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800/40 cursor-pointer transition border border-green-200 dark:border-green-800/40">{{ t('group.importCSV') }}
                 <input type="file" accept=".csv" @change="importCSV" class="hidden">
               </label>
             </div>
@@ -89,7 +89,7 @@
             <div v-if="!group.students.length" class="text-center py-8 text-slate-400 dark:text-slate-500 text-sm"><p class="mb-1">{{ t('group.studentEmpty') }}</p><p>{{ t('group.reorder') }}</p></div>
 
             <div v-if="group.students.length >= 2" class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
-              <button @click="$emit('start-survey')" class="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:from-indigo-700 hover:to-purple-700 transition shadow-lg flex items-center justify-center gap-2">
+              <button @click="$emit('start-survey')" class="btn-primary w-full justify-center py-3 shadow-md">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
                 {{ t('group.startSurvey') }}
               </button>
@@ -124,8 +124,8 @@
           <p class="text-xs text-slate-400 dark:text-slate-500 mb-3">{{ t('group.bulkHint') }}</p>
           <textarea v-model="bulkText" class="w-full h-32 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-300"></textarea>
           <div class="flex justify-end gap-2 mt-3">
-            <button @click="showBulk = false" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition">{{ t('group.cancel') }}</button>
-            <button @click="saveBulk" class="px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition shadow-md">{{ t('group.add') }}</button>
+            <button @click="showBulk = false" class="btn-secondary">{{ t('group.cancel') }}</button>
+            <button @click="saveBulk" class="btn-primary shadow-md">{{ t('group.add') }}</button>
           </div>
         </div>
       </div>
