@@ -8,8 +8,7 @@
   <script>navigator.serviceWorker?.getRegistrations().then(r=>r.forEach(r=>r.unregister()))</script>
   <!-- Dark mode init (runs before paint) -->
   <script>if(localStorage.getItem('sociograma-dark')==='true'||(!localStorage.getItem('sociograma-dark')&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark')</script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>if(typeof tailwind === 'undefined'){document.write('<link href="css/tailwind.css" rel="stylesheet">')}</script>
+  <link href="css/tailwind.css" rel="stylesheet">
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <script>if(typeof Vue === 'undefined'){document.write('<script src="js/vendor/vue.global.prod.js"><\/script>')}</script>
   <script src="https://unpkg.com/vis-network@9.1.9/dist/vis-network.min.js"></script>

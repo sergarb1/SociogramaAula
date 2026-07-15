@@ -4,6 +4,6 @@ Thumbs.db
 *.log
 .env
 RutaEstudio/
-css/tailwind.css
+# css/tailwind.css — committed for GitHub Pages (regenerate with: npm run build:css)
 .codegraph/
 .serena/
