@@ -12,8 +12,8 @@
     <header class="flex items-center justify-between gap-2 flex-wrap mb-8">
       <div>
         <a href="/SociogramaAula/" class="flex items-center gap-3">
-          <img src="/logo/logo2.png" alt="Sociograma Aula" class="h-9 md:h-11 w-auto" />
-          <span class="text-[11px] md:text-xs text-slate-400 dark:text-slate-500 font-medium leading-tight max-w-28 hidden sm:block">{{ t('badge.free') }} · {{ t('badge.lopdgdd') }}</span>
+          <img src="/logo/logo2.png" alt="Sociograma Aula" class="h-10 md:h-12 w-auto" />
+          <span class="text-[11px] md:text-xs text-slate-400 dark:text-slate-500 font-medium whitespace-nowrap hidden sm:block">{{ t('badge.free') }} · {{ t('badge.lopdgdd') }}</span>
         </a>
       </div>
       <div class="flex items-center gap-1.5 flex-wrap justify-end">
