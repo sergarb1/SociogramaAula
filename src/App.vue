@@ -9,35 +9,62 @@
   </div>
 
   <div v-show="!loading" class="max-w-7xl mx-auto px-3 py-4">
-    <header class="flex items-center justify-between mb-3 relative">
-      <div class="flex items-center gap-0">
-        <img src="/logo/logo2.png" alt="Sociograma Aula" class="h-6 w-auto shrink-0">
+    <header class="flex items-center justify-between gap-2 flex-wrap mb-8">
+      <div>
+        <a href="/SociogramaAula/" class="flex items-center gap-3">
+          <img src="/logo/logo2.png" alt="Sociograma Aula" class="h-9 md:h-11 w-auto" />
+          <span class="text-[11px] md:text-xs text-slate-400 dark:text-slate-500 font-medium leading-tight max-w-28 hidden sm:block">{{ t('badge.free') }} · {{ t('badge.lopdgdd') }}</span>
+        </a>
       </div>
-      <div class="flex items-center gap-1.5">
-        <button @click="toggleDark" class="btn-icon bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700" :title="t('app.darkMode')">
+      <div class="flex items-center gap-1.5 flex-wrap justify-end">
+        <button @click="toggleDark"
+          class="min-w-[44px] min-h-[44px] sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center bg-white dark:bg-slate-800 border dark:border-slate-600 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition"
+          :title="t('app.darkMode')">
           <svg v-if="isDark" class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
           <svg v-else class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
         </button>
-        <select @change="setLang(($event.target as HTMLSelectElement).value)" class="text-xs px-2 py-1.5 sm:px-2.5 sm:py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-500 font-medium min-h-[36px] sm:min-h-[36px] cursor-pointer">
-          <option value="es" :selected="lang==='es'">🇪🇸 ES</option>
-          <option value="en" :selected="lang==='en'">🇬🇧 EN</option>
+        <select @change="setLang(($event.target as HTMLSelectElement).value)" :value="lang"
+          class="min-h-[44px] sm:min-h-[36px] text-xs bg-white dark:bg-slate-800 border dark:border-slate-600 rounded-lg px-2 font-medium transition cursor-pointer focus:outline-none">
+          <option value="es">ES</option>
+          <option value="en">EN</option>
         </select>
-        <button v-if="step > 1" @click="step--" class="btn-icon bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700" :title="t('app.back')">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+        <button v-if="step > 1" @click="step--"
+          class="min-w-[44px] min-h-[44px] sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center bg-white dark:bg-slate-800 border dark:border-slate-600 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition"
+          :title="t('app.back')">
+          <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
         </button>
 
         <div class="hidden md:flex items-center gap-1.5">
-          <button @click="loadTestData" class="inline-flex items-center gap-1.5 px-3 py-2.5 text-xs font-medium rounded-xl bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-800/40 transition border border-amber-200 dark:border-amber-800/40">{{ t('app.testData') }}</button>
-          <label class="btn-secondary cursor-pointer">{{ t('app.import') }}
+          <button @click="loadTestData"
+            class="flex items-center gap-1.5 text-xs font-medium bg-white dark:bg-slate-800 border dark:border-slate-600 rounded-xl px-3 py-2.5 sm:py-2 min-h-[44px] hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+            <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+            {{ t('app.testData') }}
+          </button>
+          <label class="flex items-center gap-1.5 text-xs font-medium bg-white dark:bg-slate-800 border dark:border-slate-600 rounded-xl px-3 py-2.5 sm:py-2 min-h-[44px] hover:bg-slate-50 dark:hover:bg-slate-700 transition cursor-pointer">
+            <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"/></svg>
+            {{ t('app.import') }}
             <input type="file" accept=".json" @change="importJSON" class="hidden">
           </label>
-          <button @click="exportAll" class="btn-primary shadow-sm">{{ t('app.exportAll') }}</button>
-          <a href="manual.html" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-2.5 text-xs font-bold rounded-xl bg-amber-500 text-white hover:bg-amber-600 transition shadow-sm">{{ t('app.manual') }}</a>
-          <a href="ayuda.html" target="_blank" class="btn-secondary">📖 {{ t('app.help') }}</a>
+          <button @click="exportAll"
+            class="flex items-center gap-1.5 text-xs font-medium bg-white dark:bg-slate-800 border dark:border-slate-600 rounded-xl px-3 py-2.5 sm:py-2 min-h-[44px] hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+            <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+            {{ t('app.exportAll') }}
+          </button>
+          <a href="manual.html" target="_blank"
+            class="flex items-center gap-1.5 text-xs font-medium bg-white dark:bg-slate-800 border dark:border-slate-600 rounded-xl px-3 py-2.5 sm:py-2 min-h-[44px] hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+            <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+            {{ t('app.manual') }}
+          </a>
+          <a href="ayuda.html" target="_blank"
+            class="flex items-center gap-1.5 text-xs font-medium bg-white dark:bg-slate-800 border dark:border-slate-600 rounded-xl px-3 py-2.5 sm:py-2 min-h-[44px] hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+            <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"/></svg>
+            {{ t('app.help') }}
+          </a>
         </div>
 
-        <button @click="showMobileMenu = !showMobileMenu" class="md:hidden text-sm px-2.5 py-1.5 rounded-lg bg-white/60 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-600 transition min-h-[36px] min-w-[36px] flex items-center justify-center">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button @click="showMobileMenu = !showMobileMenu"
+          class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center bg-white dark:bg-slate-800 border dark:border-slate-600 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+          <svg class="w-5 h-5 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path v-if="!showMobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
             <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
@@ -45,14 +72,28 @@
       </div>
     </header>
 
-    <div v-if="showMobileMenu" class="md:hidden absolute top-full right-0 mt-2 w-52 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 p-2 z-50 animate-slideUp origin-top-right">
-      <button @click="loadTestData; showMobileMenu = false" class="w-full text-left text-xs px-3 py-2.5 rounded-xl text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/20 transition min-h-[44px] font-medium">{{ t('app.testData') }}</button>
-      <label class="w-full flex items-center text-xs px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer min-h-[44px] font-medium">{{ t('app.import') }}
+    <div v-if="showMobileMenu" class="md:hidden absolute top-full right-0 mt-2 w-52 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border dark:border-slate-600 p-2 z-50 animate-slideUp origin-top-right">
+      <button @click="loadTestData; showMobileMenu = false" class="w-full flex items-center gap-2 text-xs px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition min-h-[44px] font-medium">
+        <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+        {{ t('app.testData') }}
+      </button>
+      <label class="w-full flex items-center gap-2 text-xs px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer min-h-[44px] font-medium">
+        <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"/></svg>
+        {{ t('app.import') }}
         <input type="file" accept=".json" @change="importJSON; showMobileMenu = false" class="hidden">
       </label>
-      <button @click="exportAll; showMobileMenu = false" class="w-full text-left text-xs px-3 py-2.5 rounded-xl text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition min-h-[44px] font-bold">{{ t('app.exportAll') }}</button>
-      <a href="manual.html" target="_blank" @click="showMobileMenu = false" class="w-full block text-xs px-3 py-2.5 rounded-xl text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20 transition min-h-[44px] font-medium">{{ t('app.manual') }}</a>
-      <a href="ayuda.html" target="_blank" @click="showMobileMenu = false" class="w-full block text-xs px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition min-h-[44px] font-medium">📖 {{ t('app.help') }}</a>
+      <button @click="exportAll; showMobileMenu = false" class="w-full flex items-center gap-2 text-xs px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition min-h-[44px] font-medium">
+        <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+        {{ t('app.exportAll') }}
+      </button>
+      <a href="manual.html" target="_blank" @click="showMobileMenu = false" class="w-full flex items-center gap-2 text-xs px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition min-h-[44px] font-medium">
+        <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+        {{ t('app.manual') }}
+      </a>
+      <a href="ayuda.html" target="_blank" @click="showMobileMenu = false" class="w-full flex items-center gap-2 text-xs px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition min-h-[44px] font-medium">
+        <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"/></svg>
+        {{ t('app.help') }}
+      </a>
     </div>
 
     <div class="mb-4 px-5 py-4 rounded-2xl bg-gradient-to-br from-indigo-50 to-white dark:from-indigo-950/30 dark:to-slate-900 border-l-4 border-indigo-400 dark:border-indigo-500 shadow-sm">
