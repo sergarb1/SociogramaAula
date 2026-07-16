@@ -12,7 +12,7 @@
     <header class="flex items-center justify-between gap-2 flex-wrap mb-8">
       <div>
         <a href="/SociogramaAula/" class="flex items-center gap-3">
-          <img src="/logo/logo2.png" alt="Sociograma Aula" class="h-10 md:h-12 w-auto" />
+          <img src="/logo/logo2.png" alt="Sociograma Aula" class="h-12 md:h-16 w-auto" />
           <span class="text-[11px] md:text-xs text-slate-400 dark:text-slate-500 font-medium whitespace-nowrap hidden sm:block">{{ t('badge.free') }} · {{ t('badge.lopdgdd') }}</span>
         </a>
       </div>
@@ -250,7 +250,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { t } from '@/utils/locales'
 import { loadGroups, saveGroups, loadResponses, exportAllData, importFromFile } from '@/utils/storage'
 import { generateTestData } from '@/utils/templates'
@@ -363,6 +363,8 @@ function buildQuestions() {
   }))
 }
 
+watch(questionActive, () => buildQuestions(), { deep: true })
+
 function handleGroupDelete(groupId: string) {
   const g = groups.value.find(g => g.id === groupId)
   if (!g) return
@@ -421,6 +423,7 @@ async function initApp() {
     onboardingStep.value = 0
   }
   applyPreset('general')
+  buildQuestions()
   document.title = t('app.title', lang.value)
   loading.value = false
 }
