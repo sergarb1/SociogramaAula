@@ -7,12 +7,16 @@ import { t } from './locales'
 import { generateGroupAnalysis } from './report-intelligence'
 
 export async function exportGraphPNG(containerId: string, lang: string): Promise<void> {
+  return exportElementPNG(containerId, 'sociograma-grafo.png', lang)
+}
+
+export async function exportElementPNG(containerId: string, filename: string, lang: string): Promise<void> {
   const el = document.getElementById(containerId)
   if (!el) return
   try {
     const canvas = await html2canvas(el, { backgroundColor: '#ffffff', scale: 2, useCORS: true })
     const link = document.createElement('a')
-    link.download = 'sociograma-grafo.png'
+    link.download = filename
     link.href = canvas.toDataURL('image/png')
     link.click()
   } catch {

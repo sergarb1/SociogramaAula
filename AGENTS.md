@@ -110,14 +110,27 @@ sociograma/
 
 ### Reports (`src/utils/reports.ts`)
 - `exportGraphPNG(containerId, lang)` → downloads PNG of the graph via html2canvas
+- `exportElementPNG(containerId, filename, lang)` → generic PNG export of any element by ID
 - `exportReportHTML(group, metrics, roles, predictions, matrix, responses, lang)` → generates + downloads HTML report
 - `downloadAnonymizedJSON(group, metrics, roles, predictions, matrix, responses, lang)` → anonymized JSON (S_01, S_02…)
 - `downloadAnonymizedReportHTML(group, metrics, roles, predictions, matrix, responses, lang)` → anonymized HTML report
 - `downloadStudentsCSV(group)` → CSV with student names
 - `downloadMatrixCSV(group, matrix)` → CSV of sociometric matrix
 
-### Teams (`src/utils/teams.ts`)
-- `formTeams(students, matrix, roles, teamSize, seed)` → array of team arrays (balanced by roles, choices, rejections)
+### Teams & Distribution (`src/utils/teams.ts`)
+- `formTeams(students, matrix, roles, teamSize, seed, strategy)` → array of teams. Strategies:
+  - `'balanced'` (default, anti-bullying) — penalizes rejection pairs, rewards choices, spreads leaders
+  - `'random'` — seeded shuffle + round-robin
+  - `'mix'` — puts students with NO existing edges together (maximize new connections)
+  - `'cluster'` — keeps reciprocal-choosing pairs together (collaborative projects)
+  - `'scatter'` — separates rejection pairs, pairs rejected with popular/leaders
+- `formDistribution(students, matrix, roles, rows, cols, seed, strategy)` → `DistGrid`. Strategies:
+  - `'balanced'` (default) — places rejected students near leaders/popular
+  - `'random'` — random placement
+  - `'mix'` — minimizes adjacency of students who already interact
+  - `'separate-conflicts'` — maximizes distance between rejection pairs
+- `getTeamStrategies()` → array of `{ id, labelKey }` for dropdown
+- `getDistStrategies()` → array of `{ id, labelKey }` for dropdown
 
 ### Storage (`src/utils/storage.ts`)
 - `saveGroups(groups)`, `loadGroups()` → persist/load group list via IndexedDB (idb-keyval)
@@ -159,13 +172,16 @@ sociograma/
 
 ### ResultsView.vue
 - Steps 3–5: sociogram graph, metrics, predictions, student list, editor, matrix display
+- Mode-based rendering via `mode` prop: `'results'` (step 3), `'teams'` (step 4), `'dist'` (step 5)
 - Computes sociogram via `computeSociogram()` on mount, or `computeFromMatrix()` after manual edits
 - Manual editor with click-to-cycle cell editing (empty → choice → rejection → empty)
 - Drag & drop matrix editor: drag student name onto another to create choice
 - Graph with physics simulation, role-colored nodes, edge arrows, interactive legend
 - Student list sorted by choices received, with search filter
 - Export actions: JSON, HTML report, PNG graph image, anonymized JSON/HTML, CSV
-- Emits: `organize`, `back`
+- Teams mode: strategy dropdown (5 criteria), team size input, generate, PNG export
+- Dist mode: strategy dropdown, rows/cols config, generate, visual drag-and-drop grid, PNG export
+- Emits: `back`, `organize`, `dist`
 
 ## Important Implementation Notes
 - `vis-network` CSS is loaded via npm import in `graph.ts`

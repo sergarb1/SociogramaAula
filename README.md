@@ -59,8 +59,9 @@ Sin registro, sin instalación, sin servidor.
 | 📄 | **Importación CSV** de listados de alumnos |
 | ➕ | **Añadido masivo** — varios nombres de una vez |
 | 🔎 | **Buscador de alumnos** con filtro en tiempo real |
-| 👥 | **Formación de equipos** equilibrada por roles, elecciones y rechazos |
+| 👥 | **Formación de equipos** — 5 criterios: anti-bullying, aleatorio, mezclar no relacionados, agrupar afines, separar conflictos |
 | 🎲 | **Semilla aleatoria** para equipos reproducibles |
+| 🖼️ | **Exportación PNG** de los equipos generados |
 
 </details>
 
@@ -69,8 +70,9 @@ Sin registro, sin instalación, sin servidor.
 
 | | |
 |---|---|
-| 🪑 | **Plano de clase interactivo** — 3 disposiciones: cuadrícula, filas, en U |
+| 🪑 | **Plano de clase interactivo** — 4 criterios de distribución: equilibrado, aleatorio, mezclar no relacionados, separar conflictos |
 | 🔄 | **Arrastra alumnos** entre mesas para reordenar |
+| 🖼️ | **Exportación PNG** de la distribución del aula |
 | 📦 | **Exportación JSON** — datos completos (importable/exportable) |
 | 📄 | **Informe HTML** profesional imprimible |
 | 🖼️ | **Exportación PNG** del grafo y la distribución |
@@ -133,7 +135,7 @@ SociogramaAula/
 │       ├── graph.ts        ← Renderizado vis-network
 │       ├── reports.ts      ← Exportación JSON, HTML, CSV, PNG, anonimizado
 │       ├── report-intelligence.ts ← Texto analítico tipo IA
-│       ├── teams.ts        ← Formación de equipos con semilla
+│       ├── teams.ts        ← Formación de equipos (5 estrategias) + distribución de aula (4 estrategias)
 │       └── templates.ts    ← Plantillas + generador datos prueba
 ├── public/
 │   ├── css/style.css       ← Estilos personalizados (print, animaciones)
