@@ -258,6 +258,14 @@ export const LOCALES: Record<string, Record<string, string>> = {
     'info.tooltip.neutral': 'Sin relaciones significativas. Perfil medio.',
     'info.manualMode': 'Aquí puedes añadir, modificar o eliminar relaciones directamente. Cada celda puede alternar entre elección, rechazo o vacío.',
 
+    'privacy.title': '🔒 Privacidad y cumplimiento legal',
+    'privacy.desc': 'Todos los datos se almacenan exclusivamente en tu navegador (IndexedDB). No se envían a ningún servidor, no requiere registro, y puedes borrar o exportar tus datos en cualquier momento.',
+    'privacy.lopdgdd': 'Esto significa que el uso de esta aplicación cumple con la LOPDGDD (España) y el GDPR (Europa), ya que no se realiza ningún tratamiento de datos personales fuera de tu control.',
+    'privacy.local': '💻 100% local — sin servidor, sin registro, sin cookies',
+    'privacy.export': '📥 Puedes exportar tus datos y borrarlos cuando quieras',
+    'privacy.anonymous': '👤 Los datos nunca salen de tu dispositivo',
+    'privacy.law': '✅ Cumple LOPDGDD / GDPR',
+
     'preset.general': 'General',
     'preset.primary': 'Primaria',
     'preset.secondary': 'ESO / Secundaria',
@@ -579,6 +587,14 @@ export const LOCALES: Record<string, Record<string, string>> = {
     'info.tooltip.isolated': 'Receives no choices. Risk of exclusion.',
     'info.tooltip.neutral': 'No significant relationships. Average profile.',
     'info.manualMode': 'Here you can add, modify or delete relationships directly. Each cell toggles between choice, rejection or empty.',
+
+    'privacy.title': '🔒 Privacy & legal compliance',
+    'privacy.desc': 'All data is stored exclusively in your browser (IndexedDB). No data is sent to any server, no registration required, and you can delete or export your data at any time.',
+    'privacy.lopdgdd': 'This means using this app complies with LOPDGDD (Spain) and GDPR (Europe), since no personal data processing occurs outside your control.',
+    'privacy.local': '💻 100% local — no server, no sign-up, no cookies',
+    'privacy.export': '📥 Export and delete your data whenever you want',
+    'privacy.anonymous': '👤 Data never leaves your device',
+    'privacy.law': '✅ LOPDGDD / GDPR compliant',
 
     'preset.general': 'General',
     'preset.primary': 'Primary',
