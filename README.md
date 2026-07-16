@@ -1,141 +1,183 @@
-# Sociograma Aula
-
-**Sociometría gratuita para entender las relaciones de tu grupo, formar equipos y mejorar la convivencia.**
-
-100% gratuita · Sin registro · Sin servidor · Datos locales · Cumple LOPDGDD/GDPR · Código abierto (AGPL v3)
+<div align="center">
+  <img src="logo/logo2.png" alt="Sociograma Aula" width="220"/>
+  <h1>Sociograma Aula</h1>
+  <p><strong>Sociometría gratuita para entender las relaciones de tu grupo</strong></p>
+  <p>
+    <a href="https://sergarb1.github.io/SociogramaAula/">
+      <img src="https://img.shields.io/badge/demo-%236366f1?style=for-the-badge&logo=githubpages&logoColor=white" alt="Demo"/>
+    </a>
+    <a href="https://github.com/sergarb1/SociogramaAula/blob/main/README.md">
+      <img src="https://img.shields.io/badge/español-%23000?style=for-the-badge&logo=readme&logoColor=white" alt="ES"/>
+    </a>
+    <img src="https://img.shields.io/badge/PWA-ready-%235a0fc8?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA"/>
+    <img src="https://img.shields.io/badge/offline-100%25-%2322c55e?style=for-the-badge" alt="Offline"/>
+    <img src="https://img.shields.io/badge/license-AGPLv3-%23e11d48?style=for-the-badge" alt="License"/>
+  </p>
+  <p>
+    <strong>Grafo interactivo &middot; Métricas automáticas &middot; Formación de equipos &middot; 100% offline y gratuito</strong>
+  </p>
+  <p><em>Detecta dinámicas ocultas, forma equipos equilibrados y mejora la convivencia en el aula.</em></p>
+</div>
 
 ---
 
-## 🚀 Usar ahora
+## 🚀 En un clic
 
-- **GitHub Pages:** https://sergarb1.github.io/SociogramaAula/
-- **Local:** Abre `index.html` en cualquier navegador (o `npm run dev` para desarrollo).
+Sin registro, sin instalación, sin servidor.
+
+| | |
+|---|---|
+| **🌐 Web** | [sergarb1.github.io/SociogramaAula](https://sergarb1.github.io/SociogramaAula/) |
+| **📱 PWA** | Abre la web → "Instalar" en el menú del navegador |
+| **💻 Local** | `git clone` + `npm install && npm run dev` |
 
 ---
 
 ## ✨ Funcionalidades
 
-### 📊 Sociometría completa
-- **Cuestionario sociométrico** — 15 preguntas configurables, 6 plantillas por nivel educativo (Primaria, ESO, Bachillerato, Convivencia, Inclusión, General)
-- **Auto-guardado** — Las respuestas se guardan automáticamente al hacer cada elección, con aviso antes de salir si hay cambios sin guardar
-- **Grafo interactivo** — Visualización de relaciones con vis-network: colores por rol, flechas de elección/rechazo, física suave, zoom y arrastre
-- **Métricas automáticas** — Cohesión grupal, densidad de red, índice de aislamiento, reciprocidad
-- **Predicciones inteligentes** — Detección de aislamiento, conflicto potencial, líderes positivos, baja cohesión. Incluye recomendaciones de intervención
+<details open>
+<summary><strong>🧠 Sociometría</strong></summary>
 
-### 👥 Gestión de grupos
-- Creación y edición de grupos con arrastrar y soltar para reordenar alumnos
-- Importación desde plantillas prediseñadas
-- Importación CSV de listados de alumnos
-- Añadido masivo (varios nombres de una vez)
-- **Buscador de alumnos** — Filtro en tiempo real en la lista de resultados para localizar rápidamente a cualquier estudiante
+| | |
+|---|---|
+| 📋 | **Cuestionario sociométrico** con 15 preguntas configurables y 6 plantillas por nivel educativo |
+| 🔄 | **Auto-guardado** — respuestas guardadas al instante con aviso de cambios sin guardar |
+| 🕸️ | **Grafo interactivo** (vis-network) — colores por rol, flechas elección/rechazo, física suave |
+| 📊 | **Métricas automáticas** — cohesión, densidad, aislamiento, reciprocidad |
+| 🔮 | **Predicciones inteligentes** — detección de líderes, aislamiento, conflictos con recomendaciones |
+| 📝 | **Editor manual** — matriz editable clic a clic o drag & drop entre alumnos |
 
-### ✏️ Editor manual de relaciones
-- Matriz sociométrica editable clic a clic
-- Drag & drop entre alumnos para crear relaciones rápidamente
-- Modo manual completo sin necesidad de pasar cuestionario
+</details>
 
-### 👥 Formación de equipos
-- Algoritmo de formación equilibrada por roles, elecciones mutuas y rechazos
-- Tamaño de equipo configurable
-- Diferentes distribuciones con semilla aleatoria
+<details>
+<summary><strong>👥 Gestión y equipos</strong></summary>
 
-### 🏫 Distribución de clase
-- Plano visual interactivo con mesas
-- 3 disposiciones: cuadrícula, filas, en U
-- Arrastra alumnos entre mesas para reordenar
-- Muestra rol de cada alumno y % de cohesión por mesa
-- Exportable a imagen (PNG)
+| | |
+|---|---|
+| 🏫 | **Grupos ilimitados** con lista reordenable por arrastre |
+| 📋 | **Plantillas prediseñadas** — 14 modelos (Primaria, ESO, Bachillerato, FP) |
+| 📄 | **Importación CSV** de listados de alumnos |
+| ➕ | **Añadido masivo** — varios nombres de una vez |
+| 🔎 | **Buscador de alumnos** con filtro en tiempo real |
+| 👥 | **Formación de equipos** equilibrada por roles, elecciones y rechazos |
+| 🎲 | **Semilla aleatoria** para equipos reproducibles |
 
-### 📤 Exportación
-- **JSON** — Datos completos (importable/exportable)
-- **HTML** — Informe profesional imprimible
-- **PNG** — Grafo y distribución de clase como imagen
-- **CSV** — Listado de alumnos y matriz sociométrica
-- **Anonimizado** — Exporta datos con códigos (S_01, S_02…) para compartir con IA o análisis externo preservando el anonimato
+</details>
 
-### 🌐 Multi-idioma
-- Español e Inglés completos
-- Selección con persistencia en localStorage
+<details>
+<summary><strong>🏫 Distribución y exportación</strong></summary>
 
-### 🔒 Privacidad y cumplimiento legal
-- **100% local** — Todos los datos se almacenan en IndexedDB en tu navegador
-- **Sin servidor** — No se envía información a ningún servidor externo
-- **Sin registro** — No necesita email, cuenta ni datos personales
-- **Cumple LOPDGDD (España) y GDPR (Europa)** — Al no procesarse datos fuera de tu dispositivo, no hay tratamiento externo de datos personales
-- **Exportación y borrado** — Puedes exportar tus datos y borrarlos en cualquier momento
+| | |
+|---|---|
+| 🪑 | **Plano de clase interactivo** — 3 disposiciones: cuadrícula, filas, en U |
+| 🔄 | **Arrastra alumnos** entre mesas para reordenar |
+| 📦 | **Exportación JSON** — datos completos (importable/exportable) |
+| 📄 | **Informe HTML** profesional imprimible |
+| 🖼️ | **Exportación PNG** del grafo y la distribución |
+| 📋 | **CSV** — listado de alumnos y matriz sociométrica |
+| 🤖 | **Exportación anonimizada** (S_01, S_02…) para análisis con IA |
+
+</details>
+
+<details>
+<summary><strong>🔒 Privacidad y técnica</strong></summary>
+
+| | |
+|---|---|
+| 🔒 | **100% local** — datos en IndexedDB, nunca salen del navegador |
+| 📱 | **PWA instalable** — funciona sin internet |
+| 🌙 | **Modo oscuro/claro** con persistencia |
+| 🌍 | **Multi-idioma**: Español, English |
+| ✅ | **Cumple LOPDGDD / GDPR** — sin tratamiento externo de datos |
+
+</details>
 
 ---
 
-## 🧑‍💻 Para desarrolladores
+## 🛠️ Stack técnico
 
-### Requisitos
+| Frontend | Build | Persistencia | Despliegue |
+|---|---|---|---|
+| **Vue 3** + TypeScript SFCs | **Vite 6** | **IndexedDB** (idb-keyval) | **GitHub Pages** |
+| **Tailwind CSS v3** (PostCSS) | `vue-tsc` typecheck | JSON export/import | GitHub Actions |
+| **vis-network** (npm) | HMR en desarrollo | PWA offline-ready | |
+| **html2canvas** + **Chart.js** | | | |
 
-- **Node.js 18+** y npm
+**Offline nativo** — todo empaquetado por Vite, cero dependencias externas en runtime.
 
-### Tecnologías
+---
 
-| Componente       | Tecnología                          |
-|------------------|-------------------------------------|
-| Build            | Vite 6                              |
-| Interfaz         | Vue 3 + TypeScript (SFCs)           |
-| Estilos          | Tailwind CSS (PostCSS plugin)       |
-| Grafo            | vis-network (npm)                   |
-| Almacenamiento   | idb-keyval / IndexedDB (npm)        |
-| Exportación PNG  | html2canvas (npm)                   |
-| Gráficos         | Chart.js (npm)                      |
-| **Offline**      | **Sí** — Todo empaquetado por Vite  |
-
-### Estructura del proyecto
+## 📁 Estructura
 
 ```
-sociograma/
-├── index.html           # Entry point (Vite)
-├── ayuda.html           # Página de ayuda (estática)
-├── manual.html          # Manual de usuario (estático)
-├── manifest.json        # PWA manifest
-├── css/style.css        # Estilos adicionales (print, animaciones)
+SociogramaAula/
+├── index.html              ← Entry point Vite (<div id="app"> + /src/main.ts)
+├── ayuda.html              ← Página de ayuda (estática)
+├── manual.html             ← Manual de usuario (estático)
+├── AGENTS.md               ← Guía para asistentes IA
+├── README.md
 ├── src/
-│   ├── main.ts          # Punto de entrada de la app
-│   ├── App.vue          # Componente raíz
-│   ├── style.css        # Directivas Tailwind
-│   ├── constants.ts     # Tipos y constantes compartidas
-│   ├── components/      # 7 componentes Vue SFC
-│   ├── composables/     # useI18n, useDarkMode, useStorage
-│   └── utils/           # Lógica de dominio (sociograma, grafo, informes, etc.)
-├── logo/
-│   └── logo2.png        # Logo de la app
-├── AGENTS.md            # Guía para asistentes de IA
-├── vite.config.ts
-├── tsconfig.json
-├── tailwind.config.js
-├── postcss.config.js
-└── package.json
+│   ├── main.ts             ← createApp + mount
+│   ├── App.vue             ← Componente raíz: pasos, modales, cabecera, layout
+│   ├── style.css           ← Directivas Tailwind (@tailwind base/components/utilities)
+│   ├── constants.ts        ← Tipos compartidos + constantes
+│   ├── components/         ← 7 SFCs Vue
+│   │   ├── GroupManager.vue    ← Lista, plantillas, añadido masivo
+│   │   ├── Questionnaire.vue   ← Encuesta por alumno
+│   │   └── ResultsView.vue     ← Grafo, métricas, editor, matriz, exportación
+│   ├── composables/        ← useI18n, useDarkMode, useStorage
+│   └── utils/
+│       ├── locales.ts      ← ES + EN traducciones
+│       ├── storage.ts      ← Wrappers IndexedDB
+│       ├── sociogram.ts    ← Algoritmo principal: matriz, métricas, roles, predicciones
+│       ├── graph.ts        ← Renderizado vis-network
+│       ├── reports.ts      ← Exportación JSON, HTML, CSV, PNG, anonimizado
+│       ├── report-intelligence.ts ← Texto analítico tipo IA
+│       ├── teams.ts        ← Formación de equipos con semilla
+│       └── templates.ts    ← Plantillas + generador datos prueba
+├── public/
+│   ├── css/style.css       ← Estilos personalizados (print, animaciones)
+│   ├── logo/logo2.png      ← Logo
+│   ├── manifest.json       ← PWA manifest
+│   ├── icon-192.png        ← Icono PWA
+│   └── icon-512.png        ← Icono PWA
+└── vite.config.ts / tsconfig.json / tailwind.config.js / postcss.config.js / package.json
 ```
 
-### Desarrollo local
+---
+
+## 🧑‍💻 Desarrollo
 
 ```bash
 npm install
-npm run dev
+npm run dev        # Dev server con HMR en http://localhost:5173
+npm run build      # vue-tsc --noEmit && vite build → dist/
+npm run preview    # Vista previa de la build de producción
 ```
 
-Abrir en `http://localhost:5173` con recarga en caliente (HMR).
+---
 
-### Producción
+## 🤖 Uso con IA
 
-```bash
-npm run build
+Exporta tus datos como JSON anonimizado y comparte con cualquier asistente de IA.
+
+**📊 Analizar la dinámica del grupo:**
+```text
+Tengo este sociograma en formato JSON anonimizado:
+[pega el JSON exportado desde Sociograma Aula]
+
+1. ¿Qué dinámicas de grupo observas?
+2. ¿Qué alumnos necesitan más atención según los datos?
+3. Propón una intervención para mejorar la cohesión del grupo
+4. ¿Cómo recomiendas formar los equipos de trabajo?
 ```
 
-Genera la carpeta `dist/` lista para desplegar en GitHub Pages o cualquier hosting estático.
-
-### Convenios clave
-
-- Todos los textos visibles pasan por `src/utils/locales.ts` usando `t(key, lang)`
-- El idioma se persiste en `localStorage` con clave `sociograma-lang`
-- La matriz sociométrica es la fuente de verdad única para todos los cálculos
-- `computeSociogram()` y `computeFromMatrix()` comparten el mismo pipeline de resultados
-- TypeScript estricto con `@/` alias para imports
+**📝 Generar un informe:**
+```text
+Analiza estos datos sociométricos y genera un informe estructurado
+con: resumen ejecutivo, detección de roles, riesgos identificados,
+recomendaciones de intervención y sugerencias para formación de equipos.
+```
 
 ---
 
@@ -143,9 +185,8 @@ Genera la carpeta `dist/` lista para desplegar en GitHub Pages o cualquier hosti
 
 **GNU AGPL v3** — Usa, modifica y comparte, pero cualquier mejora o derivado debe mantenerse libre.
 
-Esta licencia garantiza que:
-- ✅ Cualquier persona puede usar la herramienta gratis, modificarla y compartirla
-- ✅ Si alguien la mejora y la pone a disposición (incluso por web), debe liberar sus cambios bajo la misma licencia
-- ❌ Nadie puede apropiarse del código, cerrarlo y venderlo sin publicar sus modificaciones
-
-Lee el texto completo en [LICENSE](./LICENSE) o en [https://www.gnu.org/licenses/agpl-3.0.html](https://www.gnu.org/licenses/agpl-3.0.html)
+<div align="center">
+  <sub>Hecho con ❤️ para docentes que quieren entender y mejorar la convivencia en sus aulas.</sub>
+  <br>
+  <sub>100% gratuito &middot; LOPDGDD / GDPR compliant &middot; datos siempre locales</sub>
+</div>
