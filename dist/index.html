@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sociograma Aula</title>
+  <script>navigator.serviceWorker?.getRegistrations().then(r=>r.forEach(r=>r.unregister()))</script>
+  <script>if(localStorage.getItem('sociograma-dark')==='true'||(!localStorage.getItem('sociograma-dark')&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark')</script>
+  <link rel="manifest" href="/SociogramaAula/assets/manifest-BS9CY92s.json">
+  <link rel="icon" type="image/png" sizes="96x96" href="/SociogramaAula/assets/favicon-96x96-D9lxfykL.png">
+  <link rel="icon" href="/SociogramaAula/assets/favicon-Dyc-WOvO.svg" type="image/svg+xml" sizes="any">
+  <link rel="icon" href="/SociogramaAula/assets/favicon-CkSJJyxj.ico">
+  <link rel="apple-touch-icon" href="/SociogramaAula/assets/apple-touch-icon-zfm3D_uN.png">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+  <link href="css/style.css" rel="stylesheet">
+  <style>
+    @media print {
+      body { background: white !important; }
+      header, .step-progress, .sidebar-buttons, .privacy-panel { display: none !important; }
+      .no-print { display: none !important; }
+      .print-only { display: block !important; }
+      .bg-white\/80, .bg-white\/70, .bg-white\/60 { background: white !important; }
+      [class*="backdrop-blur"] { backdrop-filter: none !important; }
+      .shadow-lg, .shadow-md, .shadow-sm, .shadow { box-shadow: none !important; }
+      .rounded-2xl, .rounded-xl, .rounded-lg { border-radius: 4px !important; }
+    }
+    .print-only { display: none; }
+  </style>
+  <script type="module" crossorigin src="/SociogramaAula/assets/index-DyUVKH60.js"></script>
+  <link rel="stylesheet" crossorigin href="/SociogramaAula/assets/index-CjIcp2gq.css">
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-indigo-50/30 dark:from-slate-900 dark:to-indigo-950/30 min-h-screen antialiased">
+  <div id="app"></div>
+</body>
+</html>

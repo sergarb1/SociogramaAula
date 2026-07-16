@@ -78,7 +78,7 @@
               <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0" :style="'background:'+stringToColor(s.name)">{{ s.name.charAt(0).toUpperCase() }}</div>
               <input :value="s.name" @change="rename(s.id, ($event.target as HTMLInputElement).value)" class="flex-1 text-sm font-medium text-slate-700 dark:text-slate-200 bg-transparent border-b border-transparent focus:border-indigo-300 focus:outline-none">
               <span class="text-xs text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full shrink-0">#{{ idx+1 }}</span>
-              <button @click="removeStudent(s.id)" class="text-red-300 hover:text-red-500 transition p-1" :aria-label="t('group.delete')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/svg></button>
+              <button @click="removeStudent(s.id)" class="text-red-300 hover:text-red-500 transition p-1" :aria-label="t('group.delete')"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
             </div>
           </div>
           <div v-if="!group.students.length" class="text-center py-8 text-slate-400 dark:text-slate-500 text-sm"><p class="mb-1">{{ t('group.studentEmpty') }}</p><p>{{ t('group.reorder') }}</p></div>

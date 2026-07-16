@@ -1,4 +1,5 @@
-import { Network, DataSet } from 'vis-network'
+import { Network } from 'vis-network'
+import { DataSet } from 'vis-data'
 import type { Student, Matrix } from '@/constants'
 
 const ROLE_STYLES: Record<string, { bg: string; border: string; highlight: string; glow: string }> = {
