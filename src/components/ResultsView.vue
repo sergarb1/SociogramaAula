@@ -79,16 +79,17 @@
         </div>
       </div>
 
-      <button @click="showEdit = !showEdit" class="w-full py-2.5 rounded-xl text-sm font-medium transition shadow-sm"
-        :class="showEdit ? 'bg-indigo-600 text-white' : 'btn-secondary justify-center'">
-        {{ showEdit ? t('results.closeEditor') : t('results.openEditor') }}
+      <button @click="showEditorModal = true" class="w-full py-2.5 rounded-xl text-sm font-medium transition shadow-sm btn-secondary justify-center">
+        {{ t('results.openEditor') }}
       </button>
-      <button @click="showMatrix = !showMatrix" class="btn-secondary w-full justify-center shadow-sm">{{ showMatrix ? t('results.hideMatrix') : t('results.showMatrix') }}</button>
-      <button @click="$emit('organize')" class="w-full py-2.5 rounded-xl text-sm font-bold transition shadow-sm bg-green-600 text-white hover:bg-green-700">
-        &#x1F465; {{ t('teams.form') }}
+      <button @click="toggleMatrix" class="btn-secondary w-full justify-center shadow-sm">{{ showMatrix ? t('results.hideMatrix') : t('results.showMatrix') }}</button>
+      <button @click="showTeamsModal = true" class="w-full py-2.5 rounded-xl text-sm font-bold transition shadow-sm bg-green-600 text-white hover:bg-green-700 flex items-center justify-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+        {{ t('teams.form') }}
       </button>
-      <button @click="goDist" class="w-full py-2.5 rounded-xl text-sm font-bold transition shadow-sm bg-indigo-600 text-white hover:bg-indigo-700">
-        &#x1F3EB; {{ t('dist.form') }}
+      <button @click="showDistModal = true" class="w-full py-2.5 rounded-xl text-sm font-bold transition shadow-sm bg-indigo-600 text-white hover:bg-indigo-700 flex items-center justify-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+        {{ t('dist.form') }}
       </button>
       <div class="flex gap-2">
         <button @click="exportJSON" class="btn-secondary flex-1 justify-center shadow-sm">{{ t('results.exportJSON') }}</button>
@@ -111,106 +112,146 @@
     </div>
   </div>
 
-  <div v-if="showEdit" class="mt-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-5 no-print">
-    <div class="flex items-center justify-between mb-4">
-      <h3 class="text-sm font-semibold text-slate-700 dark:text-slate-100">{{ t('editor.title') }}</h3>
-      <span class="text-xs text-slate-400 dark:text-slate-500">{{ t('editor.hint') }}</span>
-    </div>
+  <!-- Editor modal -->
+  <div v-if="showEditorModal" class="fixed inset-0 z-[60] flex items-start justify-center pt-8 pb-8 overflow-y-auto bg-black/50 dark:bg-black/70 backdrop-blur-sm" @click.self="showEditorModal = false">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 w-full max-w-4xl shadow-2xl border border-slate-200 dark:border-slate-700 mx-4 no-print m-auto">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-sm font-semibold text-slate-700 dark:text-slate-100">{{ t('editor.title') }}</h3>
+        <button @click="showEditorModal = false" class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition text-lg">&times;</button>
+      </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
-      <div>
-        <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">{{ t('editor.from') }}</label>
-        <select v-model="editFrom" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-300">
-          <option value="">{{ t('editor.select') }}</option>
-          <option v-for="s in group.students" :key="s.id" :value="s.id">{{ s.name }}</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">{{ t('editor.to') }}</label>
-        <select v-model="editTo" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-300">
-          <option value="">{{ t('editor.select') }}</option>
-          <option v-for="s in group.students" :key="s.id" :value="s.id">{{ s.name }}</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">{{ t('editor.type') }}</label>
-        <div class="flex gap-2">
-          <button @click="addChoice" :disabled="!editFrom || !editTo || editFrom===editTo"
-            class="flex-1 py-2 rounded-xl text-sm font-medium transition shadow-sm"
-            :class="editFrom && editTo && editFrom!==editTo ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-slate-100 dark:bg-slate-700 text-slate-300 dark:text-slate-600 cursor-not-allowed'">
-            {{ t('editor.choice') }}
-          </button>
-          <button @click="addRejection" :disabled="!editFrom || !editTo || editFrom===editTo"
-            class="flex-1 py-2 rounded-xl text-sm font-medium transition shadow-sm"
-            :class="editFrom && editTo && editFrom!==editTo ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-slate-100 dark:bg-slate-700 text-slate-300 dark:text-slate-600 cursor-not-allowed'">
-            {{ t('editor.rejection') }}
-          </button>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+        <div>
+          <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">{{ t('editor.from') }}</label>
+          <select v-model="editFrom" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+            <option value="">{{ t('editor.select') }}</option>
+            <option v-for="s in group.students" :key="s.id" :value="s.id">{{ s.name }}</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">{{ t('editor.to') }}</label>
+          <select v-model="editTo" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+            <option value="">{{ t('editor.select') }}</option>
+            <option v-for="s in group.students" :key="s.id" :value="s.id">{{ s.name }}</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">{{ t('editor.type') }}</label>
+          <div class="flex gap-2">
+            <button @click="addChoice" :disabled="!editFrom || !editTo || editFrom===editTo"
+              class="flex-1 py-2 rounded-xl text-sm font-medium transition shadow-sm"
+              :class="editFrom && editTo && editFrom!==editTo ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-slate-100 dark:bg-slate-700 text-slate-300 dark:text-slate-600 cursor-not-allowed'">
+              {{ t('editor.choice') }}
+            </button>
+            <button @click="addRejection" :disabled="!editFrom || !editTo || editFrom===editTo"
+              class="flex-1 py-2 rounded-xl text-sm font-medium transition shadow-sm"
+              :class="editFrom && editTo && editFrom!==editTo ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-slate-100 dark:bg-slate-700 text-slate-300 dark:text-slate-600 cursor-not-allowed'">
+              {{ t('editor.rejection') }}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="mb-4">
-      <label class="block text-xs text-slate-400 dark:text-slate-400 mb-2">&#x1F5B1; {{ t('editor.dragHint') }}</label>
-      <div class="flex flex-wrap gap-2">
-        <div v-for="s in group.students" :key="s.id"
-          draggable="true"
-          @dragstart="onDragStart(s.id)"
-          @dragover.prevent="onDragOver(s.id)"
-          @dragleave="onDragLeave"
-          @drop.prevent="onDragDrop(s.id)"
-          class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium cursor-grab active:cursor-grabbing transition-all select-none border"
-          :class="dragFrom === s.id ? 'border-indigo-400 bg-indigo-100 dark:bg-indigo-900/30 shadow-sm' : dragOver === s.id ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 ring-2 ring-indigo-300 scale-105' : 'border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 hover:border-indigo-300 dark:hover:border-indigo-600'">
-          <span class="w-5 h-5 rounded-full flex items-center justify-center text-white text-[10px] font-bold shrink-0" :style="'background:'+stringToColor(s.name)">{{ s.name.charAt(0) }}</span>
-          {{ s.name }}
+      <div class="mb-4">
+        <label class="block text-xs text-slate-400 dark:text-slate-400 mb-2">&#x1F5B1; {{ t('editor.dragHint') }}</label>
+        <div class="flex flex-wrap gap-2">
+          <div v-for="s in group.students" :key="s.id"
+            draggable="true"
+            @dragstart="onDragStart(s.id)"
+            @dragover.prevent="onDragOver(s.id)"
+            @dragleave="onDragLeave"
+            @drop.prevent="onDragDrop(s.id)"
+            class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium cursor-grab active:cursor-grabbing transition-all select-none border"
+            :class="dragFrom === s.id ? 'border-indigo-400 bg-indigo-100 dark:bg-indigo-900/30 shadow-sm' : dragOver === s.id ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 ring-2 ring-indigo-300 scale-105' : 'border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 hover:border-indigo-300 dark:hover:border-indigo-600'">
+            <span class="w-5 h-5 rounded-full flex items-center justify-center text-white text-[10px] font-bold shrink-0" :style="'background:'+stringToColor(s.name)">{{ s.name.charAt(0) }}</span>
+            {{ s.name }}
+          </div>
         </div>
       </div>
-    </div>
 
-    <div v-if="showRelPopup" class="mb-4 p-3 rounded-xl bg-white dark:bg-slate-700 border-2 border-indigo-200 dark:border-indigo-700 shadow-lg flex items-center gap-3">
-      <span class="text-xs text-slate-600 dark:text-slate-300">{{ t('editor.dragFrom') }} <strong>{{ studentName(dragFrom!) }}</strong> &rarr; <strong>{{ studentName(dragTo!) }}</strong></span>
-      <button @click="dragAddChoice" class="px-3 py-1 text-xs bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition shadow-sm">{{ t('editor.choice') }}</button>
-      <button @click="dragAddRejection" class="px-3 py-1 text-xs bg-red-500 text-white rounded-lg hover:bg-red-600 transition shadow-sm">{{ t('editor.rejection') }}</button>
-      <button @click="showRelPopup = false" class="px-2 py-1 text-xs text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition">&times;</button>
-    </div>
+      <div v-if="showRelPopup" class="mb-4 p-3 rounded-xl bg-white dark:bg-slate-700 border-2 border-indigo-200 dark:border-indigo-700 shadow-lg flex items-center gap-3">
+        <span class="text-xs text-slate-600 dark:text-slate-300">{{ t('editor.dragFrom') }} <strong>{{ studentName(dragFrom!) }}</strong> &rarr; <strong>{{ studentName(dragTo!) }}</strong></span>
+        <button @click="dragAddChoice" class="px-3 py-1 text-xs bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition shadow-sm">{{ t('editor.choice') }}</button>
+        <button @click="dragAddRejection" class="px-3 py-1 text-xs bg-red-500 text-white rounded-lg hover:bg-red-600 transition shadow-sm">{{ t('editor.rejection') }}</button>
+        <button @click="showRelPopup = false" class="px-2 py-1 text-xs text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition">&times;</button>
+      </div>
 
-    <div class="overflow-x-auto">
-      <table class="text-sm border-collapse mx-auto">
-        <thead>
-          <tr>
-            <th class="p-1 text-left text-slate-400 dark:text-slate-500 text-xs font-medium w-20"></th>
-            <th v-for="s in group.students" :key="s.id" class="p-1 text-center text-xs font-medium text-slate-500 dark:text-slate-400 align-bottom">
-              <div class="writing-vertical" :title="s.name">{{ s.name.split(' ')[0] }}</div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="s in group.students" :key="s.id">
-            <td class="p-1 font-medium text-slate-600 dark:text-slate-400 text-xs whitespace-nowrap">{{ s.name.split(' ')[0] }}</td>
-            <td v-for="s2 in group.students" :key="s2.id" class="p-0.5 text-center">
-              <span v-if="s.id!==s2.id"
-                @click="toggleCell(s.id, s2.id)"
-                class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-xs cursor-pointer transition-all hover:ring-2 hover:ring-indigo-400"
-                :class="cellClass(s.id, s2.id) + ' ' + (editHighlight(s.id, s2.id) ? 'ring-2 ring-indigo-500 scale-110' : '')">
-                {{ cellSym(s.id, s2.id) }}
-              </span>
-              <span v-else class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-300 dark:text-slate-600 text-xs">&middot;</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="flex gap-4 mt-3 text-xs text-slate-400 dark:text-slate-500 justify-center flex-wrap no-print">
-      <span>{{ t('editor.legend') }}</span>
-      <span class="inline-flex items-center gap-1"><span class="w-4 h-4 rounded bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-xs">&uarr;</span> {{ t('editor.choiceLabel') }}</span>
-      <span class="inline-flex items-center gap-1"><span class="w-4 h-4 rounded bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 flex items-center justify-center text-xs">&darr;</span> {{ t('editor.rejectionLabel') }}</span>
-      <span>&rarr; <span class="text-slate-300 dark:text-slate-600">&middot;</span> {{ t('editor.noRelation') }}</span>
-    </div>
-    <div v-if="Object.keys(responses).length === 0" class="mt-4 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/40 text-xs text-amber-700 dark:text-amber-300">
-      {{ t('editor.manualHint') }}
+      <div class="overflow-x-auto">
+        <table class="text-sm border-collapse mx-auto">
+          <thead>
+            <tr>
+              <th class="p-1 text-left text-slate-400 dark:text-slate-500 text-xs font-medium w-20"></th>
+              <th v-for="s in group.students" :key="s.id" class="p-1 text-center text-xs font-medium text-slate-500 dark:text-slate-400 align-bottom">
+                <div class="writing-vertical" :title="s.name">{{ s.name.split(' ')[0] }}</div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="s in group.students" :key="s.id">
+              <td class="p-1 font-medium text-slate-600 dark:text-slate-400 text-xs whitespace-nowrap">{{ s.name.split(' ')[0] }}</td>
+              <td v-for="s2 in group.students" :key="s2.id" class="p-0.5 text-center">
+                <span v-if="s.id!==s2.id"
+                  @click="toggleCell(s.id, s2.id)"
+                  class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-xs cursor-pointer transition-all hover:ring-2 hover:ring-indigo-400"
+                  :class="cellClass(s.id, s2.id) + ' ' + (editHighlight(s.id, s2.id) ? 'ring-2 ring-indigo-500 scale-110' : '')">
+                  {{ cellSym(s.id, s2.id) }}
+                </span>
+                <span v-else class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-300 dark:text-slate-600 text-xs">&middot;</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="flex gap-4 mt-3 text-xs text-slate-400 dark:text-slate-500 justify-center flex-wrap no-print">
+        <span>{{ t('editor.legend') }}</span>
+        <span class="inline-flex items-center gap-1"><span class="w-4 h-4 rounded bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-xs">&uarr;</span> {{ t('editor.choiceLabel') }}</span>
+        <span class="inline-flex items-center gap-1"><span class="w-4 h-4 rounded bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 flex items-center justify-center text-xs">&darr;</span> {{ t('editor.rejectionLabel') }}</span>
+        <span>&rarr; <span class="text-slate-300 dark:text-slate-600">&middot;</span> {{ t('editor.noRelation') }}</span>
+      </div>
+      <div v-if="Object.keys(responses).length === 0" class="mt-4 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/40 text-xs text-amber-700 dark:text-amber-300">
+        {{ t('editor.manualHint') }}
+      </div>
     </div>
   </div>
 
-  <div v-if="showMatrix && !showEdit" class="mt-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-5 overflow-x-auto no-print">
+  <!-- Teams modal -->
+  <div v-if="showTeamsModal" class="fixed inset-0 z-[60] flex items-start justify-center pt-8 pb-8 overflow-y-auto bg-black/50 dark:bg-black/70 backdrop-blur-sm" @click.self="showTeamsModal = false">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 w-full max-w-3xl shadow-2xl border border-slate-200 dark:border-slate-700 mx-4 m-auto">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-sm font-semibold text-slate-700 dark:text-slate-100">{{ t('teams.title') }}</h3>
+        <button @click="showTeamsModal = false" class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition text-lg">&times;</button>
+      </div>
+      <div class="flex items-center gap-3 mb-4">
+        <label class="text-xs text-slate-500 dark:text-slate-400">{{ t('teams.size') }}:</label>
+        <input v-model.number="teamSize" type="number" min="2" :max="props.group.students.length" class="w-16 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+        <button @click="generateTeams" class="px-4 py-1.5 rounded-xl text-sm font-medium bg-green-600 text-white hover:bg-green-700 transition shadow-sm">{{ t('teams.generate') }}</button>
+      </div>
+      <div v-if="teams.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div v-for="(team, ti) in teams" :key="ti" class="p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600">
+          <h4 class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2">{{ t('teams.team') }} {{ ti + 1 }} ({{ team.length }})</h4>
+          <div v-for="s in team" :key="s.id" class="flex items-center gap-2 py-0.5">
+            <span class="w-5 h-5 rounded-full flex items-center justify-center text-white text-[10px] font-bold shrink-0" :style="'background:'+stringToColor(s.name)">{{ s.name.charAt(0) }}</span>
+            <span class="text-xs text-slate-700 dark:text-slate-200">{{ s.name }}</span>
+          </div>
+        </div>
+      </div>
+      <div v-if="!teams.length" class="text-center py-8 text-slate-400 dark:text-slate-500 text-xs">{{ t('teams.generate') }} {{ t('teams.size') }} {{ teamSize }}</div>
+    </div>
+  </div>
+
+  <!-- Dist modal -->
+  <div v-if="showDistModal" class="fixed inset-0 z-[60] flex items-start justify-center pt-8 pb-8 overflow-y-auto bg-black/50 dark:bg-black/70 backdrop-blur-sm" @click.self="showDistModal = false">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 w-full max-w-3xl shadow-2xl border border-slate-200 dark:border-slate-700 mx-4 m-auto">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-sm font-semibold text-slate-700 dark:text-slate-100">{{ t('dist.title') }}</h3>
+        <button @click="showDistModal = false" class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition text-lg">&times;</button>
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400 text-center py-8">{{ t('dist.dragHint') }}</p>
+    </div>
+  </div>
+
+  <!-- Matrix display -->
+  <div v-if="showMatrix" class="mt-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-5 overflow-x-auto no-print">
     <h3 class="text-sm font-semibold text-slate-700 dark:text-slate-100 mb-3">{{ t('matrix.title') }}</h3>
     <table class="text-sm border-collapse mx-auto">
       <thead><tr><th class="p-1.5 text-left text-slate-400 dark:text-slate-500 text-xs font-medium"></th><th v-for="s in group.students" :key="s.id" class="p-1.5 text-center text-xs font-medium text-slate-500 dark:text-slate-400 align-bottom"><div class="writing-vertical" :title="s.name">{{ s.name.split(' ')[0] }}</div></th></tr></thead>
@@ -221,9 +262,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { t } from '@/utils/locales'
 import { computeSociogram, computeFromMatrix } from '@/utils/sociogram'
+import { formTeams } from '@/utils/teams'
 import { renderGraph, destroyGraph } from '@/utils/graph'
 import { exportGraphPNG, downloadStudentsCSV, downloadMatrixCSV, downloadAnonymizedJSON, downloadAnonymizedReportHTML, exportReportHTML } from '@/utils/reports'
 import { downloadJSON } from '@/utils/storage'
@@ -241,16 +283,21 @@ const props = defineProps<{
   responses: Responses
   questions: { text: string; type: string; active: boolean; maxChoices: number }[]
   lang: string
+  triggerTeams?: number
+  triggerDist?: number
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   back: []
-  organize: []
 }>()
 
 const selected = ref<string | null>(null)
 const showMatrix = ref(false)
-const showEdit = ref(false)
+const showEditorModal = ref(false)
+const showTeamsModal = ref(false)
+const showDistModal = ref(false)
+const teamSize = ref(4)
+const teams = ref<Student[][]>([])
 const editFrom = ref('')
 const editTo = ref('')
 const dragFrom = ref<string | null>(null)
@@ -397,7 +444,14 @@ function recompute() {
   renderIt()
 }
 
-function goDist() { }
+function toggleMatrix() {
+  showMatrix.value = !showMatrix.value
+}
+
+function generateTeams() {
+  const t = formTeams(props.group.students, matrix.value, roles.value, teamSize.value, Date.now())
+  teams.value = t
+}
 
 async function exportPNG() {
   destroyGraph()
@@ -438,6 +492,9 @@ function refreshGraph() {
   destroyGraph()
   renderIt()
 }
+
+watch(() => props.triggerTeams, (v) => { if (v) showTeamsModal.value = true }, { immediate: true })
+watch(() => props.triggerDist, (v) => { if (v) showDistModal.value = true }, { immediate: true })
 
 onMounted(() => {
   if (!props.group) return

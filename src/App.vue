@@ -186,22 +186,9 @@
       <ResultsView v-if="step === 3 && selectedGroup"
         :group="selectedGroup" :questions="questions" :lang="lang"
         :responses="responses"
-        @organize="step = 4"
+        :trigger-teams="triggerTeamsModal"
+        :trigger-dist="triggerDistModal"
         @back="step = 2" />
-    </Transition>
-
-    <Transition name="fade" mode="out-in">
-      <ResultsView v-if="step === 4 && selectedGroup"
-        :group="selectedGroup" :questions="questions" :lang="lang"
-        :responses="responses"
-        @back="step = 3" />
-    </Transition>
-
-    <Transition name="fade" mode="out-in">
-      <ResultsView v-if="step === 5 && selectedGroup"
-        :group="selectedGroup" :questions="questions" :lang="lang"
-        :responses="responses"
-        @back="step = 3" />
     </Transition>
 
     <div class="mt-8 space-y-4">
@@ -297,6 +284,8 @@ const lang = ref(localStorage.getItem('sociograma-lang') || 'es')
 const showOnboarding = ref(false)
 const onboardingStep = ref(0)
 const showMobileMenu = ref(false)
+const triggerTeamsModal = ref(0)
+const triggerDistModal = ref(0)
 const loading = ref(true)
 const maxChoices = ref(3)
 const responses = ref<Record<string, Record<string, string[]>>>({})
@@ -429,12 +418,20 @@ async function initApp() {
 }
 
 async function goStep(s: number) {
-  if (s >= 3 && s <= 5 && selectedGroup.value) {
+  if (s === 3 && selectedGroup.value) {
     const loaded = await loadResponses(selectedGroupId.value!)
     if (loaded && Object.keys(loaded).length) responses.value = loaded
   }
   showMobileMenu.value = false
-  step.value = s
+  if (s === 4) {
+    step.value = 3
+    triggerTeamsModal.value = Date.now()
+  } else if (s === 5) {
+    step.value = 3
+    triggerDistModal.value = Date.now()
+  } else {
+    step.value = s
+  }
 }
 
 async function startSurvey() {
