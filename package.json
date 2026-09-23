@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@slidev/cli": "^53.0.0",
+    "@slidev/theme-default": "^0.25.0",
     "@vitejs/plugin-vue": "^5.2.3",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.5.3",
