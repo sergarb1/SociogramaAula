@@ -28,7 +28,7 @@
           <option value="es">ES</option>
           <option value="en">EN</option>
         </select>
-        <button v-if="step > 1" @click="step--"
+        <button v-if="step > 1" @click="goBack"
           class="min-w-[44px] min-h-[44px] sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center bg-white dark:bg-slate-800 border dark:border-slate-600 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition"
           :title="t('app.back')">
           <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
@@ -50,7 +50,7 @@
             <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
             {{ t('app.exportAll') }}
           </button>
-          <a href="manual.html" target="_blank"
+          <a href="manual/" target="_blank"
             class="flex items-center gap-1.5 text-xs font-medium bg-white dark:bg-slate-800 border dark:border-slate-600 rounded-xl px-3 py-2.5 sm:py-2 min-h-[44px] hover:bg-slate-50 dark:hover:bg-slate-700 transition">
             <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
             {{ t('app.manual') }}
@@ -86,7 +86,7 @@
         <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
         {{ t('app.exportAll') }}
       </button>
-      <a href="manual.html" target="_blank" @click="showMobileMenu = false" class="w-full flex items-center gap-2 text-xs px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition min-h-[44px] font-medium">
+      <a href="manual/" target="_blank" @click="showMobileMenu = false" class="w-full flex items-center gap-2 text-xs px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition min-h-[44px] font-medium">
         <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
         {{ t('app.manual') }}
       </a>
@@ -111,12 +111,12 @@
       <template v-for="(s, i) in steps" :key="i">
         <div @click="goStep(i+1)"
           class="flex flex-col items-center cursor-pointer group shrink-0 transition-all duration-300 px-1.5 py-1 rounded-xl"
-          :class="step === i+1 ? 'bg-indigo-100 dark:bg-indigo-900/30 shadow-sm' : (step > i+1 ? 'bg-green-50 dark:bg-green-900/20' : 'opacity-60 hover:opacity-100')">
+          :class="logicalStep === i+1 ? 'bg-indigo-100 dark:bg-indigo-900/30 shadow-sm' : (logicalStep > i+1 ? 'bg-green-50 dark:bg-green-900/20' : 'opacity-60 hover:opacity-100')">
           <div class="flex items-center gap-1.5"
-            :class="step === i+1 ? 'text-indigo-700 dark:text-indigo-300' : step > i+1 ? 'text-green-600 dark:text-green-400' : 'text-slate-400 dark:text-slate-500'">
+            :class="logicalStep === i+1 ? 'text-indigo-700 dark:text-indigo-300' : logicalStep > i+1 ? 'text-green-600 dark:text-green-400' : 'text-slate-400 dark:text-slate-500'">
             <div class="w-8 h-8 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 shadow-sm"
-              :class="step >= i+1 ? 'bg-indigo-600 text-white shadow-indigo-200 dark:shadow-indigo-900' : 'bg-white/60 dark:bg-slate-700 text-slate-400 dark:text-slate-500 border border-slate-300 dark:border-slate-600'">
-              <span v-if="step > i+1" class="text-sm">✓</span>
+              :class="logicalStep >= i+1 ? 'bg-indigo-600 text-white shadow-indigo-200 dark:shadow-indigo-900' : 'bg-white/60 dark:bg-slate-700 text-slate-400 dark:text-slate-500 border border-slate-300 dark:border-slate-600'">
+              <span v-if="logicalStep > i+1" class="text-sm">✓</span>
               <span v-else>{{ i+1 }}</span>
             </div>
             <span class="text-xs font-semibold hidden sm:inline whitespace-nowrap">{{ s }}</span>
@@ -124,7 +124,7 @@
           <span v-if="stepDesc[i]" class="text-[10px] text-slate-400 dark:text-slate-500 hidden sm:block mt-0.5 whitespace-nowrap">{{ stepDesc[i] }}</span>
         </div>
         <div v-if="i < steps.length-1" class="flex items-center mx-0.5 sm:mx-1 mt-[-2px] sm:mt-[-8px]">
-          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-300 dark:text-slate-600" :class="{'text-indigo-400 dark:text-indigo-500': step > i+1}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-300 dark:text-slate-600" :class="{'text-indigo-400 dark:text-indigo-500': logicalStep > i+1}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </div>
       </template>
     </div>
@@ -144,7 +144,7 @@
           </div>
           <p class="mt-3 text-indigo-600 font-semibold">{{ t('welcome.cta') }}</p>
           <div class="flex flex-wrap gap-2 mt-3">
-            <a href="manual.html" target="_blank" class="flex items-center gap-1.5 text-xs font-medium bg-white dark:bg-slate-800 border dark:border-slate-600 rounded-xl px-3 py-2.5 min-h-[44px] hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+            <a href="manual/" target="_blank" class="flex items-center gap-1.5 text-xs font-medium bg-white dark:bg-slate-800 border dark:border-slate-600 rounded-xl px-3 py-2.5 min-h-[44px] hover:bg-slate-50 dark:hover:bg-slate-700 transition">
               <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
               {{ t('app.manual') }}
             </a>
@@ -186,9 +186,10 @@
       <ResultsView v-if="step === 3 && selectedGroup"
         :group="selectedGroup" :questions="questions" :lang="lang"
         :responses="responses"
-        :trigger-teams="triggerTeamsModal"
-        :trigger-dist="triggerDistModal"
-        @back="step = 2" />
+        :mode="resultsMode"
+        @back="resultsMode = 'results'"
+        @organize="resultsMode = 'teams'"
+        @dist="resultsMode = 'dist'" />
     </Transition>
 
     <div class="mt-8 space-y-4">
@@ -284,8 +285,7 @@ const lang = ref(localStorage.getItem('sociograma-lang') || 'es')
 const showOnboarding = ref(false)
 const onboardingStep = ref(0)
 const showMobileMenu = ref(false)
-const triggerTeamsModal = ref(0)
-const triggerDistModal = ref(0)
+const resultsMode = ref<'results' | 'teams' | 'dist'>('results')
 const loading = ref(true)
 const maxChoices = ref(3)
 const responses = ref<Record<string, Record<string, string[]>>>({})
@@ -321,6 +321,13 @@ const stepDesc = computed(() => [
   t('step.teamsDesc', lang.value),
   t('step.distDesc', lang.value),
 ])
+
+const logicalStep = computed(() => {
+  if (step.value < 3) return step.value
+  if (resultsMode.value === 'teams') return 4
+  if (resultsMode.value === 'dist') return 5
+  return 3
+})
 
 function setLang(l: string) {
   lang.value = l
@@ -418,20 +425,35 @@ async function initApp() {
 }
 
 async function goStep(s: number) {
-  if (s === 3 && selectedGroup.value) {
+  if (s >= 3 && selectedGroup.value) {
     const loaded = await loadResponses(selectedGroupId.value!)
     if (loaded && Object.keys(loaded).length) responses.value = loaded
   }
   showMobileMenu.value = false
-  if (s === 4) {
+  if (s >= 3) {
     step.value = 3
-    triggerTeamsModal.value = Date.now()
-  } else if (s === 5) {
-    step.value = 3
-    triggerDistModal.value = Date.now()
+    resultsMode.value = s === 4 ? 'teams' : s === 5 ? 'dist' : 'results'
   } else {
     step.value = s
+    resultsMode.value = 'results'
   }
+}
+
+function goBack() {
+  const ls = logicalStep.value
+  if (ls <= 1) return
+  if (ls === 2) {
+    step.value = 1
+    resultsMode.value = 'results'
+    return
+  }
+  if (ls === 3) {
+    step.value = 2
+    resultsMode.value = 'results'
+    return
+  }
+  step.value = 3
+  resultsMode.value = ls === 5 ? 'teams' : 'results'
 }
 
 async function startSurvey() {

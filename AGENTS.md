@@ -19,9 +19,12 @@ Helps teachers/counselors detect hidden group dynamics (leaders, isolated studen
 
 ## Build commands
 ```bash
-npm run dev        # Vite dev server with HMR on http://localhost:5173
-npm run build      # vue-tsc --noEmit && vite build → dist/
-npm run preview    # Preview production build locally
+npm run dev          # Vite dev server with HMR on http://localhost:5173
+npm run build        # vue-tsc --noEmit && vite build && slidev build → dist/
+npm run build:app    # App only → dist/
+npm run build:manual # Slidev manual only → dist/manual/
+npm run preview      # Preview production build locally
+npm run slidev       # Slidev dev server for the manual (transparencias)
 ```
 
 ## Dev Server
@@ -29,6 +32,11 @@ npm run preview    # Preview production build locally
 npm run dev
 ```
 Opens at `http://localhost:5173` with hot module replacement.
+
+Manual slides dev:
+```bash
+npm run slidev
+```
 
 ## GitHub
 - Repo: `github.com/sergarb1/SociogramaAula`
@@ -39,10 +47,12 @@ Opens at `http://localhost:5173` with hot module replacement.
 ```
 sociograma/
 ├── index.html           # Minimal Vite entry (<div id="app"> + <script src="/src/main.ts">)
-├── ayuda.html           # Help page for teachers/counselors (static)
-├── manual.html          # User manual (static)
 ├── AGENTS.md
 ├── README.md
+├── manual/
+│   └── slides.md        # Slidev manual (transparencias ES) — built to dist/manual/
+│   └── public/logo.png  # Logo copied for the deck
+├── slidev.config.ts     # Slidev config
 ├── src/
 │   ├── main.ts          # App entry point (createApp + mount)
 │   ├── App.vue          # Root component: steps, modals, header (RutaEstudio-style), layout
@@ -51,7 +61,7 @@ sociograma/
 │   ├── components/
 │   │   ├── GroupManager.vue      # Student list, templates, bulk add, CSV import
 │   │   ├── Questionnaire.vue     # Survey with per-student answering, auto-save
-│   │   ├── ResultsView.vue       # Graph, metrics, editor, matrix, export
+│   │   ├── ResultsView.vue       # Graph, metrics, editor, matrix, export (mode: results|teams|dist)
 │   │   ├── ConfirmModal.vue      # Confirm dialog (callback pattern)
 │   │   ├── PromptModal.vue       # Prompt dialog (callback pattern)
 │   │   ├── ToastPopup.vue        # Toast notifications (3.5s auto-dismiss)
@@ -74,7 +84,10 @@ sociograma/
 │   ├── logo/logo2.png            # App logo
 │   ├── manifest.json             # PWA manifest
 │   ├── icon-192.png              # PWA icon
-│   └── icon-512.png              # PWA icon
+│   ├── icon-512.png              # PWA icon
+│   ├── ayuda.html                # Help page (copied to dist as-is)
+│   ├── js/vendor/tailwind.min.js # Offline Tailwind for ayuda.html
+│   └── favicon* / apple-touch-icon.png
 ├── vite.config.ts
 ├── tsconfig.json
 ├── tailwind.config.js
@@ -172,7 +185,8 @@ sociograma/
 
 ### ResultsView.vue
 - Steps 3–5: sociogram graph, metrics, predictions, student list, editor, matrix display
-- Mode-based rendering via `mode` prop: `'results'` (step 3), `'teams'` (step 4), `'dist'` (step 5)
+- Mode-based rendering via `mode` prop: `'results'` (step 3), `'teams'` (step 4), `'dist'` (step 5) — **default `'results'`**
+- App owns `resultsMode` ref and passes `:mode`; emits `organize` → teams, `dist` → dist, `back` → results
 - Computes sociogram via `computeSociogram()` on mount, or `computeFromMatrix()` after manual edits
 - Manual editor with click-to-cycle cell editing (empty → choice → rejection → empty)
 - Drag & drop matrix editor: drag student name onto another to create choice
@@ -210,8 +224,13 @@ sociograma/
 - Push to `main` branch → GitHub Actions workflow builds and deploys to Pages
 - GitHub Pages source must be set to "GitHub Actions" (workflow build type)
 - The workflow in `.github/workflows/deploy.yml` runs `npm ci && npm run build` then `actions/deploy-pages`
+- `npm run build` = app (`vite build`) + manual (`slidev build` → `dist/manual/`)
 - `vite.config.ts` has `base: '/SociogramaAula/'` for GH Pages project-site deployment
+- Slidev uses `--base /SociogramaAula/manual/` and hash router for the subpath
+- Manual URL: `https://sergarb1.github.io/SociogramaAula/manual/`
+- Help URL: `https://sergarb1.github.io/SociogramaAula/ayuda.html`
 - `manifest.json` and icons are in `public/` — update `public/manifest.json` for PWA changes
+- Static files only work if they live in `public/` (or are Vite entry HTML) — root-level HTML is NOT copied to `dist/`
 
 ## Common Pitfalls
 - Forgetting to add both ES + EN keys when adding new UI strings (`src/utils/locales.ts`)

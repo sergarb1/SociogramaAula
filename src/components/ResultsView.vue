@@ -312,7 +312,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { t } from '@/utils/locales'
 import { computeSociogram, computeFromMatrix } from '@/utils/sociogram'
 import { formTeams, formDistribution, getTeamStrategies, getDistStrategies } from '@/utils/teams'
@@ -329,13 +329,15 @@ interface StudentDisplay extends Student {
   color?: string
 }
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   group: Group
   responses: Responses
   questions: { text: string; type: string; active: boolean; maxChoices: number }[]
   lang: string
   mode?: 'results' | 'teams' | 'dist'
-}>()
+}>(), {
+  mode: 'results'
+})
 
 defineEmits<{
   back: []
@@ -499,7 +501,7 @@ function recompute() {
   sorted.sort((a, b) => (choicesCount.value[b.id] || 0) - (choicesCount.value[a.id] || 0))
   sorted.forEach(s => { s.role = roles.value[s.id] || 'Neutro'; s.color = stringToColor(s.name) })
   sortedStudents.value = sorted
-  renderIt()
+  if (props.mode === 'results') renderIt()
 }
 
 function toggleMatrix() {
@@ -581,8 +583,11 @@ function exportAnonHTML() {
 }
 
 function renderIt() {
+  if (props.mode !== 'results') return
   nextTick(() => {
-    renderGraph('resultsGraph', props.group.students, matrix.value, roles.value, (id: string) => { selected.value = id })
+    const el = document.getElementById('resultsGraph')
+    if (!el) return
+    renderGraph('resultsGraph', props.group.students, matrix.value, roles.value, (id) => { selected.value = id })
   })
 }
 
@@ -590,6 +595,26 @@ function refreshGraph() {
   destroyGraph()
   renderIt()
 }
+
+async function ensureDistLoaded() {
+  if (props.mode !== 'dist') return
+  if (distGrid.value.tables.length > 0) return
+  const saved = await loadDistribution(props.group.id, props.group.students)
+  if (saved) {
+    distGrid.value = { rows: saved.size, cols: saved.cols, tables: saved.grid as Student[][][] }
+    distRows.value = saved.size
+    distCols.value = saved.cols
+  }
+}
+
+watch(() => props.mode, (m) => {
+  if (m === 'results') {
+    nextTick(() => renderIt())
+  } else {
+    destroyGraph()
+    if (m === 'dist') ensureDistLoaded()
+  }
+})
 
 onMounted(async () => {
   if (!props.group) return
@@ -605,15 +630,8 @@ onMounted(async () => {
   sorted.sort((a, b) => (choicesCount.value[b.id] || 0) - (choicesCount.value[a.id] || 0))
   sorted.forEach(s => { s.role = roles.value[s.id] || 'Neutro'; s.color = stringToColor(s.name) })
   sortedStudents.value = sorted
-  renderIt()
-  if (props.mode === 'dist') {
-    const saved = await loadDistribution(props.group.id, props.group.students)
-    if (saved) {
-      distGrid.value = { rows: saved.size, cols: saved.cols, tables: saved.grid as Student[][][] }
-      distRows.value = saved.size
-      distCols.value = saved.cols
-    }
-  }
+  if (props.mode === 'results') renderIt()
+  await ensureDistLoaded()
 })
 
 onUnmounted(() => {

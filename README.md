@@ -114,8 +114,9 @@ Sin registro, sin instalación, sin servidor.
 ```
 SociogramaAula/
 ├── index.html              ← Entry point Vite (<div id="app"> + /src/main.ts)
-├── ayuda.html              ← Página de ayuda (estática)
-├── manual.html             ← Manual de usuario (estático)
+├── manual/
+│   └── slides.md           ← Manual en transparencias (Slidev / sli.dev)
+├── slidev.config.ts        ← Config Slidev
 ├── AGENTS.md               ← Guía para asistentes IA
 ├── README.md
 ├── src/
@@ -126,7 +127,7 @@ SociogramaAula/
 │   ├── components/         ← 7 SFCs Vue
 │   │   ├── GroupManager.vue    ← Lista, plantillas, añadido masivo
 │   │   ├── Questionnaire.vue   ← Encuesta por alumno
-│   │   └── ResultsView.vue     ← Grafo, métricas, editor, matriz, exportación
+│   │   └── ResultsView.vue     ← Grafo, métricas, editor, matriz, exportación (mode)
 │   ├── composables/        ← useI18n, useDarkMode, useStorage
 │   └── utils/
 │       ├── locales.ts      ← ES + EN traducciones
@@ -142,7 +143,8 @@ SociogramaAula/
 │   ├── logo/logo2.png      ← Logo
 │   ├── manifest.json       ← PWA manifest
 │   ├── icon-192.png        ← Icono PWA
-│   └── icon-512.png        ← Icono PWA
+│   ├── icon-512.png        ← Icono PWA
+│   └── ayuda.html          ← Página de ayuda (se copia a dist/)
 └── vite.config.ts / tsconfig.json / tailwind.config.js / postcss.config.js / package.json
 ```
 
@@ -152,10 +154,15 @@ SociogramaAula/
 
 ```bash
 npm install
-npm run dev        # Dev server con HMR en http://localhost:5173
-npm run build      # vue-tsc --noEmit && vite build → dist/
-npm run preview    # Vista previa de la build de producción
+npm run dev          # App con HMR en http://localhost:5173
+npm run slidev       # Manual (transparencias) en http://localhost:3030
+npm run build        # vue-tsc + vite build + slidev build → dist/
+npm run build:app    # Solo la app
+npm run build:manual # Solo el manual → dist/manual/
+npm run preview      # Vista previa de la build de producción
 ```
+
+**Manual (transparencias):** [sergarb1.github.io/SociogramaAula/manual/](https://sergarb1.github.io/SociogramaAula/manual/) — generado con [Slidev](https://sli.dev) desde `manual/slides.md`.
 
 ---
 

@@ -7,3 +7,6 @@ RutaEstudio/
 # css/tailwind.css — committed for GitHub Pages (regenerate with: npm run build:css)
 .codegraph/
 .serena/
+
+# Slidev intermediate build (real output is dist/manual via npm run build)
+manual/dist/
