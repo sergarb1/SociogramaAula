@@ -33,9 +33,12 @@ Herramienta gratuita de sociometría para entender las relaciones de tu grupo
   <span class="badge teal">Datos locales</span>
 </div>
 
-<div class="pt-8">
+<div class="cover-actions">
+  <button type="button" class="start-link" @click="$nav.next()">Empezar el manual →</button>
   <a href="../" class="app-link">Ir a la app</a>
 </div>
+
+<p class="cover-hint">Transparencias · usa <kbd>←</kbd> <kbd>→</kbd>, espacio o las flechas de la esquina</p>
 
 <style>
 .logo { height: 88px; margin-bottom: .5rem; }
@@ -45,8 +48,16 @@ Herramienta gratuita de sociometría para entender las relaciones de tu grupo
 .badge.indigo { background:#eef2ff; color:#4f46e5; }
 .badge.purple { background:#f3e8ff; color:#9333ea; }
 .badge.teal { background:#ccfbf1; color:#0d9488; }
-.app-link { display:inline-block; padding:.6rem 1.5rem; border-radius:.75rem; background:linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff; text-decoration:none; font-weight:600; box-shadow:0 4px 14px rgba(99,102,241,.35); }
-.app-link:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(99,102,241,.45); }
+.cover-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:.75rem; margin-top:1.75rem; }
+.cover-hint { margin-top:1.1rem; font-size:.82rem; color:#64748b; }
+.cover-hint kbd { display:inline-block; min-width:1.1rem; padding:.05rem .3rem; border-radius:.3rem; border:1px solid #cbd5e1; background:#f8fafc; font-family:inherit; font-size:.75rem; text-align:center; }
+.start-link { display:inline-block; padding:.6rem 1.5rem; border-radius:.75rem; border:none; background:linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff; font-weight:600; font-size:1rem; cursor:pointer; box-shadow:0 4px 14px rgba(99,102,241,.35); }
+.start-link:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(99,102,241,.45); }
+.app-link { display:inline-block; padding:.6rem 1.4rem; border-radius:.75rem; background:#fff; color:#4f46e5; border:1px solid #c7d2fe; text-decoration:none; font-weight:600; }
+.app-link:hover { background:#eef2ff; }
+.dark .cover-hint { color:#94a3b8; }
+.dark .cover-hint kbd { background:#1e293b; border-color:#475569; color:#e2e8f0; }
+.dark .app-link { background:#1e293b; color:#a5b4fc; border-color:#4338ca; }
 </style>
 
 ---
@@ -487,9 +498,10 @@ En la app encontrarás estos prompts listos en el panel de resultados.
   <div class="step"><b>4️⃣</b> Explora grafo, métricas, equipos y distribución</div>
 </div>
 
-<div class="pt-6">
+<div class="pt-6 final-actions">
   <a href="../" class="app-link">Ir a Sociograma Aula</a>
   <a href="../ayuda.html" class="help-link">Guía detallada</a>
+  <button type="button" class="restart-link" @click="$nav.go(1)">↺ Volver al inicio</button>
 </div>
 
 <style>
@@ -497,7 +509,11 @@ En la app encontrarás estos prompts listos en el panel de resultados.
 .step { background:#fff; border:1px solid #e2e8f0; border-radius:.75rem; padding:.75rem 1rem; font-size:.95rem; box-shadow:0 2px 8px rgba(0,0,0,.05); }
 .step a { color:#4f46e5; font-weight:600; }
 .dark .step { background:#1e293b; border-color:#334155; color:#e2e8f0; }
-.app-link, .help-link { display:inline-block; padding:.6rem 1.4rem; border-radius:.75rem; font-weight:600; text-decoration:none; margin:0 .4rem; }
+.final-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:.6rem; }
+.app-link, .help-link, .restart-link { display:inline-block; padding:.6rem 1.4rem; border-radius:.75rem; font-weight:600; text-decoration:none; border:none; cursor:pointer; font-size:1rem; }
 .app-link { background:linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff; box-shadow:0 4px 14px rgba(99,102,241,.35); }
 .help-link { background:#fff; color:#4f46e5; border:1px solid #c7d2fe; }
+.restart-link { background:#f1f5f9; color:#334155; border:1px solid #e2e8f0; }
+.dark .help-link { background:#1e293b; color:#a5b4fc; border-color:#4338ca; }
+.dark .restart-link { background:#1e293b; color:#e2e8f0; border-color:#475569; }
 </style>
